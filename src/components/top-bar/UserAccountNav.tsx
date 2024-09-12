@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { User } from 'next-auth'
 import { signOut } from 'next-auth/react'
+import { HoveredLink, Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
 
 import {
   DropdownMenu,
@@ -11,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/DropdownMenu'
-import { UserAvatar } from '@/components/UserAvatar'
+import { UserAvatar } from '@/components/top-bar/UserAvatar'
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, 'name' | 'image' | 'email'>
@@ -23,7 +24,7 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
       <DropdownMenuTrigger>
         <UserAvatar
           user={{ name: user.name || null, image: user.image || null }}
-          className='h-8 w-8'
+          className='h-10 w-10'
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className='bg-white' align='end'>
