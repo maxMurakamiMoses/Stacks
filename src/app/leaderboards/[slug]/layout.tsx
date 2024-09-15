@@ -9,8 +9,8 @@ import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
 
 export const metadata: Metadata = {
-  title: 'Breadit',
-  description: 'A Reddit clone built with Next.js and TypeScript.',
+  title: 'Stacks',
+  description: 'A place for biohackers, nerd, and athletes.',
 }
 
 const Layout = async ({
@@ -69,14 +69,14 @@ const Layout = async ({
                   <dt className='text-gray-500'>Join the community</dt>
                 </div>
             
-              <Link
-                className={buttonVariants({
-                  variant: 'outline',
-                  className: 'w-full mb-6',
-                })}
-                href={`r/${slug}/some modal`}>
-                Join Leaderboard
-              </Link>
+                <Link
+                    className={buttonVariants({
+                    variant: 'outline',
+                    className: 'w-full mb-6',
+                    })}
+                    href={session?.user ? `/r/${slug}/joinleaderboard` : '/sign-in'}>
+                    {session?.user ? 'Join Leaderboard' : 'Join Leaderboard'}
+                </Link>
             </dl>
           </div>
         </div>
