@@ -58,14 +58,14 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
       })
     },
     onSuccess: () => {
-      // turn pathname /r/mycommunity/submit into /r/mycommunity
+      // turn pathname /leaderboard/mycommunity/submit into /leaderboard/mycommunity
       const newPathname = pathname.split('/').slice(0, -1).join('/')
       router.push(newPathname)
 
       router.refresh()
 
       return toast({
-        description: 'Your profile has been published.',
+        description: 'The profile has been published.',
       })
     },
   })

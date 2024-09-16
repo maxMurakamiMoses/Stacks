@@ -30,7 +30,7 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
         <Input
           onClick={() => router.push(pathname + '/submit')}
           readOnly
-          placeholder='Create post'
+          placeholder='+ profile to the leaderboard'
         />
       </div>
     </li>
