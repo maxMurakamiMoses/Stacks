@@ -40,7 +40,7 @@ const Page = () => {
       })
     },
     onSuccess: (data) => {
-      router.push(`/leaderboard/${data}`)
+      router.push(`/leaderboards/${data}`)
     },
   })
 

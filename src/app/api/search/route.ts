@@ -6,16 +6,14 @@ export async function GET(req: Request) {
 
   if (!q) return new Response('Invalid query', { status: 400 })
 
-  const results = await db.leaderboard.findMany({
+  const results = await db.profile.findMany({
     where: {
-      name: {
-        startsWith: q,
+      id: {
+        contains: q,
+        mode: 'insensitive',
       },
     },
-    include: {
-      _count: true,
-    },
-    take: 5,
+    take: 6,
   })
 
   return new Response(JSON.stringify(results))

@@ -54,7 +54,7 @@ const Profile: FC<ProfileProps> = ({
             <span>Posted by u/{profile.author.username}</span>{' '}
             {formatTimeToNow(new Date(profile.createdAt))}
           </div>
-          <a href={`/leaderboards/${leaderboardName}/profile/${profile.id}`}>
+          <a href={`/profile/${profile.id}`}>
             <h1 className='text-lg font-semibold py-2 leading-6 text-gray-900'>
               {profile.title}
             </h1>
@@ -74,7 +74,7 @@ const Profile: FC<ProfileProps> = ({
 
       <div className='bg-gray-50 z-20 text-sm px-4 py-4 sm:px-6'>
         <Link
-          href={`/leaderboards/${leaderboardName}/profile/${profile.id}`}
+          href={`/profile/${profile.id}`}
           className='w-fit flex items-center gap-2'>
           <MessageSquare className='h-4 w-4' /> {commentAmt} comments
         </Link>

@@ -1,6 +1,6 @@
 'use client'
 
-import { Prisma, Leaderboard } from '@prisma/client'
+import { Profile } from '@prisma/client'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import debounce from 'lodash.debounce'
@@ -16,7 +16,7 @@ import {
   CommandList,
 } from '@/components/ui/Command'
 import { useOnClickOutside } from '@/hooks/use-on-click-outside'
-import { Users } from 'lucide-react'
+import { User } from 'lucide-react'
 
 interface SearchBarProps {}
 
@@ -48,9 +48,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
     queryFn: async () => {
       if (!input) return []
       const { data } = await axios.get(`/api/search?q=${input}`)
-      return data as (Leaderboard & {
-        _count: Prisma.LeaderboardCountOutputType
-      })[]
+      return data as Profile[]
     },
     queryKey: ['search-query', input],
     enabled: false,
@@ -63,7 +61,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
 
   return (
     <div className='relative' ref={commandRef}>
-      <Command className='relative rounded-lg border max-w-lg z-30 overflow-visible'>
+      <Command className='relative rounded-lg border max-w-lg z-10 overflow-visible'>
         <CommandInput
           onValueChange={(text) => {
             setInput(text)
@@ -81,7 +79,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
           }}
           value={input}
           className='outline-none border-none focus:border-none focus:outline-none ring-0'
-          placeholder='Search leaderboards...'
+          placeholder='Search profiles by ID...'
         />
 
         <CommandList
@@ -93,18 +91,18 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
             <CommandEmpty>No results found.</CommandEmpty>
           )}
           {(queryResults?.length ?? 0) > 0 && (
-            <CommandGroup heading='Leaderboard'>
-              {queryResults?.map((leaderboard) => (
+            <CommandGroup heading='Profiles'>
+              {queryResults?.map((profile) => (
                 <CommandItem
                   onSelect={() => {
                     setIsOpen(false)
-                    router.push(`/leaderboards/${leaderboard.name}`)
+                    router.push(`/profile/${profile.id}`)
                   }}
-                  key={leaderboard.id}
-                  value={leaderboard.name}
+                  key={profile.id}
+                  value={profile.id}
                 >
-                  <Users className='mr-2 h-4 w-4' />
-                  {leaderboard.name}
+                  <User className='mr-2 h-4 w-4' />
+                  {profile.id}
                 </CommandItem>
               ))}
             </CommandGroup>
