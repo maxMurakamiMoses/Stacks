@@ -18,7 +18,7 @@ interface ProfileVoteClientProps {
   initialVote?: VoteType | null
 }
 
-const PostVoteClient = ({
+const ProfileVoteClient = ({
   profileId,
   initialVotesAmt,
   initialVote,
@@ -116,4 +116,4 @@ const PostVoteClient = ({
   )
 }
 
-export default PostVoteClient
+export default ProfileVoteClient

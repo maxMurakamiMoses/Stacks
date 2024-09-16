@@ -6,7 +6,7 @@ import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useRef } from 'react'
 import EditorOutput from './EditorOutput'
-import PostVoteClient from './post-vote/PostVoteClient'
+import ProfileVoteClient from './post-vote/ProfileVoteClient'
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -33,7 +33,7 @@ const Profile: FC<ProfileProps> = ({
   return (
     <div className='rounded-md bg-white shadow'>
       <div className='px-6 py-4 flex justify-between'>
-        <PostVoteClient
+        <ProfileVoteClient
           profileId={profile.id}
           initialVotesAmt={_votesAmt}
           initialVote={_currentVote?.type}
@@ -45,8 +45,8 @@ const Profile: FC<ProfileProps> = ({
               <>
                 <a
                   className='underline text-zinc-900 text-sm underline-offset-2'
-                  href={`/leaderboard/${leaderboardName}`}>
-                  leaderboard/{leaderboardName}
+                  href={`/leaderboards/${leaderboardName}`}>
+                  leaderboards/{leaderboardName}
                 </a>
                 <span className='px-1'>•</span>
               </>
@@ -54,7 +54,7 @@ const Profile: FC<ProfileProps> = ({
             <span>Posted by u/{profile.author.username}</span>{' '}
             {formatTimeToNow(new Date(profile.createdAt))}
           </div>
-          <a href={`/leaderboard/${leaderboardName}/profile/${profile.id}`}>
+          <a href={`/leaderboards/${leaderboardName}/profile/${profile.id}`}>
             <h1 className='text-lg font-semibold py-2 leading-6 text-gray-900'>
               {profile.title}
             </h1>
@@ -74,7 +74,7 @@ const Profile: FC<ProfileProps> = ({
 
       <div className='bg-gray-50 z-20 text-sm px-4 py-4 sm:px-6'>
         <Link
-          href={`/leaderboard/${leaderboardName}/profile/${profile.id}`}
+          href={`/leaderboards/${leaderboardName}/profile/${profile.id}`}
           className='w-fit flex items-center gap-2'>
           <MessageSquare className='h-4 w-4' /> {commentAmt} comments
         </Link>

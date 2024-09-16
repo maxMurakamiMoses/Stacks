@@ -1,6 +1,6 @@
 import LeaderboardFeed from '@/components/LeaderboardFeed'
 import MiniAddProfile from '@/components/MiniAddProfile'
-// import PostFeed from '@/components/PostFeed'
+import ProfileFeed from '@/components/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -45,7 +45,7 @@ const page = async ({ params }: PageProps) => {
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
-      <LeaderboardFeed initialProfiles={leaderboard.profiles} leaderboardName={leaderboard.name} />
+      <ProfileFeed initialProfiles={leaderboard.profiles} leaderboardName={leaderboard.name} />
     </>
   )
 }

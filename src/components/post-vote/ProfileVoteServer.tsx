@@ -1,13 +1,13 @@
 import { getAuthSession } from '@/lib/auth'
-import type { Post, Vote } from '@prisma/client'
+import type { Profile, Vote } from '@prisma/client'
 import { notFound } from 'next/navigation'
-// import PostVoteClient from './PostVoteClient'
+import ProfileVoteClient from './ProfileVoteClient'
 
-interface PostVoteServerProps {
-  postId: string
+interface ProfileVoteServerProps {
+  profileId: string
   initialVotesAmt?: number
   initialVote?: Vote['type'] | null
-  getData?: () => Promise<(Post & { votes: Vote[] }) | null>
+  getData?: () => Promise<(Profile & { votes: Vote[] }) | null>
 }
 
 /**
@@ -17,12 +17,12 @@ interface PostVoteServerProps {
  *
  */
 
-const PostVoteServer = async ({
-  postId,
+const ProfileVoteServer = async ({
+  profileId,
   initialVotesAmt,
   initialVote,
   getData,
-}: PostVoteServerProps) => {
+}: ProfileVoteServerProps) => {
   const session = await getAuthSession()
 
   let _votesAmt: number = 0
@@ -30,16 +30,16 @@ const PostVoteServer = async ({
 
   if (getData) {
     // fetch data in component
-    const post = await getData()
-    if (!post) return notFound()
+    const profile = await getData()
+    if (!profile) return notFound()
 
-    _votesAmt = post.votes.reduce((acc, vote) => {
+    _votesAmt = profile.votes.reduce((acc, vote) => {
       if (vote.type === 'UP') return acc + 1
       if (vote.type === 'DOWN') return acc - 1
       return acc
     }, 0)
 
-    _currentVote = post.votes.find(
+    _currentVote = profile.votes.find(
       (vote) => vote.userId === session?.user?.id
     )?.type
   } else {
@@ -49,12 +49,12 @@ const PostVoteServer = async ({
   }
 
   return (
-    // <PostVoteClient
-    //   postId={postId}
-    //   initialVotesAmt={_votesAmt}
-    //   initialVote={_currentVote}
-    // />
+    <ProfileVoteClient
+      profileId={profileId}
+      initialVotesAmt={_votesAmt}
+      initialVote={_currentVote}
+    />
   )
 }
 
-export default PostVoteServer
+export default ProfileVoteServer
