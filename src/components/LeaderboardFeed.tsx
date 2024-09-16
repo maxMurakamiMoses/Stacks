@@ -27,7 +27,7 @@ const LeaderboardFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardNam
     ['infinite-query'],
     async ({ pageParam = 1 }) => {
       const query =
-        `/api/posts?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}` +
+        `/api/profiles?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}` +
         (!!leaderboardName ? `&leaderboardName=${leaderboardName}` : '')
 
       const { data } = await axios.get(query)

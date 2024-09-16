@@ -47,7 +47,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
       leaderboardId,
     }: ProfileCreationRequest) => {
       const payload: ProfileCreationRequest = { title, content, leaderboardId }
-      const { data } = await axios.post('/api/leaderboard/post/create', payload)
+      const { data } = await axios.post('/api/leaderboard/profile/create', payload)
       return data
     },
     onError: () => {
