@@ -64,7 +64,7 @@ const LeaderboardFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardNam
         )
 
         if (index === profiles.length - 1) {
-          // Add a ref to the last post in the list
+          // Add a ref to the last profile in the list
           return (
             <li key={profile.id} ref={ref}>
               <Profile

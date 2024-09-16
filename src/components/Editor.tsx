@@ -40,7 +40,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const pathname = usePathname()
 
-  const { mutate: createPost } = useMutation({
+  const { mutate: createProfile } = useMutation({
     mutationFn: async ({
       title,
       content,
@@ -53,7 +53,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
     onError: () => {
       return toast({
         title: 'Something went wrong.',
-        description: 'Your post was not published. Please try again.',
+        description: 'Your profile was not published. Please try again.',
         variant: 'destructive',
       })
     },
@@ -148,7 +148,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
       leaderboardId,
     }
 
-    createPost(payload)
+    createProfile(payload)
   }
 
   if (!isMounted) {

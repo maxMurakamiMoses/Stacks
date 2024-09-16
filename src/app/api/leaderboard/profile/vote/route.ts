@@ -36,7 +36,7 @@ export async function PATCH(req: Request) {
     })
 
     if (!profile) {
-      return new Response('Post not found', { status: 404 })
+      return new Response('Profile not found', { status: 404 })
     }
 
     if (existingVote) {

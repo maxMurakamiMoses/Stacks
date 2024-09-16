@@ -44,7 +44,7 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      fetchNextPage() // Load more posts when the last post comes into view
+      fetchNextPage() // Load more profiles when the last profile comes into view
     }
   }, [entry, fetchNextPage])
 
@@ -64,7 +64,7 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
         )
 
         if (index === profiles.length - 1) {
-          // Add a ref to the last post in the list
+          // Add a ref to the last profile in the list
           return (
             <li key={profile.id} ref={ref}>
               <Profile
