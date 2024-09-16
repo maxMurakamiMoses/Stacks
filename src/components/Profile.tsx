@@ -5,8 +5,8 @@ import { Profile, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useRef } from 'react'
-// import EditorOutput from './EditorOutput'
-// import PostVoteClient from './post-vote/PostVoteClient'
+import EditorOutput from './EditorOutput'
+import PostVoteClient from './post-vote/PostVoteClient'
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -33,11 +33,11 @@ const Profile: FC<ProfileProps> = ({
   return (
     <div className='rounded-md bg-white shadow'>
       <div className='px-6 py-4 flex justify-between'>
-        {/* <PostVoteClient
-          postId={post.id}
+        <PostVoteClient
+          profileId={profile.id}
           initialVotesAmt={_votesAmt}
           initialVote={_currentVote?.type}
-        /> */}
+        />
 
         <div className='w-0 flex-1'>
           <div className='max-h-40 mt-1 text-xs text-gray-500'>
@@ -63,7 +63,7 @@ const Profile: FC<ProfileProps> = ({
           <div
             className='relative text-sm max-h-40 w-full overflow-clip'
             ref={pRef}>
-            {/* <EditorOutput content={post.content} /> */}
+            <EditorOutput content={profile.content} />
             {pRef.current?.clientHeight === 160 ? (
               // blur bottom if content is too long
               <div className='absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent'></div>
