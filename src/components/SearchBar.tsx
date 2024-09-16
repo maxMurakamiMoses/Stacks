@@ -63,7 +63,7 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
 
   return (
     <div className='relative' ref={commandRef}>
-      <Command className='relative rounded-lg border max-w-lg z-50 overflow-visible'>
+      <Command className='relative rounded-lg border max-w-lg z-30 overflow-visible'>
         <CommandInput
           onValueChange={(text) => {
             setInput(text)
