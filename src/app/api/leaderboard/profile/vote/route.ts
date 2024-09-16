@@ -3,8 +3,6 @@ import { db } from '@/lib/db'
 import { ProfileVoteValidator } from '@/lib/validators/vote'
 import { z } from 'zod'
 
-const CACHE_AFTER_UPVOTES = 1
-
 export async function PATCH(req: Request) {
   try {
     const body = await req.json()
