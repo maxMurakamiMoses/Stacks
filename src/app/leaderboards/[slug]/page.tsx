@@ -1,3 +1,4 @@
+import LeaderboardFeed from '@/components/LeaderboardFeed'
 import MiniAddProfile from '@/components/MiniAddProfile'
 // import PostFeed from '@/components/PostFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
@@ -44,7 +45,7 @@ const page = async ({ params }: PageProps) => {
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
-      {/* <PostFeed initialPosts={leaderboard.posts} subredditName={leaderboard.name} /> */}
+      <LeaderboardFeed initialProfiles={leaderboard.profiles} leaderboardName={leaderboard.name} />
     </>
   )
 }
