@@ -1,6 +1,6 @@
-// import CommentsSection from '@/components/CommentsSection'
+import CommentsSection from '@/components/CommentsSection'
 import EditorOutput from '@/components/EditorOutput'
-import ProfileVoteServer from '@/components/post-vote/ProfileVoteServer'
+import ProfileVoteServer from '@/components/profile-vote/ProfileVoteServer'
 import { buttonVariants } from '@/components/ui/Button'
 import { db } from '@/lib/db'
 import { formatTimeToNow } from '@/lib/utils'
@@ -65,7 +65,7 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
               <Loader2 className='h-5 w-5 animate-spin text-zinc-500' />
             }>
             {/* @ts-expect-error Server Component */}
-            {/* <CommentsSection profileId={profile.id} /> */}
+            <CommentsSection profileId={profile.id} />
           </Suspense>
         </div>
       </div>

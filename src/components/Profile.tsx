@@ -6,7 +6,7 @@ import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useRef } from 'react'
 import EditorOutput from './EditorOutput'
-import ProfileVoteClient from './post-vote/ProfileVoteClient'
+import ProfileVoteClient from './profile-vote/ProfileVoteClient'
 
 type PartialVote = Pick<Vote, 'type'>
 

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     })
 
     if (leaderboardExists) {
-      return new Response('Subreddit already exists', { status: 409 })
+      return new Response('Leaderboard already exists', { status: 409 })
     }
 
     // create leaderboard and associate it with the user
@@ -33,6 +33,6 @@ export async function POST(req: Request) {
 
     return new Response(leaderboard.name)
   } catch (error) {
-    return new Response('Could not create subreddit', { status: 500 })
+    return new Response('Could not create leaderboard', { status: 500 })
   }
 }

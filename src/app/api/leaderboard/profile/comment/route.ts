@@ -1,13 +1,13 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { ProfileValidator } from '@/lib/validators/profile'
+import { CommentValidator } from '@/lib/validators/comment'
 import { z } from 'zod'
 
-export async function POST(req: Request) {
+export async function PATCH(req: Request) {
   try {
     const body = await req.json()
 
-    const { title, content, leaderboardId } = ProfileValidator.parse(body)
+    const { profileId, text, replyToId } = CommentValidator.parse(body)
 
     const session = await getAuthSession()
 
@@ -15,12 +15,13 @@ export async function POST(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    await db.profile.create({
+    // if no existing vote, create a new vote
+    await db.comment.create({
       data: {
-        title,
-        content,
+        text,
+        profileId,
         authorId: session.user.id,
-        leaderboardId,
+        replyToId,
       },
     })
 
