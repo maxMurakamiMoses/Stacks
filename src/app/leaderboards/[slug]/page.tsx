@@ -1,5 +1,5 @@
 import MiniAddProfile from '@/components/MiniAddProfile'
-import ProfileFeed from '@/components/ProfileFeed' // Ensure this is imported
+import ProfileFeed from '@/components/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -46,6 +46,7 @@ const page = async ({ params }: PageProps) => {
     ...pol.profile,
     votes: pol.votes,
     leaderboardId: leaderboard.id, // Include leaderboardId for votes
+    leaderboard: leaderboard, // Include the leaderboard property
   }))
 
   return (
@@ -59,7 +60,7 @@ const page = async ({ params }: PageProps) => {
       <ProfileFeed
         initialProfiles={initialProfiles}
         leaderboardName={leaderboard.name}
-        leaderboardId={leaderboard.id} // Pass leaderboardId if needed
+        leaderboardId={leaderboard.id}
       />
     </>
   )

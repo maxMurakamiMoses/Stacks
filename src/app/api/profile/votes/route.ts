@@ -18,7 +18,11 @@ export async function GET(request: Request) {
     const profile = await db.profile.findUnique({
       where: { id: profileId },
       include: {
-        votes: true,
+        profilesOnLeaderboards: {
+          include: {
+            votes: true,
+          },
+        },
       },
     })
 
@@ -26,15 +30,22 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
     }
 
-    const votesAmt = profile.votes.reduce((acc, vote) => {
-      if (vote.type === 'UP') return acc + 1
-      if (vote.type === 'DOWN') return acc - 1
-      return acc
-    }, 0)
+    let votesAmt = 0
+    let currentVote = null
 
-    const currentVote = profile.votes.find(
-      (vote) => vote.userId === session?.user.id
-    )?.type
+    // Iterate over profilesOnLeaderboards
+    for (const pol of profile.profilesOnLeaderboards) {
+      // Sum up the votes
+      for (const vote of pol.votes) {
+        if (vote.type === 'UP') votesAmt += 1
+        if (vote.type === 'DOWN') votesAmt -= 1
+
+        // Check for current user's vote
+        if (vote.userId === session?.user.id) {
+          currentVote = vote.type
+        }
+      }
+    }
 
     return NextResponse.json({ votesAmt, currentVote }, { status: 200 })
   } catch (error) {

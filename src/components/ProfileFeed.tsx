@@ -13,7 +13,7 @@ import { useSession } from 'next-auth/react'
 interface ProfileFeedProps {
   initialProfiles: ExtendedProfile[]
   leaderboardName?: string
-  leaderboardId: string
+  leaderboardId?: string
 }
 
 const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, leaderboardId }) => {
@@ -71,7 +71,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
                 votesAmt={votesAmt}
                 currentVote={currentVote}
                 leaderboardName={leaderboardName}
-                leaderboardId={leaderboardId}
+                leaderboardId={profile.leaderboard?.id || ''}
               />
             </li>
           )
@@ -84,7 +84,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
               votesAmt={votesAmt}
               currentVote={currentVote}
               leaderboardName={leaderboardName}
-              leaderboardId={leaderboardId}
+              leaderboardId={profile.leaderboard?.id || ''}
             />
           )
         }

@@ -70,7 +70,8 @@ const LeaderboardFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardNam
               <Profile
                 profile={profile}
                 commentAmt={profile.comments.length}
-                leaderboardName={profile.leaderboard.name}
+                leaderboardName={profile.leaderboard?.name || ""}
+                leaderboardId={profile.leaderboardId || ""} // Pass leaderboardId
                 votesAmt={votesAmt}
                 currentVote={currentVote}
               />
@@ -82,7 +83,8 @@ const LeaderboardFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardNam
               key={profile.id}
               profile={profile}
               commentAmt={profile.comments.length}
-              leaderboardName={profile.leaderboard.name}
+              leaderboardName={profile.leaderboard?.name || ""}
+              leaderboardId={profile.leaderboardId || ""} // Pass leaderboardId
               votesAmt={votesAmt}
               currentVote={currentVote}
             />

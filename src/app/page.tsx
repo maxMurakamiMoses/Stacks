@@ -1,6 +1,5 @@
 import { getAuthSession } from '@/lib/auth'
 import CreateLeaderboard from '@/components/CreateLeaderboard'
-import GeneralFeed from '@/components/homepage/GeneralFeed'
 import SearchBar from '@/components/SearchBar'
 
 export const dynamic = 'force-dynamic'
@@ -14,8 +13,7 @@ export default async function Home() {
       <SearchBar />
       <h1 className='font-bold text-3xl md:text-4xl'>Your feed</h1>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6'>
-         {/* @ts-expect-error server component */}
-        {/* <GeneralFeed /> */}
+
 
         {session?.user?.email === "max.murakamimoses24@gmail.com" && <CreateLeaderboard />}
       </div>
