@@ -1,6 +1,5 @@
-import LeaderboardFeed from '@/components/LeaderboardFeed'
 import MiniAddProfile from '@/components/MiniAddProfile'
-import ProfileFeed from '@/components/ProfileFeed'
+// import ProfileFeed from '@/components/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -20,20 +19,26 @@ const page = async ({ params }: PageProps) => {
   const leaderboard = await db.leaderboard.findFirst({
     where: { name: slug },
     include: {
-      profiles: {
+      profilesOnLeaderboards: {
         include: {
-          author: true,
+          profile: {
+            include: {
+              author: true,
+              comments: true,
+            },
+          },
           votes: true,
-          comments: true,
-          leaderboard: true,
         },
         orderBy: {
-          createdAt: 'desc'
+          profile: {
+            createdAt: 'desc',
+          },
         },
         take: INFINITE_SCROLL_PAGINATION_RESULTS,
       },
     },
   })
+  
 
   if (!leaderboard) return notFound()
 
@@ -51,3 +56,5 @@ const page = async ({ params }: PageProps) => {
 }
 
 export default page
+
+

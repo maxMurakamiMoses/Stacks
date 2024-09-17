@@ -25,14 +25,19 @@ const Layout = async ({
   const leaderboard = await db.leaderboard.findFirst({
     where: { name: slug },
     include: {
-      profiles: {
+      profilesOnLeaderboards: {
         include: {
-          author: true,
+          profile: {
+            include: {
+              author: true,
+            },
+          },
           votes: true,
         },
       },
     },
   })
+  
 
   if (!leaderboard) return notFound()
 

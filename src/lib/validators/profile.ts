@@ -9,7 +9,11 @@ export const ProfileValidator = z.object({
     .max(128, {
       message: 'Title must be less than 128 characters long',
     }),
-  leaderboardId: z.string(),
+  leaderboardIds: z
+    .array(z.string())
+    .min(1, {
+      message: 'You must select at least one leaderboard',
+    }),
   content: z.any(),
 })
 

@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json()
 
-    const { title, content, leaderboardId } = ProfileValidator.parse(body)
+    const { title, content, leaderboardIds } = ProfileValidator.parse(body)
 
     const session = await getAuthSession()
 
@@ -15,13 +15,21 @@ export async function POST(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    await db.profile.create({
+    // Create the profile
+    const profile = await db.profile.create({
       data: {
         title,
         content,
         authorId: session.user.id,
-        leaderboardId,
       },
+    })
+
+    // Create entries in ProfilesOnLeaderboards
+    await db.profilesOnLeaderboards.createMany({
+      data: leaderboardIds.map((leaderboardId: string) => ({
+        profileId: profile.id,
+        leaderboardId,
+      })),
     })
 
     return new Response('OK')
@@ -30,8 +38,10 @@ export async function POST(req: Request) {
       return new Response(error.message, { status: 400 })
     }
 
+    console.error('Error:', error)
+
     return new Response(
-      'Could not post to leaderboard at this time. Please try later',
+      'Could not post to leaderboards at this time. Please try later',
       { status: 500 }
     )
   }

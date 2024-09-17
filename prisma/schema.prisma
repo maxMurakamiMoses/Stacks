@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -44,48 +41,64 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
+  id            String          @id @default(cuid())
   name          String?
-  email         String?    @unique
+  email         String?         @unique
   emailVerified DateTime?
-  createdBoards Leaderboard[] @relation("CreatedBy")
+  createdBoards Leaderboard[]   @relation("CreatedBy")
   votes         Vote[]
-
-  username String? @unique
-
-  image       String?
-  accounts    Account[]
-  sessions    Session[]
-  Profile     Profile[]
-  Comment     Comment[]
-  CommentVote CommentVote[]
+  username      String?         @unique
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  Profile       Profile[]
+  Comment       Comment[]
+  CommentVote   CommentVote[]
 }
 
 model Leaderboard {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  profiles  Profile[]
-
-  creatorId   String?
-  Creator     User?   @relation("CreatedBy", fields: [creatorId], references: [id])
+  id        String                  @id @default(cuid())
+  name      String                  @unique
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  creatorId String?
+  Creator   User?                   @relation("CreatedBy", fields: [creatorId], references: [id])
+  profilesOnLeaderboards ProfilesOnLeaderboards[]
 
   @@index([name])
 }
 
 model Profile {
-  id            String      @id @default(cuid())
+  id            String                  @id @default(cuid())
   title         String
   content       Json?
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
-  author        User        @relation(fields: [authorId], references: [id])
+  createdAt     DateTime                @default(now())
+  updatedAt     DateTime                @updatedAt
+  author        User                    @relation(fields: [authorId], references: [id])
   authorId      String
-  leaderboard   Leaderboard @relation(fields: [leaderboardId], references: [id])
-  leaderboardId String
   comments      Comment[] 
+  profilesOnLeaderboards ProfilesOnLeaderboards[]
+}
+
+model ProfilesOnLeaderboards {
+  profile       Profile      @relation(fields: [profileId], references: [id])
+  profileId     String
+  leaderboard   Leaderboard  @relation(fields: [leaderboardId], references: [id])
+  leaderboardId String
   votes         Vote[]
+
+  @@id([profileId, leaderboardId])
+}
+
+model Vote {
+  userId        String
+  user          User                   @relation(fields: [userId], references: [id])
+  profileId     String
+  leaderboardId String
+  profilesOnLeaderboards ProfilesOnLeaderboards @relation(fields: [profileId, leaderboardId], references: [profileId, leaderboardId], onDelete: Cascade)
+  type          VoteType
+
+  @@id([userId, profileId, leaderboardId])
 }
 
 model Comment {
@@ -103,16 +116,6 @@ model Comment {
 
   votes     CommentVote[]
   commentId String?
-}
-
-model Vote {
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId String
-  type      VoteType
-
-  @@id([userId, profileId])
 }
 
 model CommentVote {

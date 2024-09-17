@@ -18,10 +18,10 @@ import '@/styles/editor.css'
 type FormData = z.infer<typeof ProfileValidator>
 
 interface EditorProps {
-  leaderboardId: string
+  leaderboards: Array<{ id: string; name: string }>
 }
 
-export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
+export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
   const {
     register,
     handleSubmit,
@@ -29,7 +29,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
   } = useForm<FormData>({
     resolver: zodResolver(ProfileValidator),
     defaultValues: {
-      leaderboardId,
+      leaderboardIds: [],
       title: '',
       content: null,
     },
@@ -44,9 +44,9 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
     mutationFn: async ({
       title,
       content,
-      leaderboardId,
+      leaderboardIds,
     }: ProfileCreationRequest) => {
-      const payload: ProfileCreationRequest = { title, content, leaderboardId }
+      const payload: ProfileCreationRequest = { title, content, leaderboardIds }
       const { data } = await axios.post('/api/leaderboard/profile/create', payload)
       return data
     },
@@ -58,9 +58,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
       })
     },
     onSuccess: () => {
-      // turn pathname /leaderboard/mycommunity/submit into /leaderboard/mycommunity
-      const newPathname = pathname.split('/').slice(0, -1).join('/')
-      router.push(newPathname)
+      router.push('/')
 
       router.refresh()
 
@@ -145,7 +143,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
     const payload: ProfileCreationRequest = {
       title: data.title,
       content: blocks,
-      leaderboardId,
+      leaderboardIds: data.leaderboardIds,
     }
 
     createProfile(payload)
@@ -174,6 +172,24 @@ export const Editor: React.FC<EditorProps> = ({ leaderboardId }) => {
             placeholder='Title'
             className='w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none'
           />
+          {/* Multiselect for leaderboards */}
+          <div className='my-4'>
+            <label className='block text-sm font-medium text-gray-700'>Select Leaderboards</label>
+            <select
+              {...register('leaderboardIds', { required: true })}
+              multiple
+              className='form-multiselect mt-1 block w-full'
+            >
+              {leaderboards.map((leaderboard) => (
+                <option key={leaderboard.id} value={leaderboard.id}>
+                  {leaderboard.name}
+                </option>
+              ))}
+            </select>
+            {errors.leaderboardIds && (
+              <p className='text-red-500 text-sm mt-1'>Please select at least one leaderboard.</p>
+            )}
+          </div>
           <div id='editor' className='min-h-[500px]' />
           <p className='text-sm text-gray-500'>
             Use{' '}

@@ -23,13 +23,12 @@ const page = async ({ params }: pageProps) => {
     )
   }
 
-  const leaderboard = await db.leaderboard.findFirst({
-    where: {
-      name: params.slug,
-    },
+  // Fetch all leaderboards for the multiselect
+  const allLeaderboards = await db.leaderboard.findMany({
+    select: { id: true, name: true },
   })
 
-  if (!leaderboard) return notFound()
+  if (!allLeaderboards) return notFound()
 
   return (
     <div className='flex flex-col items-start gap-6'>
@@ -40,13 +39,13 @@ const page = async ({ params }: pageProps) => {
             Create Profile
           </h3>
           <p className='ml-2 mt-1 truncate text-sm text-gray-500'>
-            in {params.slug} Leaderboard
+            Select one or more leaderboards to post to
           </p>
         </div>
       </div>
 
       {/* form */}
-      <Editor leaderboardId={leaderboard.id} />
+      <Editor leaderboards={allLeaderboards} />
 
       <div className='w-full flex justify-end'>
         <Button type='submit' className='w-full' form='leaderboard-post-form'>
