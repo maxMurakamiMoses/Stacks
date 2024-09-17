@@ -1,5 +1,5 @@
 import MiniAddProfile from '@/components/MiniAddProfile'
-// import ProfileFeed from '@/components/ProfileFeed'
+import ProfileFeed from '@/components/ProfileFeed' // Ensure this is imported
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -38,9 +38,15 @@ const page = async ({ params }: PageProps) => {
       },
     },
   })
-  
 
   if (!leaderboard) return notFound()
+
+  // Extract profiles from profilesOnLeaderboards
+  const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol) => ({
+    ...pol.profile,
+    votes: pol.votes,
+    leaderboardId: leaderboard.id, // Include leaderboardId for votes
+  }))
 
   return (
     <>
@@ -50,11 +56,13 @@ const page = async ({ params }: PageProps) => {
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
-      <ProfileFeed initialProfiles={leaderboard.profiles} leaderboardName={leaderboard.name} />
+      <ProfileFeed
+        initialProfiles={initialProfiles}
+        leaderboardName={leaderboard.name}
+        leaderboardId={leaderboard.id} // Pass leaderboardId if needed
+      />
     </>
   )
 }
 
 export default page
-
-

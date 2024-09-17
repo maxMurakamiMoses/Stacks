@@ -14,12 +14,14 @@ import { cn } from '@/lib/utils'
 
 interface ProfileVoteClientProps {
   profileId: string
+  leaderboardId: string
   initialVotesAmt: number
   initialVote?: VoteType | null
 }
 
 const ProfileVoteClient = ({
   profileId,
+  leaderboardId,
   initialVotesAmt,
   initialVote,
 }: ProfileVoteClientProps) => {
@@ -37,7 +39,8 @@ const ProfileVoteClient = ({
     mutationFn: async (type: VoteType) => {
       const payload: ProfileVoteRequest = {
         voteType: type,
-        profileId: profileId,
+        profileId,
+        leaderboardId,
       }
 
       await axios.patch('/api/leaderboard/profile/vote', payload)
@@ -68,7 +71,7 @@ const ProfileVoteClient = ({
         if (type === 'UP') setVotesAmt((prev) => prev - 1)
         else if (type === 'DOWN') setVotesAmt((prev) => prev + 1)
       } else {
-        // User is voting in the opposite direction, so subtract 2
+        // User is voting in the opposite direction
         setCurrentVote(type)
         if (type === 'UP') setVotesAmt((prev) => prev + (currentVote ? 2 : 1))
         else if (type === 'DOWN')

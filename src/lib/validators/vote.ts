@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 export const ProfileVoteValidator = z.object({
   profileId: z.string(),
+  leaderboardId: z.string(),
   voteType: z.enum(['UP', 'DOWN']),
 })
 

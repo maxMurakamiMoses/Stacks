@@ -10,12 +10,13 @@ import { FC, useEffect, useRef } from 'react'
 import Profile from './Profile'
 import { useSession } from 'next-auth/react'
 
-interface PostFeedProps {
+interface ProfileFeedProps {
   initialProfiles: ExtendedProfile[]
   leaderboardName?: string
+  leaderboardId: string
 }
 
-const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) => {
+const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, leaderboardId }) => {
   const lastProfRef = useRef<HTMLElement>(null)
   const { ref, entry } = useIntersection({
     root: lastProfRef.current,
@@ -24,16 +25,14 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
   const { data: session } = useSession()
 
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ['infinite-query'],
+    ['infinite-query', leaderboardId],
     async ({ pageParam = 1 }) => {
       const query =
-        `/api/profiles?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}` +
-        (!!leaderboardName ? `&leaderboardName=${leaderboardName}` : '')
+        `/api/profiles?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}&leaderboardId=${leaderboardId}`
 
       const { data } = await axios.get(query)
       return data as ExtendedProfile[]
     },
-
     {
       getNextPageParam: (_, pages) => {
         return pages.length + 1
@@ -44,7 +43,7 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
 
   useEffect(() => {
     if (entry?.isIntersecting) {
-      fetchNextPage() // Load more profiles when the last profile comes into view
+      fetchNextPage()
     }
   }, [entry, fetchNextPage])
 
@@ -53,26 +52,26 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
   return (
     <ul className='flex flex-col col-span-2 space-y-6'>
       {profiles.map((profile, index) => {
-        const votesAmt = profile.votes.reduce((acc, vote) => {
+        const votesAmt = profile.votes.reduce((acc: number, vote: any) => {
           if (vote.type === 'UP') return acc + 1
           if (vote.type === 'DOWN') return acc - 1
           return acc
         }, 0)
 
         const currentVote = profile.votes.find(
-          (vote) => vote.userId === session?.user.id
+          (vote: any) => vote.userId === session?.user.id
         )
 
         if (index === profiles.length - 1) {
-          // Add a ref to the last profile in the list
           return (
             <li key={profile.id} ref={ref}>
               <Profile
                 profile={profile}
                 commentAmt={profile.comments.length}
-                leaderboardName={profile.leaderboard.name}
                 votesAmt={votesAmt}
                 currentVote={currentVote}
+                leaderboardName={leaderboardName}
+                leaderboardId={leaderboardId}
               />
             </li>
           )
@@ -82,9 +81,10 @@ const ProfileFeed: FC<PostFeedProps> = ({ initialProfiles, leaderboardName }) =>
               key={profile.id}
               profile={profile}
               commentAmt={profile.comments.length}
-              leaderboardName={profile.leaderboard.name}
               votesAmt={votesAmt}
               currentVote={currentVote}
+              leaderboardName={leaderboardName}
+              leaderboardId={leaderboardId}
             />
           )
         }

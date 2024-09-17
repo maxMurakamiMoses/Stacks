@@ -1,7 +1,7 @@
 'use client'
 
 import { formatTimeToNow } from '@/lib/utils'
-import { Profile, User, Vote } from '@prisma/client'
+import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useRef } from 'react'
@@ -11,14 +11,17 @@ import ProfileVoteClient from './profile-vote/ProfileVoteClient'
 type PartialVote = Pick<Vote, 'type'>
 
 interface ProfileProps {
-  profile: Profile & {
+  profile: ProfileType & {
     author: User
     votes: Vote[]
+    content: any
+    createdAt: string | Date
   }
   votesAmt: number
-  leaderboardName: string
   currentVote?: PartialVote
   commentAmt: number
+  leaderboardName?: string
+  leaderboardId: string
 }
 
 const Profile: FC<ProfileProps> = ({
@@ -26,15 +29,17 @@ const Profile: FC<ProfileProps> = ({
   votesAmt: _votesAmt,
   currentVote: _currentVote,
   leaderboardName,
+  leaderboardId,
   commentAmt,
 }) => {
-  const pRef = useRef<HTMLParagraphElement>(null)
+  const pRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className='rounded-md bg-white shadow'>
       <div className='px-6 py-4 flex justify-between'>
         <ProfileVoteClient
           profileId={profile.id}
+          leaderboardId={leaderboardId}
           initialVotesAmt={_votesAmt}
           initialVote={_currentVote?.type}
         />
@@ -82,4 +87,5 @@ const Profile: FC<ProfileProps> = ({
     </div>
   )
 }
+
 export default Profile

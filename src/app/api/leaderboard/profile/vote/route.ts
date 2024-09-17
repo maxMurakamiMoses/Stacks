@@ -7,7 +7,7 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json()
 
-    const { profileId, voteType } = ProfileVoteValidator.parse(body)
+    const { profileId, leaderboardId, voteType } = ProfileVoteValidator.parse(body)
 
     const session = await getAuthSession()
 
@@ -15,26 +15,34 @@ export async function PATCH(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    // check if user has already voted on this post
+    // check if user has already voted on this profile in this leaderboard
     const existingVote = await db.vote.findFirst({
       where: {
         userId: session.user.id,
         profileId,
+        leaderboardId,
       },
     })
 
-    const profile = await db.profile.findUnique({
+    const pol = await db.profilesOnLeaderboards.findUnique({
       where: {
-        id: profileId,
+        profileId_leaderboardId: {
+          profileId,
+          leaderboardId,
+        },
       },
       include: {
-        author: true,
+        profile: {
+          include: {
+            author: true,
+          },
+        },
         votes: true,
       },
     })
 
-    if (!profile) {
-      return new Response('Profile not found', { status: 404 })
+    if (!pol) {
+      return new Response('Profile not found in this leaderboard', { status: 404 })
     }
 
     if (existingVote) {
@@ -42,8 +50,9 @@ export async function PATCH(req: Request) {
       if (existingVote.type === voteType) {
         await db.vote.delete({
           where: {
-            userId_profileId: {
+            userId_profileId_leaderboardId: {
               profileId,
+              leaderboardId,
               userId: session.user.id,
             },
           },
@@ -55,8 +64,9 @@ export async function PATCH(req: Request) {
       // if vote type is different, update the vote
       await db.vote.update({
         where: {
-          userId_profileId: {
+          userId_profileId_leaderboardId: {
             profileId,
+            leaderboardId,
             userId: session.user.id,
           },
         },
@@ -64,7 +74,6 @@ export async function PATCH(req: Request) {
           type: voteType,
         },
       })
-
 
       return new Response('OK')
     }
@@ -75,19 +84,19 @@ export async function PATCH(req: Request) {
         type: voteType,
         userId: session.user.id,
         profileId,
+        leaderboardId,
       },
     })
 
-
     return new Response('OK')
   } catch (error) {
-    (error)
+    console.error(error)
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 })
     }
 
     return new Response(
-      'Could not post to leaderboard at this time. Please try later',
+      'Could not process your vote at this time. Please try later',
       { status: 500 }
     )
   }
