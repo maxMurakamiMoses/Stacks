@@ -17,6 +17,7 @@ interface ProfileVoteClientProps {
   leaderboardId: string
   initialVotesAmt: number
   initialVote?: VoteType | null
+  disableVoting?: boolean
 }
 
 const ProfileVoteClient = ({
@@ -24,19 +25,22 @@ const ProfileVoteClient = ({
   leaderboardId,
   initialVotesAmt,
   initialVote,
+  disableVoting = false,
 }: ProfileVoteClientProps) => {
   const { loginToast } = useCustomToasts()
   const [votesAmt, setVotesAmt] = useState<number>(initialVotesAmt)
   const [currentVote, setCurrentVote] = useState(initialVote)
   const prevVote = usePrevious(currentVote)
 
-  // ensure sync with server
+  // Ensure sync with server
   useEffect(() => {
     setCurrentVote(initialVote)
   }, [initialVote])
 
   const { mutate: vote } = useMutation({
     mutationFn: async (type: VoteType) => {
+      if (disableVoting) return
+
       const payload: ProfileVoteRequest = {
         voteType: type,
         profileId,
@@ -49,7 +53,7 @@ const ProfileVoteClient = ({
       if (voteType === 'UP') setVotesAmt((prev) => prev - 1)
       else setVotesAmt((prev) => prev + 1)
 
-      // reset current vote
+      // Reset current vote
       setCurrentVote(prevVote)
 
       if (err instanceof AxiosError) {
@@ -80,14 +84,20 @@ const ProfileVoteClient = ({
     },
   })
 
+  const handleVote = (type: VoteType) => {
+    if (disableVoting) return
+    vote(type)
+  }
+
   return (
     <div className='flex flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0'>
-      {/* upvote */}
+      {/* Upvote */}
       <Button
-        onClick={() => vote('UP')}
+        onClick={() => handleVote('UP')}
         size='sm'
         variant='ghost'
-        aria-label='upvote'>
+        aria-label='upvote'
+        disabled={disableVoting}>
         <ArrowBigUp
           className={cn('h-5 w-5 text-zinc-700', {
             'text-emerald-500 fill-emerald-500': currentVote === 'UP',
@@ -95,20 +105,18 @@ const ProfileVoteClient = ({
         />
       </Button>
 
-      {/* score */}
+      {/* Score */}
       <p className='text-center py-2 font-medium text-sm text-zinc-900'>
         {votesAmt}
       </p>
 
-      {/* downvote */}
+      {/* Downvote */}
       <Button
-        onClick={() => vote('DOWN')}
+        onClick={() => handleVote('DOWN')}
         size='sm'
-        className={cn({
-          'text-emerald-500': currentVote === 'DOWN',
-        })}
         variant='ghost'
-        aria-label='downvote'>
+        aria-label='downvote'
+        disabled={disableVoting}>
         <ArrowBigDown
           className={cn('h-5 w-5 text-zinc-700', {
             'text-red-500 fill-red-500': currentVote === 'DOWN',
