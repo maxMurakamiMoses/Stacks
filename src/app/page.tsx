@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/lib/auth'
-import CreateLeaderboard from '@/components/CreateLeaderboard'
+import CreateLeaderboard from '@/components/admin/CreateLeaderboard'
 import SearchBar from '@/components/SearchBar'
 
 export const dynamic = 'force-dynamic'

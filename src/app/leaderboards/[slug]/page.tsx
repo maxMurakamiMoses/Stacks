@@ -1,4 +1,4 @@
-import MiniAddProfile from '@/components/MiniAddProfile'
+import MiniAddProfile from '@/components/admin/MiniAddProfile'
 import ProfileFeed from '@/components/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'

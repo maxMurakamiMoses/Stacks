@@ -23,7 +23,7 @@ const CreateLeaderboard = () => {
           className={buttonVariants({
             className: 'w-full mt-4 mb-6',
           })}
-          href='/admin/create'>
+          href='/admin/createLeaderboard'>
           Create Leaderboard
         </Link>
       </dl>

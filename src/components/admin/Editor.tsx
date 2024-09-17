@@ -19,19 +19,29 @@ type FormData = z.infer<typeof ProfileValidator>
 
 interface EditorProps {
   leaderboards: Array<{ id: string; name: string }>
+  initialData?: {
+    id: string
+    title: string
+    content: any
+    leaderboards: string[]
+    createdAt: Date
+    updatedAt: Date
+    authorId: string
+  }
 }
 
-export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
+export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(ProfileValidator),
     defaultValues: {
-      leaderboardIds: [],
-      title: '',
-      content: null,
+      leaderboardIds: initialData?.leaderboards || [],
+      title: initialData?.title || '',
+      content: initialData?.content || null,
     },
   })
   const ref = useRef<EditorJS>()
@@ -40,30 +50,31 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const pathname = usePathname()
 
-  const { mutate: createProfile } = useMutation({
+  const { mutate: createOrUpdateProfile } = useMutation({
     mutationFn: async ({
       title,
       content,
       leaderboardIds,
     }: ProfileCreationRequest) => {
       const payload: ProfileCreationRequest = { title, content, leaderboardIds }
-      const { data } = await axios.post('/api/leaderboard/profile/create', payload)
+      const endpoint = initialData
+        ? `/api/leaderboard/profile/update/${initialData.id}`
+        : '/api/leaderboard/profile/create'
+      const { data } = await axios.post(endpoint, payload)
       return data
     },
     onError: () => {
       return toast({
         title: 'Something went wrong.',
-        description: 'Your profile was not published. Please try again.',
+        description: 'Your profile was not saved. Please try again.',
         variant: 'destructive',
       })
     },
     onSuccess: () => {
       router.push('/')
-
       router.refresh()
-
       return toast({
-        description: 'The profile has been published.',
+        description: `The profile has been ${initialData ? 'updated' : 'published'}.`,
       })
     },
   })
@@ -83,7 +94,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
         },
         placeholder: 'Create the new profile here...',
         inlineToolbar: true,
-        data: { blocks: [] },
+        data: initialData?.content || { blocks: [] },
         tools: {
           header: Header,
           linkTool: {
@@ -97,7 +108,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
         },
       })
     }
-  }, [])
+  }, [initialData])
 
   useEffect(() => {
     if (Object.keys(errors).length) {
@@ -137,6 +148,13 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
     }
   }, [isMounted, initializeEditor])
 
+  useEffect(() => {
+    if (initialData) {
+      setValue('title', initialData.title)
+      setValue('leaderboardIds', initialData.leaderboards)
+    }
+  }, [initialData, setValue])
+
   async function onSubmit(data: FormData) {
     const blocks = await ref.current?.save()
 
@@ -146,7 +164,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards }) => {
       leaderboardIds: data.leaderboardIds,
     }
 
-    createProfile(payload)
+    createOrUpdateProfile(payload)
   }
 
   if (!isMounted) {

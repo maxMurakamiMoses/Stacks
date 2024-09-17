@@ -1,6 +1,6 @@
-import CommentsSection from '@/components/CommentsSection'
+import CommentsSection from '@/components/comments/CommentsSection'
 import EditorOutput from '@/components/EditorOutput'
-import ProfileVoteServer from '@/components/profile-vote/ProfileVoteServer'
+import ProfileVoteServer from '@/components/vote/ProfileVoteServer'
 import { db } from '@/lib/db'
 import { formatTimeToNow } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
