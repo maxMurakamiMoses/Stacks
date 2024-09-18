@@ -18,40 +18,40 @@ function Navbar({ className }: { className?: string }) {
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-20", className)}
     >
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="About">
+        <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/web-dev">Why</HoveredLink>
-            <HoveredLink href="/interface-design">How</HoveredLink>
-            <HoveredLink href="/seo">Mission</HoveredLink>
-            <HoveredLink href="/branding">FAQ</HoveredLink>
+            <HoveredLink href="/">Why</HoveredLink>
+            <HoveredLink href="/">How</HoveredLink>
+            <HoveredLink href="/">Mission</HoveredLink>
+            <HoveredLink href="/">FAQ</HoveredLink>
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Explore">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
-              title="Leaderboards"
-              href="https://algochurn.com"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Prepare for tech interviews like never before."
-            />
-            <ProductItem
-              title="Top Stacks"
-              href="https://tailwindmasterkit.com"
+              title="News"
+              href="/news"
               src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
+              description="Stay up to date on health related news."
             />
             <ProductItem
+              title="Leaderboards"
+              href="/leaderboards"
+              src="https://assets.aceternity.com/demos/algochurn.webp"
+              description="Browse through leaderboards to discover people pushing the boundries."
+            />
+            {/* <ProductItem
               title="Products"
-              href="https://gomoonbeam.com"
+              href="/products"
               src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Never write from scratch again. Go from idea to blog in minutes."
+              description="The top products being used by biohackers, atheltes, and nerds."
             />
             <ProductItem
               title="Tools"
-              href="https://userogue.com"
+              href="/tools"
               src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Respond to government RFPs, RFIs and RFQs 10x faster using AI"
-            />
+              description="Tools and resources to live a long, prosperous, and healthy life."
+            /> */}
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Follow">

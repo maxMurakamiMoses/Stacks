@@ -1,6 +1,8 @@
 // page.tsx
 import ProfileEditor from '@/components/admin/ProfileEditor'
 import { db } from '@/lib/db'
+import { authOptions } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 
 // Fetch all profiles (server-side)
 async function fetchProfiles() {
@@ -11,6 +13,16 @@ async function fetchProfiles() {
 
 // Page component
 const Page = async ({ searchParams }: { searchParams: { profileId?: string } }) => {
+    const session = await getServerSession(authOptions)
+
+    // Check if the user's email matches the specified email
+    if (session?.user?.email !== 'max.murakamimoses24@gmail.com') {
+      return (
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-xl font-semibold text-red-500">This page is private.</p>
+        </div>
+      )
+    }
   const profiles = await fetchProfiles()
   const selectedProfileId = searchParams?.profileId || profiles[0]?.id || null
 

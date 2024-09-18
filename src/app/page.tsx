@@ -1,6 +1,7 @@
 import { getAuthSession } from '@/lib/auth'
 import CreateLeaderboard from '@/components/admin/CreateLeaderboard'
 import SearchBar from '@/components/SearchBar'
+import { Footer } from '@/components/footer'
 
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
@@ -10,13 +11,9 @@ export default async function Home() {
 
   return (
     <>
-      <SearchBar />
-      <h1 className='font-bold text-3xl md:text-4xl'>Your feed</h1>
-      <div className='grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6'>
-
-
+      <h1 className='font-bold text-3xl md:text-4xl'>Landing page </h1>
         {session?.user?.email === "max.murakamimoses24@gmail.com" && <CreateLeaderboard />}
-      </div>
+        <Footer />
     </>
   )
 }

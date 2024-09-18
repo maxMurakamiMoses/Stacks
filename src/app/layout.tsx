@@ -35,7 +35,7 @@ export default function RootLayout({
           <Profile />
           {authModal}
 
-          <div className='container max-w-7xl mx-auto h-full pt-12'>
+          <div className='mx-auto h-full pt-12'>
             {children}
           </div>
         </Providers>
