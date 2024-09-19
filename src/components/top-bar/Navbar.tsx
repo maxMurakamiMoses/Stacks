@@ -20,8 +20,8 @@ function Navbar({ className }: { className?: string }) {
       <Menu setActive={setActive}>
         <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
+            <HoveredLink href="/">Home</HoveredLink>
             <HoveredLink href="/">Why</HoveredLink>
-            <HoveredLink href="/">How</HoveredLink>
             <HoveredLink href="/">Mission</HoveredLink>
             <HoveredLink href="/">FAQ</HoveredLink>
           </div>
@@ -29,29 +29,29 @@ function Navbar({ className }: { className?: string }) {
         <MenuItem setActive={setActive} active={active} item="Explore">
           <div className="  text-sm grid grid-cols-2 gap-10 p-4">
             <ProductItem
-              title="News"
-              href="/news"
+              title="Foods & Supplements"
+              href="/foods"
               src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Stay up to date on health related news."
+              description="The stuff you are putting into your body daily - yeah you might want to be informed."
+            />
+            <ProductItem
+              title="Apps & Gagets"
+              href="/gagets"
+              src="https://assets.aceternity.com/demos/algochurn.webp"
+              description="Discover cool new gagets biohackers, nerds and athletes are using."
             />
             <ProductItem
               title="Leaderboards"
               href="/leaderboards"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Browse through leaderboards to discover people pushing the boundries."
-            />
-            {/* <ProductItem
-              title="Products"
-              href="/products"
               src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="The top products being used by biohackers, atheltes, and nerds."
+              description="Browse through leaderboards to discover people pushing the boundries."
             />
             <ProductItem
               title="Tools"
               href="/tools"
               src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
               description="Tools and resources to live a long, prosperous, and healthy life."
-            /> */}
+            />
           </div>
         </MenuItem>
         <MenuItem setActive={setActive} active={active} item="Follow">

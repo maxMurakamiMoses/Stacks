@@ -28,16 +28,13 @@ export default function RootLayout({
         'bg-white text-slate-900 antialiased light',
         inter.className
       )}>
-      <body className='min-h-screen pt-12 bg-slate-50 antialiased'>
+      <body className='min-h-screen bg-slate-50 antialiased'>
         <Providers>
           <NavbarComponent />
           {/* @ts-expect-error Server Component */}
           <Profile />
           {authModal}
-
-          <div className='mx-auto h-full pt-12'>
-            {children}
-          </div>
+          {children}
         </Providers>
         <Toaster />
       </body>

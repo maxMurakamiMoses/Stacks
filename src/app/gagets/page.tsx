@@ -1,9 +1,8 @@
 import React from 'react'
 
-
 const page = () => {
   return (
-    <p>News Page</p>
+    <div>gagets page</div>
   )
 }
 
