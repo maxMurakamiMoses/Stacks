@@ -1,67 +1,53 @@
-import { getAuthSession } from '@/lib/auth'
+// app/api/profiles/route.ts
+import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 import { z } from 'zod'
 
-export async function GET(req: Request) {
-  const url = new URL(req.url)
+const ProfileUpdateSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1, 'Title is required'),
+  content: z.any().optional(),
+  leaderboards: z.array(z.string()).min(1, 'At least one leaderboard must be selected'),
+})
 
-  const session = await getAuthSession()
-
+export async function PUT(request: Request) {
   try {
-    // Parse query parameters
-    const { limit, page, leaderboardId } = z
-      .object({
-        limit: z.string(),
-        page: z.string(),
-        leaderboardId: z.string().nullish().optional(),
-      })
-      .parse({
-        leaderboardId: url.searchParams.get('leaderboardId'),
-        limit: url.searchParams.get('limit'),
-        page: url.searchParams.get('page'),
-      })
+    const body = await request.json()
 
-    const take = parseInt(limit)
-    const skip = (parseInt(page) - 1) * take
+    // Validate incoming data
+    const parsedData = ProfileUpdateSchema.parse(body)
+    const { id, title, content, leaderboards } = parsedData
 
-    if (!leaderboardId) {
-      return new Response('leaderboardId is required', { status: 400 })
-    }
-
-    // Fetch profiles associated with the leaderboard using ProfilesOnLeaderboards
-    const profilesOnLeaderboards = await db.profilesOnLeaderboards.findMany({
-      where: {
-        leaderboardId: leaderboardId,
-      },
-      include: {
-        profile: {
-          include: {
-            author: true,
-            comments: true,
-            // Include content if needed
-          },
-        },
-        votes: true,
-      },
-      orderBy: {
-        profile: {
-          createdAt: 'desc',
+    // Update the profile
+    await db.profile.update({
+      where: { id },
+      data: {
+        title,
+        content,
+        profilesOnLeaderboards: {
+          deleteMany: {}, // Remove existing associations
+          create: leaderboards.map((lbId) => ({ leaderboardId: lbId })), // Add new associations
         },
       },
-      take,
-      skip,
     })
 
-    // Map the data to match the expected format
-    const profiles = profilesOnLeaderboards.map((pol) => ({
-      ...pol.profile,
-      votes: pol.votes,
-      leaderboardId: pol.leaderboardId,
-    }))
+    return NextResponse.json(
+      { message: 'Profile updated successfully.' },
+      { status: 200 }
+    )
+  } catch (error: any) {
+    console.error('Error updating profile:', error)
 
-    return new Response(JSON.stringify(profiles))
-  } catch (error) {
-    console.error(error)
-    return new Response('Could not fetch profiles', { status: 500 })
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: error.errors[0].message },
+        { status: 400 }
+      )
+    }
+
+    return NextResponse.json(
+      { message: 'Internal server error.' },
+      { status: 500 }
+    )
   }
 }
