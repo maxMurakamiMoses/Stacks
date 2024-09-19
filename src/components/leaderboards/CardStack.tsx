@@ -48,4 +48,15 @@ const CARDS = [
       </p>
     ),
   },
+  {
+    id: 3,
+    name: "World Records",
+    designation: "All world records - natty and not natty.",
+    content: (
+      <p>
+        These cards are amazing, I want to use them in my
+        project. Framer motion is a godsend ngl tbh fam.
+      </p>
+    ),
+  },
 ];
