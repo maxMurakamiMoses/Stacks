@@ -35,11 +35,17 @@ const Layout = async ({
           votes: true,
         },
       },
+      _count: {
+        select: { profilesOnLeaderboards: true },
+      },
     },
   })
   
+  
 
   if (!leaderboard) return notFound()
+  const profileCount = leaderboard?._count.profilesOnLeaderboards || 0
+
 
 
   return (
@@ -53,9 +59,14 @@ const Layout = async ({
           {/* info sidebar */}
           <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last'>
             <div className='px-6 py-4'>
-              <p className='font-semibold py-3'>About The {leaderboard.name} Leaderboard</p>
+              <p className='font-semibold py-3'>About this leaderboard</p>
             </div>
             <dl className='divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white'>
+            <div className='flex justify-between gap-x-4 py-3'>
+                <dd className='flex items-start gap-x-2'>
+                  <div className='text-gray-900'>{leaderboard.description}</div>
+                </dd>
+              </div>
               <div className='flex justify-between gap-x-4 py-3'>
                 <dt className='text-gray-500'>Created</dt>
                 <dd className='text-gray-700'>
@@ -65,9 +76,9 @@ const Layout = async ({
                 </dd>
               </div>
               <div className='flex justify-between gap-x-4 py-3'>
-                <dt className='text-gray-500'>Something</dt>
+                <dt className='text-gray-500'>Number of participants</dt>
                 <dd className='flex items-start gap-x-2'>
-                  <div className='text-gray-900'>something can go here</div>
+                  <div className='text-gray-900'>{profileCount}</div>
                 </dd>
               </div>
                 <div className='flex justify-between gap-x-4 py-3'>
@@ -79,7 +90,7 @@ const Layout = async ({
                     variant: 'outline',
                     className: 'w-full mb-6',
                     })}
-                    href={session?.user ? `/r/${slug}/joinleaderboard` : '/sign-in'}>
+                    href={session?.user ? `/${slug}/join` : '/sign-in'}>
                     {session?.user ? 'Join Leaderboard' : 'Join Leaderboard'}
                 </Link>
             </dl>

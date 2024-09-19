@@ -4,15 +4,15 @@ import Link from 'next/link';
 export function LeaderboardFeed() {
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-8 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-8 gap-12">
         {/* First Item (Text on Left, Image on Right) */}
         <div className="lg:col-span-4">
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/dudedin-pace">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
               Dudedin Pace Leaderboard
             </p>
           </Link>
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/dudedin-pace">
             <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
             The Dunedin Pace is a measure of biological aging, developed from a long-term study conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or slowly individuals are aging at the biological level by tracking various biomarkers such as cardiovascular, metabolic, and immune health indicators over time. Dunedin Pace reflects the wear and tear on the body's systems, providing a clearer picture of one's biological age.
             </p>
@@ -27,20 +27,20 @@ export function LeaderboardFeed() {
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
           <p>IMAGE PLACEHOLDER</p>
         </div>
-
+      
         {/* Second Item (Image on Left, Text on Right) */}
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
           <p>IMAGE PLACEHOLDER</p>
         </div>
         <div className="lg:col-span-4">
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/community-voted">
           <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer md:whitespace-nowrap">
             Community Voted Leaderboard
           </p>
 
 
           </Link>
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/community-voted">
             <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
             The Dunedin Pace is a measure of biological aging, developed from a long-term study conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or slowly individuals are aging at the biological level by tracking various biomarkers such as cardiovascular, metabolic, and immune health indicators over time. Dunedin Pace reflects the wear and tear on the body's systems, providing a clearer picture of one's biological age.
             </p>
@@ -55,12 +55,12 @@ export function LeaderboardFeed() {
 
         {/* Third Item (Text on Left, Image on Right) */}
         <div className="lg:col-span-4">
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/world-records">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
               Athletic Records Leaderboard
             </p>
           </Link>
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/world-records">
             <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
             The Dunedin Pace is a measure of biological aging, developed from a long-term study conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or slowly individuals are aging at the biological level by tracking various biomarkers such as cardiovascular, metabolic, and immune health indicators over time. Dunedin Pace reflects the wear and tear on the body's systems, providing a clearer picture of one's biological age.
             </p>
@@ -81,12 +81,12 @@ export function LeaderboardFeed() {
           <p>IMAGE PLACEHOLDER</p>
         </div>
         <div className="lg:col-span-4">
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/social-media">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
               Social Media Leaderboard
             </p>
           </Link>
-          <Link href="/leaderboards">
+          <Link href="/leaderboards/social-media">
             <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
             The Dunedin Pace is a measure of biological aging, developed from a long-term study conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or slowly individuals are aging at the biological level by tracking various biomarkers such as cardiovascular, metabolic, and immune health indicators over time. Dunedin Pace reflects the wear and tear on the body's systems, providing a clearer picture of one's biological age.
             </p>

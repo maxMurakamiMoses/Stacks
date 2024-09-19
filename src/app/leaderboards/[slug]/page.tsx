@@ -1,9 +1,23 @@
 import MiniAddProfile from '@/components/admin/MiniAddProfile'
-import ProfileFeed from '@/components/ProfileFeed'
+import ProfileFeed from '@/components/leaderboards/leaderboardpage/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { notFound } from 'next/navigation'
+
+// Helper function to format the leaderboard name
+const formatLeaderboardName = (name: string): string => {
+  if (name.includes('-')) {
+    // Split by hyphen, capitalize each word, and join with spaces
+    return name
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  } else {
+    // Capitalize the first letter of the single word
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
+}
 
 interface PageProps {
   params: {
@@ -41,6 +55,9 @@ const page = async ({ params }: PageProps) => {
 
   if (!leaderboard) return notFound()
 
+  // Preprocess the leaderboard name
+  const formattedLeaderboardName = formatLeaderboardName(leaderboard.name)
+
   // Extract profiles from profilesOnLeaderboards
   const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol) => ({
     ...pol.profile,
@@ -52,14 +69,14 @@ const page = async ({ params }: PageProps) => {
   return (
     <>
       <h1 className='font-bold text-3xl md:text-4xl h-14'>
-        {leaderboard.name} Leaderboard
+        {formattedLeaderboardName} Leaderboard
       </h1>
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
       <ProfileFeed
         initialProfiles={initialProfiles}
-        leaderboardName={leaderboard.name}
+        leaderboardName={formattedLeaderboardName}
         leaderboardId={leaderboard.id}
       />
     </>
