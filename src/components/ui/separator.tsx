@@ -13,7 +13,7 @@ const Separator = React.forwardRef<
     { className, orientation = "horizontal", decorative = true, ...props },
     ref
   ) => (
-    <div className={cn("py-10 lg:py-24")}> {/* Wrapper with padding */}
+    <div className={cn("py-10 lg:py-20")}> {/* Wrapper with padding */}
       <SeparatorPrimitive.Root
         ref={ref}
         decorative={decorative}

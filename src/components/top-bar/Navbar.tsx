@@ -18,50 +18,59 @@ function Navbar({ className }: { className?: string }) {
       className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-20", className)}
     >
       <Menu setActive={setActive}>
-        <MenuItem setActive={setActive} active={active} item="Home">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/">Home</HoveredLink>
-            <HoveredLink href="/">Why</HoveredLink>
-            <HoveredLink href="/">Mission</HoveredLink>
-            <HoveredLink href="/">FAQ</HoveredLink>
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Explore">
-          <div className="  text-sm grid grid-cols-2 gap-10 p-4">
-            <ProductItem
-              title="Foods & Supplements"
-              href="/foods"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="The stuff you are putting into your body daily - yeah you might want to be informed."
-            />
-            <ProductItem
-              title="Apps & Gagets"
-              href="/gagets"
-              src="https://assets.aceternity.com/demos/algochurn.webp"
-              description="Discover cool new gagets biohackers, nerds and athletes are using."
-            />
-            <ProductItem
-              title="Leaderboards"
-              href="/leaderboards"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
-              description="Browse through leaderboards to discover people pushing the boundries."
-            />
-            <ProductItem
-              title="Tools"
-              href="/tools"
-              src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
-              description="Tools and resources to live a long, prosperous, and healthy life."
-            />
-          </div>
-        </MenuItem>
-        <MenuItem setActive={setActive} active={active} item="Follow">
-          <div className="flex flex-col space-y-4 text-sm">
-            <HoveredLink href="/hobby">YouTube</HoveredLink>
-            <HoveredLink href="/individual">X</HoveredLink>
-            <HoveredLink href="/team">Instgram</HoveredLink>
-            <HoveredLink href="/enterprise">TikTok</HoveredLink>
-          </div>
-        </MenuItem>
+      <MenuItem setActive={setActive} active={active} item="Home">
+  <div className="flex flex-col space-y-4 text-sm">
+    <HoveredLink href="/" setActive={setActive}>Home</HoveredLink>
+    <HoveredLink href="/" setActive={setActive}>Why</HoveredLink>
+    <HoveredLink href="/" setActive={setActive}>Mission</HoveredLink>
+    <HoveredLink href="/" setActive={setActive}>FAQ</HoveredLink>
+  </div>
+</MenuItem>
+<MenuItem setActive={setActive} active={active} item="Explore">
+  <div className="text-sm grid grid-cols-2 gap-10 p-4">
+    <ProductItem
+      title="Community Labs"
+      href="/foods"
+      src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
+      description="The stuff you are putting into your body daily - yeah you might want to be informed."
+      setActive={setActive}
+    />
+    <ProductItem
+      title="Marketplace"
+      href="/gagets"
+      src="https://assets.aceternity.com/demos/algochurn.webp"
+      description="Discover cool new gagets biohackers, nerds and athletes are using."
+      setActive={setActive}
+    />
+    <ProductItem
+      title="Leaderboards"
+      href="/leaderboards"
+      src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.51.31%E2%80%AFPM.png"
+      description="Browse through leaderboards to discover people pushing the boundries."
+      setActive={setActive}
+    />
+    <ProductItem
+      title="Tools"
+      href="/tools"
+      src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
+      description="Tools and resources to live a long, prosperous, and healthy life."
+      setActive={setActive}
+    />
+  </div>
+</MenuItem>
+<MenuItem setActive={setActive} active={active} item="Follow">
+  <div className="flex flex-col space-y-4 text-sm">
+    <HoveredLink href="/hobby">YouTube</HoveredLink>
+    <HoveredLink href="/individual">X</HoveredLink>
+    <HoveredLink href="/team">Instagram</HoveredLink>
+    <HoveredLink href="/enterprise">TikTok</HoveredLink>
+    <div className="lg:hidden"> {/* Hide on large screens and up */}
+      <HoveredLink href='/sign-in'>Sign in</HoveredLink>
+    </div>
+  </div>
+</MenuItem>
+
+
       </Menu>
      
     </div>

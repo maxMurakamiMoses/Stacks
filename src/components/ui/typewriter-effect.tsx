@@ -32,19 +32,24 @@ export const TypewriterEffect = ({
 
   useEffect(() => {
     if (isInView) {
-      animate(
-        "span",
-        {
-          display: "inline-block",
-          opacity: 1,
-          width: "fit-content",
-        },
-        {
-          duration: 0.3,
-          delay: stagger(0.1),
-          ease: "easeInOut",
-        }
-      );
+
+      const timeout = setTimeout(() => {
+        animate(
+          "span",
+          {
+            display: "inline-block",
+            opacity: 1,
+            width: "fit-content",
+          },
+          {
+            duration: 0.3,
+            delay: stagger(0.1),
+            ease: "easeInOut",
+          }
+        );
+      }, 500); //delay
+
+      return () => clearTimeout(timeout);
     }
   }, [isInView]);
 
@@ -93,7 +98,7 @@ export const TypewriterEffect = ({
       style={{ whiteSpace: 'nowrap' }}
     >
       {renderWords()}
-      {repeatCount < 4 && (
+      {repeatCount < 6 && (
         <motion.span
           initial={{
             opacity: 0,

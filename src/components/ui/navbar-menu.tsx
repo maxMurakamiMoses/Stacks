@@ -82,14 +82,16 @@ export const ProductItem = ({
   description,
   href,
   src,
+  setActive,
 }: {
   title: string;
   description: string;
   href: string;
   src: string;
+  setActive: (item: string | null) => void;
 }) => {
   return (
-    <Link href={href} className="flex space-x-2">
+    <Link href={href} className="flex space-x-2" onClick={() => setActive(null)}>
       <Image
         src={src}
         width={140}
@@ -109,10 +111,12 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+
+export const HoveredLink = ({ setActive, children, ...rest }: any) => {
   return (
     <Link
       {...rest}
+      onClick={() => setActive(null)}
       className="text-neutral-700 dark:text-neutral-200 hover:text-black "
     >
       {children}

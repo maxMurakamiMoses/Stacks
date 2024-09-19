@@ -1,6 +1,6 @@
 import { TypewriterEffect } from "../ui/typewriter-effect";
 import { CardStackSection } from "./CardStack";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/ui/Separator";
 import { JumpTo } from "./JumpTo";
 
 export function Header() {
@@ -16,15 +16,16 @@ export function Header() {
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 pt-6 lg:pt-24">
         <div className="lg:col-span-4">
         <div className="hidden md:block">
-          <div className="text-sm mb-[-10px] py-1 rounded-lg tracking-tight font-mono">
+          <div className="text-sm mb-[-20px] ml-[4px] py-1 rounded-lg tracking-tight font-mono">
             Biological liberty. max(P(health)). 
           </div>
         </div>
           <TypewriterEffect words={words} />
-          <p className="text-gray-400 text-l lg:text-xl">
-            Browse through leaderboards to discover people pushing the boundaries. Dive into their stack, gain insights from their experiences, and get inspired by those who are constantly redefining what's possible.
+          <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
+            Browse through leaderboards to discover people pushing the boundaries. Dive into their stack, gain insights from their experiences, and get inspired by those who are constantly redefining what&apos;s possible.
           </p>
-          <div className="hidden md:block">
+
+          <div className="hidden md:block ml-[4px]">
             <JumpTo />
           </div>
         </div>
