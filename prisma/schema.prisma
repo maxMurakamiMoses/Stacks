@@ -71,6 +71,8 @@ model Leaderboard {
 
 model Profile {
   id            String                  @id @default(cuid())
+  verified      Boolean @default(false)
+  image         String?
   title         String
   content       Json?
   createdAt     DateTime                @default(now())

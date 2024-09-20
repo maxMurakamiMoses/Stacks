@@ -6,4 +6,6 @@ export type ExtendedProfile = Profile & {
   author: User
   comments: Comment[]
   leaderboardId?: string
+  image: string
+  verified: boolean
 }

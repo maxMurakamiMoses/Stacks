@@ -5,7 +5,6 @@ import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, useRef } from 'react'
-import EditorOutput from './EditorOutput'
 import ProfileVoteClient from './vote/ProfileVoteClient'
 
 type PartialVote = Pick<Vote, 'type'>
@@ -16,12 +15,34 @@ interface ProfileProps {
     votes: Vote[]
     content: any
     createdAt: string | Date
+    image: String
+    verified: boolean
   }
   votesAmt: number
   currentVote?: PartialVote
   commentAmt: number
   leaderboardName?: string
   leaderboardId: string
+}
+
+const extractSection = (blocks, sectionTitle) => {
+  const sectionIndex = blocks.findIndex(
+    (block) => block.type === 'header' && block.data.text === sectionTitle
+  )
+  if (sectionIndex !== -1 && blocks[sectionIndex + 1]) {
+    return blocks[sectionIndex + 1].data.text
+  }
+  return null
+}
+
+const extractTags = (tagsString) => {
+  const regex = /\[([^\]]+)\]/g
+  const tags = []
+  let match
+  while ((match = regex.exec(tagsString)) !== null) {
+    tags.push(match[1])
+  }
+  return tags
 }
 
 const Profile: FC<ProfileProps> = ({
@@ -33,6 +54,16 @@ const Profile: FC<ProfileProps> = ({
   commentAmt,
 }) => {
   const pRef = useRef<HTMLDivElement>(null)
+
+  // Ensure profile.content.blocks exists
+  const blocks = profile.content?.blocks || []
+
+  // Extract TAGS
+  const tagsString = extractSection(blocks, '{TAGS}')
+  const tags = tagsString ? extractTags(tagsString) : []
+
+  // Extract SHORTBIO
+  const shortBio = extractSection(blocks, '{SHORTBIO}')
 
   return (
     <div className='rounded-md bg-white shadow'>
@@ -65,24 +96,31 @@ const Profile: FC<ProfileProps> = ({
             </h1>
           </a>
 
-          <div
-            className='relative text-sm max-h-40 w-full overflow-clip'
-            ref={pRef}>
-            <EditorOutput content={profile.content} />
-            {pRef.current?.clientHeight === 160 ? (
-              // blur bottom if content is too long
-              <div className='absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent'></div>
-            ) : null}
+          <div className='relative text-sm w-full' ref={pRef}>
+            {/* Removed EditorOutput */}
+            {/* Display Short Bio */}
+            {shortBio && (
+              <div className='mb-4'>
+                <p>{shortBio}</p>
+              </div>
+            )}
+
+            {/* Display Tags */}
+            {tags.length > 0 && (
+              <div className='mb-4'>
+                <div className='flex flex-wrap gap-2'>
+                  {tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className='px-2 py-1 bg-gray-200 rounded-full text-sm'>
+                      "{tag}"
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-
-      <div className='bg-gray-50 z-20 text-sm px-4 py-4 sm:px-6'>
-        <Link
-          href={`/profile/${profile.id}`}
-          className='w-fit flex items-center gap-2'>
-          <MessageSquare className='h-4 w-4' /> {commentAmt} comments
-        </Link>
       </div>
     </div>
   )
