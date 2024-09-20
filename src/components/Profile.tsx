@@ -66,26 +66,26 @@ const Profile: FC<ProfileProps> = ({
   const shortBio = extractSection(blocks, '{SHORTBIO}')
 
   return (
-    <div className='rounded-md bg-white shadow text-black p-6 flex flex-col md:flex-row items-center'>
+    <div className='rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center'>
       {/* Left Column: Profile Image */}
       <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
         <img
           src={profile.image}
           alt={`${profile.title} profile`}
-          className='w-24 h-24 rounded-full object-cover'
+          className='w-24 h-24 rounded-md object-cover'
         />
       </div>
 
       {/* Middle Column: Profile Information */}
-      <div className='flex-1 mb-4 md:mb-0'>
+      <div className='flex-1 mb-1 md:mb-0'>
         {/* Profile Title */}
         <Link href={`/profile/${profile.id}`}>
-          <h1 className='text-2xl font-semibold mb-2'>{profile.title}</h1>
+          <h1 className='text-xl font-semibold mb-1'>{profile.title}</h1>
         </Link>
 
         {/* Short Bio */}
         {shortBio && (
-          <div className='mb-4 text-gray-500 text-base'>
+          <div className='mb-0 text-gray-500 text-base'>
             <p>{shortBio}</p>
           </div>
         )}
@@ -113,7 +113,7 @@ const Profile: FC<ProfileProps> = ({
       </div>
 
       {/* Right Column: Vote Component */}
-      <div className='flex-shrink-0'>
+      <div className='flex-shrink-0 mr-10'>
         <ProfileVoteClient
           profileId={profile.id}
           leaderboardId={leaderboardId}

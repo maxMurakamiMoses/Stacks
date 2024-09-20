@@ -28,7 +28,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
     ['infinite-query', leaderboardId],
     async ({ pageParam = 1 }) => {
       const query =
-        `/api/profiles?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}&leaderboardId=${leaderboardId}`
+        `/api/fetchMoreProfile?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}&leaderboardId=${leaderboardId}`
 
       const { data } = await axios.get(query)
       return data as ExtendedProfile[]
@@ -50,7 +50,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
   const profiles = data?.pages.flatMap((page) => page) ?? initialProfiles
 
   return (
-    <ul className='flex flex-col col-span-2 space-y-6'>
+    <ul className='flex flex-col col-span-2 space-y-1'>
       {profiles.map((profile, index) => {
         // Separate upvotes and downvotes
         const upvotes = profile.votes.filter((vote: any) => vote.type === 'UP').length
