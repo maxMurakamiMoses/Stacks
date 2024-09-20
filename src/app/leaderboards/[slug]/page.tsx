@@ -3,7 +3,9 @@ import ProfileFeed from '@/components/leaderboards/leaderboardpage/ProfileFeed'
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { FaArrowLeft } from 'react-icons/fa'
 
 // Helper function to format the leaderboard name
 const formatLeaderboardName = (name: string): string => {
@@ -25,7 +27,7 @@ interface PageProps {
   }
 }
 
-const page = async ({ params }: PageProps) => {
+const Page = async ({ params }: PageProps) => { // Changed 'page' to 'Page' for React component naming convention
   const { slug } = params
 
   const session = await getAuthSession()
@@ -71,9 +73,32 @@ const page = async ({ params }: PageProps) => {
 
   return (
     <>
-      <h1 className='font-bold text-3xl md:text-4xl h-14'>
-        {formattedLeaderboardName} Leaderboard
-      </h1>
+
+      <Link href="/leaderboards" className="group flex items-center text-white hover:text-neonGreen transition-all">
+        <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
+        <span className="text-sm">Back to Leaderboards</span> {/* Smaller text size */}
+      </Link>
+
+      {/* Container for the Leaderboard Title and Squiggly Line */}
+      <div className="inline-block mt-4"> {/* Added mt-4 for spacing */}
+        <h1 className='font-bold text-3xl md:text-5xl'>
+          {formattedLeaderboardName} Leaderboard
+        </h1>
+        <svg
+          className="w-full h-6 mt-1" // Reduced height for smaller amplitude
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 200 20" // Adjusted viewBox for more frequent waves
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,10 Q10,15 20,10 T40,10 T60,10 T80,10 T100,10 T120,10 T140,10 T160,10 T180,10 T200,10"
+            stroke="#00FF00"
+            strokeWidth="1"
+            fill="none"
+          />
+        </svg>
+      </div>
+
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
@@ -86,4 +111,4 @@ const page = async ({ params }: PageProps) => {
   )
 }
 
-export default page
+export default Page
