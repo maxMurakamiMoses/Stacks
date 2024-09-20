@@ -2,8 +2,9 @@
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
-import { FC, useRef } from 'react'
+import { FC, useRef, MouseEvent } from 'react'
 import ProfileVoteClient from './vote/ProfileVoteClient'
+import { useRouter } from 'next/navigation'
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -53,7 +54,7 @@ const Profile: FC<ProfileProps> = ({
   leaderboardId,
   commentAmt,
 }) => {
-  const pRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   // Ensure profile.content.blocks exists
   const blocks = profile.content?.blocks || []
@@ -65,8 +66,21 @@ const Profile: FC<ProfileProps> = ({
   // Extract SHORTBIO
   const shortBio = extractSection(blocks, '{SHORTBIO}')
 
+  // Handle card click
+  const handleCardClick = () => {
+    router.push(`/profile/${profile.id}`)
+  }
+
+  // Prevent card click when clicking on voting section
+  const handleVoteClick = (e: MouseEvent) => {
+    e.stopPropagation()
+  }
+
   return (
-    <div className='rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center'>
+    <div
+      className='rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer'
+      onClick={handleCardClick}
+    >
       {/* Left Column: Profile Image */}
       <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
         <img
@@ -79,8 +93,8 @@ const Profile: FC<ProfileProps> = ({
       {/* Middle Column: Profile Information */}
       <div className='flex-1 mb-1 md:mb-0'>
         {/* Profile Title */}
-        <Link href={`/profile/${profile.id}`}>
-          <h1 className='text-xl font-semibold mb-1'>{profile.title}</h1>
+        <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
+          <h1 className='text-xl font-semibold mb-1 hover:underline'>{profile.title}</h1>
         </Link>
 
         {/* Short Bio */}
@@ -93,7 +107,7 @@ const Profile: FC<ProfileProps> = ({
         {/* Comments and Tags */}
         <div className='flex items-center'>
           {/* Comments */}
-          <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500 mr-4'>
+          <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500 mr-4' onClick={(e) => e.stopPropagation()}>
             <MessageSquare className='h-5 w-5 mr-1' />
             <span>{commentAmt}</span>
           </Link>
@@ -113,7 +127,10 @@ const Profile: FC<ProfileProps> = ({
       </div>
 
       {/* Right Column: Vote Component */}
-      <div className='flex-shrink-0 mr-10'>
+      <div
+        className='flex-shrink-0 mr-10'
+        onClick={handleVoteClick} // Prevents the card's onClick from triggering
+      >
         <ProfileVoteClient
           profileId={profile.id}
           leaderboardId={leaderboardId}

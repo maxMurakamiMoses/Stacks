@@ -39,6 +39,7 @@ const page = async ({ params }: PageProps) => {
             include: {
               author: true,
               comments: true,
+
             },
           },
           votes: true,
@@ -64,6 +65,8 @@ const page = async ({ params }: PageProps) => {
     votes: pol.votes,
     leaderboardId: leaderboard.id, // Include leaderboardId for votes
     leaderboard: leaderboard, // Include the leaderboard property
+    image: pol.profile.image ?? '', // Ensure `image` is present
+    verified: pol.profile.verified ?? false, // Ensure `verified` is present
   }))
 
   return (
