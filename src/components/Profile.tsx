@@ -56,32 +56,27 @@ const Profile: FC<ProfileProps> = ({
 }) => {
   const router = useRouter()
 
-  // Ensure profile.content.blocks exists
   const blocks = profile.content?.blocks || []
 
-  // Extract TAGS
   const tagsString = extractSection(blocks, '{TAGS}')
   const tags = tagsString ? extractTags(tagsString) : []
 
-  // Extract SHORTBIO
   const shortBio = extractSection(blocks, '{SHORTBIO}')
 
-  // Handle card click
   const handleCardClick = () => {
     router.push(`/profile/${profile.id}`)
   }
 
-  // Prevent card click when clicking on voting section
   const handleVoteClick = (e: MouseEvent) => {
     e.stopPropagation()
   }
 
   return (
     <div
-      className='rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer'
-      onClick={handleCardClick}
+    className='rounded-md bg-gradient-to-r shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer'
+    style={{background: 'linear-gradient(to right, #f0fff4, white, white, white)'}} 
+    onClick={handleCardClick}
     >
-      {/* Left Column: Profile Image */}
       <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
         <img
           src={profile.image}
@@ -90,29 +85,23 @@ const Profile: FC<ProfileProps> = ({
         />
       </div>
 
-      {/* Middle Column: Profile Information */}
       <div className='flex-1 mb-1 md:mb-0'>
-        {/* Profile Title */}
         <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
           <h1 className='text-xl font-semibold mb-1 hover:underline'>{profile.title}</h1>
         </Link>
 
-        {/* Short Bio */}
         {shortBio && (
           <div className='mb-0 text-gray-500 text-base'>
             <p>{shortBio}</p>
           </div>
         )}
 
-        {/* Comments and Tags */}
         <div className='flex items-center'>
-          {/* Comments */}
           <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500 mr-4' onClick={(e) => e.stopPropagation()}>
             <MessageSquare className='h-5 w-5 mr-1' />
             <span>{commentAmt}</span>
           </Link>
 
-          {/* Tags */}
           {tags.length > 0 && (
             <div className='flex items-center text-sm text-gray-500'>
               {tags.map((tag, index) => (
@@ -126,10 +115,9 @@ const Profile: FC<ProfileProps> = ({
         </div>
       </div>
 
-      {/* Right Column: Vote Component */}
       <div
         className='flex-shrink-0 mr-10'
-        onClick={handleVoteClick} // Prevents the card's onClick from triggering
+        onClick={handleVoteClick}
       >
         <ProfileVoteClient
           profileId={profile.id}
