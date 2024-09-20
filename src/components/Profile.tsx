@@ -1,6 +1,4 @@
 'use client'
-
-import { formatTimeToNow } from '@/lib/utils'
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
@@ -15,7 +13,7 @@ interface ProfileProps {
     votes: Vote[]
     content: any
     createdAt: string | Date
-    image: String
+    image: string // Changed from String to string for TypeScript consistency
     verified: boolean
   }
   votesAmt: number
@@ -25,7 +23,7 @@ interface ProfileProps {
   leaderboardId: string
 }
 
-const extractSection = (blocks, sectionTitle) => {
+const extractSection = (blocks: any[], sectionTitle: string): string | null => {
   const sectionIndex = blocks.findIndex(
     (block) => block.type === 'header' && block.data.text === sectionTitle
   )
@@ -35,9 +33,9 @@ const extractSection = (blocks, sectionTitle) => {
   return null
 }
 
-const extractTags = (tagsString) => {
+const extractTags = (tagsString: string): string[] => {
   const regex = /\[([^\]]+)\]/g
-  const tags = []
+  const tags: string[] = []
   let match
   while ((match = regex.exec(tagsString)) !== null) {
     tags.push(match[1])
@@ -66,60 +64,64 @@ const Profile: FC<ProfileProps> = ({
   const shortBio = extractSection(blocks, '{SHORTBIO}')
 
   return (
-    <div className='rounded-md bg-white shadow'>
-      <div className='px-6 py-4 flex justify-between'>
-        <ProfileVoteClient
-          profileId={profile.id}
-          leaderboardId={leaderboardId}
-          initialVotesAmt={_votesAmt}
-          initialVote={_currentVote?.type}
-        />
+    <div className='rounded-md bg-white shadow text-black'>
+      <div className='px-6 py-2 flex items-start'>
+        {/* Left Side: Profile Image */}
+        <div className='mr-4 flex-shrink-0'>
+          <img
+            src={profile.image}
+            alt={`${profile.title} profile`}
+            className='w-12 h-12 rounded-full object-cover'
+          />
+        </div>
 
-        <div className='w-0 flex-1'>
-          <div className='max-h-40 mt-1 text-xs text-gray-500'>
-            {leaderboardName ? (
-              <>
-                <a
-                  className='underline text-zinc-900 text-sm underline-offset-2'
-                  href={`/leaderboards/${leaderboardName}`}>
-                  leaderboards/{leaderboardName}
-                </a>
-                <span className='px-1'>•</span>
-              </>
-            ) : null}
-            <span>Posted by u/{profile.author.username}</span>{' '}
-            {formatTimeToNow(new Date(profile.createdAt))}
-          </div>
-          <a href={`/profile/${profile.id}`}>
-            <h1 className='text-lg font-semibold py-2 leading-6 text-gray-900'>
+        {/* Middle: Profile Information */}
+        <div className='flex-1'>
+          {/* Profile Title */}
+          <Link href={`/profile/${profile.id}`}>
+            <h1 className='text-lg font-semibold py-2 leading-6'>
               {profile.title}
             </h1>
-          </a>
+          </Link>
 
-          <div className='relative text-sm w-full' ref={pRef}>
-            {/* Removed EditorOutput */}
-            {/* Display Short Bio */}
-            {shortBio && (
-              <div className='mb-4'>
-                <p>{shortBio}</p>
-              </div>
-            )}
+          {/* Short Bio */}
+          {shortBio && (
+            <div className='mb-2 text-gray-500 text-[16px]'>
+              <p>{shortBio}</p>
+            </div>
+          )}
 
-            {/* Display Tags */}
+          {/* Comments and Tags on the Same Line */}
+          <div className='flex items-center'>
+            {/* Comments */}
+            <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500'>
+              <MessageSquare className='h-4 w-4 mr-1 text-gray-500' />
+              <span className='text-gray-500'>{commentAmt}</span>
+            </Link>
+
+            {/* Tags */}
             {tags.length > 0 && (
-              <div className='mb-4'>
-                <div className='flex flex-wrap gap-2'>
-                  {tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className='px-2 py-1 bg-gray-200 rounded-full text-sm'>
-                      "{tag}"
-                    </span>
-                  ))}
-                </div>
+              <div className='ml-4 flex items-center text-sm text-gray-500'>
+                {tags.map((tag) => (
+                  <span key={tag} className='flex items-center'>
+                    {/* Leading Dot */}
+                    <span className='mx-2 text-gray-400'>•</span>
+                    <span>{tag}</span>
+                  </span>
+                ))}
               </div>
             )}
           </div>
+        </div>
+
+        {/* Right Side: Vote Component */}
+        <div className='ml-4'>
+          <ProfileVoteClient
+            profileId={profile.id}
+            leaderboardId={leaderboardId}
+            initialVotesAmt={_votesAmt}
+            initialVote={_currentVote?.type}
+          />
         </div>
       </div>
     </div>
