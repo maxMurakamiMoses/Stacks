@@ -52,23 +52,22 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
   return (
     <ul className='flex flex-col col-span-2 space-y-6'>
       {profiles.map((profile, index) => {
-        const votesAmt = profile.votes.reduce((acc: number, vote: any) => {
-          if (vote.type === 'UP') return acc + 1
-          if (vote.type === 'DOWN') return acc - 1
-          return acc
-        }, 0)
-
+        // Separate upvotes and downvotes
+        const upvotes = profile.votes.filter((vote: any) => vote.type === 'UP').length
+        const downvotes = profile.votes.filter((vote: any) => vote.type === 'DOWN').length
+  
         const currentVote = profile.votes.find(
           (vote: any) => vote.userId === session?.user.id
         )
-
+  
         if (index === profiles.length - 1) {
           return (
             <li key={profile.id} ref={ref}>
               <Profile
                 profile={profile}
                 commentAmt={profile.comments.length}
-                votesAmt={votesAmt}
+                upvotes={upvotes}
+                downvotes={downvotes}
                 currentVote={currentVote}
                 leaderboardName={leaderboardName}
                 leaderboardId={profile.leaderboard?.id || ''}
@@ -81,7 +80,8 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
               key={profile.id}
               profile={profile}
               commentAmt={profile.comments.length}
-              votesAmt={votesAmt}
+              upvotes={upvotes}
+              downvotes={downvotes}
               currentVote={currentVote}
               leaderboardName={leaderboardName}
               leaderboardId={profile.leaderboard?.id || ''}
@@ -89,7 +89,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
           )
         }
       })}
-
+  
       {isFetchingNextPage && (
         <li className='flex justify-center'>
           <Loader2 className='w-6 h-6 text-zinc-500 animate-spin' />
@@ -97,6 +97,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
       )}
     </ul>
   )
+
 }
 
 export default ProfileFeed

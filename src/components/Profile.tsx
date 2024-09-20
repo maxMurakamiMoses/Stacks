@@ -13,10 +13,11 @@ interface ProfileProps {
     votes: Vote[]
     content: any
     createdAt: string | Date
-    image: string // Changed from String to string for TypeScript consistency
+    image: string
     verified: boolean
   }
-  votesAmt: number
+  upvotes: number
+  downvotes: number
   currentVote?: PartialVote
   commentAmt: number
   leaderboardName?: string
@@ -45,8 +46,9 @@ const extractTags = (tagsString: string): string[] => {
 
 const Profile: FC<ProfileProps> = ({
   profile,
-  votesAmt: _votesAmt,
-  currentVote: _currentVote,
+  upvotes,
+  downvotes,
+  currentVote,
   leaderboardName,
   leaderboardId,
   commentAmt,
@@ -64,65 +66,61 @@ const Profile: FC<ProfileProps> = ({
   const shortBio = extractSection(blocks, '{SHORTBIO}')
 
   return (
-    <div className='rounded-md bg-white shadow text-black'>
-      <div className='px-6 py-2 flex items-start'>
-        {/* Left Side: Profile Image */}
-        <div className='mr-4 flex-shrink-0'>
-          <img
-            src={profile.image}
-            alt={`${profile.title} profile`}
-            className='w-12 h-12 rounded-full object-cover'
-          />
-        </div>
+    <div className='rounded-md bg-white shadow text-black p-6 flex flex-col md:flex-row items-center'>
+      {/* Left Column: Profile Image */}
+      <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
+        <img
+          src={profile.image}
+          alt={`${profile.title} profile`}
+          className='w-24 h-24 rounded-full object-cover'
+        />
+      </div>
 
-        {/* Middle: Profile Information */}
-        <div className='flex-1'>
-          {/* Profile Title */}
-          <Link href={`/profile/${profile.id}`}>
-            <h1 className='text-lg font-semibold py-2 leading-6'>
-              {profile.title}
-            </h1>
+      {/* Middle Column: Profile Information */}
+      <div className='flex-1 mb-4 md:mb-0'>
+        {/* Profile Title */}
+        <Link href={`/profile/${profile.id}`}>
+          <h1 className='text-2xl font-semibold mb-2'>{profile.title}</h1>
+        </Link>
+
+        {/* Short Bio */}
+        {shortBio && (
+          <div className='mb-4 text-gray-500 text-base'>
+            <p>{shortBio}</p>
+          </div>
+        )}
+
+        {/* Comments and Tags */}
+        <div className='flex items-center'>
+          {/* Comments */}
+          <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500 mr-4'>
+            <MessageSquare className='h-5 w-5 mr-1' />
+            <span>{commentAmt}</span>
           </Link>
 
-          {/* Short Bio */}
-          {shortBio && (
-            <div className='mb-2 text-gray-500 text-[16px]'>
-              <p>{shortBio}</p>
+          {/* Tags */}
+          {tags.length > 0 && (
+            <div className='flex items-center text-sm text-gray-500'>
+              {tags.map((tag, index) => (
+                <span key={tag} className='flex items-center'>
+                  {index !== 0 && <span className='mx-2 text-gray-400'>•</span>}
+                  <span>{tag}</span>
+                </span>
+              ))}
             </div>
           )}
-
-          {/* Comments and Tags on the Same Line */}
-          <div className='flex items-center'>
-            {/* Comments */}
-            <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500'>
-              <MessageSquare className='h-4 w-4 mr-1 text-gray-500' />
-              <span className='text-gray-500'>{commentAmt}</span>
-            </Link>
-
-            {/* Tags */}
-            {tags.length > 0 && (
-              <div className='ml-4 flex items-center text-sm text-gray-500'>
-                {tags.map((tag) => (
-                  <span key={tag} className='flex items-center'>
-                    {/* Leading Dot */}
-                    <span className='mx-2 text-gray-400'>•</span>
-                    <span>{tag}</span>
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
+      </div>
 
-        {/* Right Side: Vote Component */}
-        <div className='ml-4'>
-          <ProfileVoteClient
-            profileId={profile.id}
-            leaderboardId={leaderboardId}
-            initialVotesAmt={_votesAmt}
-            initialVote={_currentVote?.type}
-          />
-        </div>
+      {/* Right Column: Vote Component */}
+      <div className='flex-shrink-0'>
+        <ProfileVoteClient
+          profileId={profile.id}
+          leaderboardId={leaderboardId}
+          initialUpvotesAmt={upvotes}
+          initialDownvotesAmt={downvotes}
+          initialVote={currentVote?.type}
+        />
       </div>
     </div>
   )

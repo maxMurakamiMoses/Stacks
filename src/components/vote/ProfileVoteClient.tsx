@@ -9,13 +9,14 @@ import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from '../../hooks/use-toast'
 import { Button } from '../ui/Button'
-import { ArrowBigDown, ArrowBigUp } from 'lucide-react'
+import { Triangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ProfileVoteClientProps {
   profileId: string
   leaderboardId: string
-  initialVotesAmt: number
+  initialUpvotesAmt: number
+  initialDownvotesAmt: number
   initialVote?: VoteType | null
   disableVoting?: boolean
 }
@@ -23,13 +24,15 @@ interface ProfileVoteClientProps {
 const ProfileVoteClient = ({
   profileId,
   leaderboardId,
-  initialVotesAmt,
+  initialUpvotesAmt,
+  initialDownvotesAmt,
   initialVote,
   disableVoting = false,
 }: ProfileVoteClientProps) => {
   const { loginToast } = useCustomToasts()
-  const [votesAmt, setVotesAmt] = useState<number>(initialVotesAmt)
-  const [currentVote, setCurrentVote] = useState(initialVote)
+  const [upvotesAmt, setUpvotesAmt] = useState<number>(initialUpvotesAmt)
+  const [downvotesAmt, setDownvotesAmt] = useState<number>(initialDownvotesAmt)
+  const [currentVote, setCurrentVote] = useState<VoteType | undefined>(initialVote)
   const prevVote = usePrevious(currentVote)
 
   // Ensure sync with server
@@ -50,8 +53,8 @@ const ProfileVoteClient = ({
       await axios.patch('/api/leaderboard/profile/vote', payload)
     },
     onError: (err, voteType) => {
-      if (voteType === 'UP') setVotesAmt((prev) => prev - 1)
-      else setVotesAmt((prev) => prev + 1)
+      if (voteType === 'UP') setUpvotesAmt((prev) => prev - 1)
+      else setDownvotesAmt((prev) => prev - 1)
 
       // Reset current vote
       setCurrentVote(prevVote)
@@ -70,16 +73,22 @@ const ProfileVoteClient = ({
     },
     onMutate: (type: VoteType) => {
       if (currentVote === type) {
-        // User is voting the same way again, so remove their vote
+        // User is removing their vote
         setCurrentVote(undefined)
-        if (type === 'UP') setVotesAmt((prev) => prev - 1)
-        else if (type === 'DOWN') setVotesAmt((prev) => prev + 1)
+        if (type === 'UP') setUpvotesAmt((prev) => prev - 1)
+        else if (type === 'DOWN') setDownvotesAmt((prev) => prev - 1)
       } else {
-        // User is voting in the opposite direction
+        // User is changing or adding their vote
+        if (currentVote === 'UP') {
+          setUpvotesAmt((prev) => prev - 1)
+        } else if (currentVote === 'DOWN') {
+          setDownvotesAmt((prev) => prev - 1)
+        }
+
         setCurrentVote(type)
-        if (type === 'UP') setVotesAmt((prev) => prev + (currentVote ? 2 : 1))
-        else if (type === 'DOWN')
-          setVotesAmt((prev) => prev - (currentVote ? 2 : 1))
+
+        if (type === 'UP') setUpvotesAmt((prev) => prev + 1)
+        else if (type === 'DOWN') setDownvotesAmt((prev) => prev + 1)
       }
     },
   })
@@ -90,39 +99,44 @@ const ProfileVoteClient = ({
   }
 
   return (
-    <div className='flex flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0'>
-      {/* Upvote */}
-      <Button
-        onClick={() => handleVote('UP')}
-        size='sm'
-        variant='ghost'
-        aria-label='upvote'
-        disabled={disableVoting}>
-        <ArrowBigUp
-          className={cn('h-5 w-5 text-zinc-700', {
-            'text-emerald-500 fill-emerald-500': currentVote === 'UP',
-          })}
-        />
-      </Button>
+    <div className='flex space-x-2'>
+      {/* Upvotes Box */}
+      <div className='flex flex-col items-center p-1 bg-transparent rounded-lg border border-gray-300'>
+        <Button
+          onClick={() => handleVote('UP')}
+          size='sm'
+          variant='ghost'
+          aria-label='upvote'
+          disabled={disableVoting}
+          className='hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none'>
+          <Triangle
+            className={cn('h-5 w-5', {
+              'text-emerald-500 fill-emerald-500': currentVote === 'UP',
+              'text-zinc-700': currentVote !== 'UP',
+            })}
+          />
+        </Button>
+        <span className='text-sm font-semibold text-gray-900 mt-[-5px]'>{upvotesAmt}</span>
+      </div>
 
-      {/* Score */}
-      <p className='text-center py-2 font-medium text-sm text-zinc-900'>
-        {votesAmt}
-      </p>
-
-      {/* Downvote */}
-      <Button
-        onClick={() => handleVote('DOWN')}
-        size='sm'
-        variant='ghost'
-        aria-label='downvote'
-        disabled={disableVoting}>
-        <ArrowBigDown
-          className={cn('h-5 w-5 text-zinc-700', {
-            'text-red-500 fill-red-500': currentVote === 'DOWN',
-          })}
-        />
-      </Button>
+      {/* Downvotes Box */}
+      <div className='flex flex-col items-center p-1 bg-transparent rounded-lg border border-gray-300'>
+        <Button
+          onClick={() => handleVote('DOWN')}
+          size='sm'
+          variant='ghost'
+          aria-label='downvote'
+          disabled={disableVoting}
+          className='hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none'>
+          <Triangle
+            className={cn('h-5 w-5 transform rotate-180', {
+              'text-red-500 fill-red-500': currentVote === 'DOWN',
+              'text-zinc-700': currentVote !== 'DOWN',
+            })}
+          />
+        </Button>
+        <span className='text-sm font-semibold text-gray-900 mt-[-5px]'>{downvotesAmt}</span>
+      </div>
     </div>
   )
 }
