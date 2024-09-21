@@ -47,7 +47,7 @@ const Layout = async ({
 
           {/* info sidebar */}
           <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last'>
-            {/* ...rest of the sidebar code */}
+            <p>hasd as d asd as d as d a s a da sd a sd a s d as d a sd i</p>
           </div>
         </div>
       </div>

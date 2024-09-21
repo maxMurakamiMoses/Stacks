@@ -84,6 +84,14 @@ module.exports = {
             backgroundPosition: "-200% 0",
           },
         },
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
         'accordion-down': {
           from: { height: '0' },
           to: { height: 'var(--radix-accordion-content-height)' },
@@ -95,6 +103,7 @@ module.exports = {
       },
       animation: {
         shimmer: 'shimmer 2s linear infinite',
+        aurora: "aurora 60s linear infinite",
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },

@@ -58,11 +58,8 @@ const LeaderboardProfilePage = async ({
             <h2 className='text-lg font-semibold'>Vote Counts per Leaderboard:</h2>
             <ul className='mt-2 space-y-4'>
               {profile.profilesOnLeaderboards.map((pol) => {
-                const votesAmt = pol.votes.reduce((acc, vote) => {
-                  if (vote.type === 'UP') return acc + 1
-                  if (vote.type === 'DOWN') return acc - 1
-                  return acc
-                }, 0)
+                const upvotesAmt = pol.votes.filter(vote => vote.type === 'UP').length
+                const downvotesAmt = pol.votes.filter(vote => vote.type === 'DOWN').length
 
                 // Find the current user's vote
                 const currentVote = pol.votes.find(
@@ -86,11 +83,11 @@ const LeaderboardProfilePage = async ({
                       {/* @ts-expect-error Server Component */}
                       <ProfileVoteServer
                         profileId={profile.id}
-                        leaderboardId={pol.leaderboard.id} // Provide leaderboardId here
-                        initialVotesAmt={votesAmt}
+                        leaderboardId={pol.leaderboard.id}
+                        initialUpvotesAmt={upvotesAmt}
+                        initialDownvotesAmt={downvotesAmt}
                         initialVote={currentVote?.type}
                         getData={async () => {
-                          // Fetch data needed for voting
                           return await db.profile.findUnique({
                             where: {
                               id: profile.id,
