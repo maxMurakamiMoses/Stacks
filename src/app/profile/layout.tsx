@@ -5,11 +5,12 @@ import { format } from 'date-fns'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ReactNode } from 'react'
+import { ReactNode, Suspense } from 'react'
+import ProfileVoteServer from '@/components/vote/ProfileVoteServer'
 
 export const metadata: Metadata = {
   title: 'Stacks',
-  description: 'A place for biohackers, nerd, and athletes.',
+  description: 'A place for biohackers, nerds, and athletes.',
 }
 
 const Layout = async ({
@@ -21,33 +22,101 @@ const Layout = async ({
 }) => {
   const session = await getAuthSession()
 
-  const leaderboard = await db.leaderboard.findFirst({
-    where: { name: slug },
+  const profile = await db.profile.findFirst({
+    where: {
+      slug,
+    },
     include: {
+      author: true,
       profilesOnLeaderboards: {
         include: {
-          profile: {
-            include: {
-              author: true,
-            },
-          },
+          leaderboard: true,
           votes: true,
         },
       },
     },
   })
 
-  if (!leaderboard) return notFound()
+  if (!profile) return notFound()
+
+  const formatLeaderboardName = (name: string): string => {
+    if (name.includes('-')) {
+      // Split by hyphen, capitalize each word, and join with spaces
+      return name
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ')
+    } else {
+      // Capitalize the first letter of the single word
+      return name.charAt(0).toUpperCase() + name.slice(1)
+    }
+  }
+  
 
   return (
-    <div className='sm:container max-w-7xl mx-auto h-full pt-12'>
+    <div className='sm:container max-w-7xl mx-auto h-full pt-20'>
       <div>
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6'>
-          <ul className='flex flex-col col-span-2 space-y-6'>{children}</ul>
+        <div className='grid grid-cols-1 lg:grid-cols-4 gap-y-4 md:gap-x-4 py-6'>
+          <ul className='flex flex-col col-span-3 space-y-6'>{children}</ul>
 
           {/* info sidebar */}
-          <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last'>
-            <p>hasd as d asd as d as d a s a da sd a sd a s d as d a sd i</p>
+          <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first lg:order-last'>
+            <div className='my-8 mx-8 lg:my-2 lg:mx-2'>
+
+              <h2 className='text-lg font-semibold'>Leaderboard Rankings</h2>
+              <ul className='mt-2 space-y-4'>
+                {profile.profilesOnLeaderboards.map((pol) => {
+                  const upvotesAmt = pol.votes.filter(vote => vote.type === 'UP').length
+                  const downvotesAmt = pol.votes.filter(vote => vote.type === 'DOWN').length
+
+                  // Find the current user's vote
+                  const currentVote = pol.votes.find(
+                    (vote) => vote.userId === session?.user.id
+                  )
+
+                  return (
+                    <li
+                      key={pol.leaderboard.id}
+                      className='flex items-center justify-between'>
+                      <div className='flex items-center'>
+                        <Link href={`/leaderboards/${pol.leaderboard.name}`} passHref>
+                         {formatLeaderboardName(pol.leaderboard.name)}
+                        </Link>
+                      </div>
+                      {/* Voting Component */}
+                      <Suspense fallback={<div>Loading...</div>}>
+                        {/* @ts-expect-error Server Component */}
+                        <ProfileVoteServer
+                          profileId={profile.id}
+                          leaderboardId={pol.leaderboard.id}
+                          initialUpvotesAmt={upvotesAmt}
+                          initialDownvotesAmt={downvotesAmt}
+                          initialVote={currentVote?.type}
+                          getData={async () => {
+                            return await db.profile.findUnique({
+                              where: {
+                                id: profile.id,
+                              },
+                              include: {
+                                profilesOnLeaderboards: {
+                                  where: {
+                                    leaderboardId: pol.leaderboard.id,
+                                  },
+                                  include: {
+                                    leaderboard: true,
+                                    votes: true,
+                                  },
+                                },
+                              },
+                            })
+                          }}
+                        />
+                      </Suspense>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

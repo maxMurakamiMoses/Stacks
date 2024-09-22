@@ -1,6 +1,5 @@
 import CommentsSection from '@/components/comments/CommentsSection'
 import EditorOutput from '@/components/EditorOutput'
-import ProfileVoteServer from '@/components/vote/ProfileVoteServer'
 import { db } from '@/lib/db'
 import { formatTimeToNow } from '@/lib/utils'
 import { Loader2 } from 'lucide-react'
@@ -40,78 +39,21 @@ const LeaderboardProfilePage = async ({
   if (!profile) return notFound()
 
   return (
-    <div>
-      <div className='h-full flex flex-col sm:flex-row items-center sm:items-start justify-between'>
-        <div className='sm:w-0 w-full flex-1 bg-white p-4 rounded-sm'>
-          <p className='max-h-40 mt-1 truncate text-xs text-gray-500'>
-            Created by u/{profile.author.username}{' '}
-            {formatTimeToNow(new Date(profile.createdAt))}
-          </p>
+    <div className='h-full flex flex-col sm:flex-row items-center sm:items-start justify-between'>
+      <div className='relative flex-1 p-4 flex'>
+        {/* Profile Image */}
+        <div className="flex-shrink-0">
+          <img
+            src={profile.image || '/default-avatar.png'} // Adjust the path as necessary
+            className='w-16 h-16 rounded-md'
+          />
+        </div>
+        <div className='flex-1 ml-4'>
           <h1 className='text-xl font-semibold py-2 leading-6 text-gray-900'>
             {profile.title}
           </h1>
 
           <EditorOutput content={profile.content} />
-
-          {/* Display vote counts and enable voting per leaderboard */}
-          <div className='mt-6'>
-            <h2 className='text-lg font-semibold'>Vote Counts per Leaderboard:</h2>
-            <ul className='mt-2 space-y-4'>
-              {profile.profilesOnLeaderboards.map((pol) => {
-                const upvotesAmt = pol.votes.filter(vote => vote.type === 'UP').length
-                const downvotesAmt = pol.votes.filter(vote => vote.type === 'DOWN').length
-
-                // Find the current user's vote
-                const currentVote = pol.votes.find(
-                  (vote) => vote.userId === session?.user.id
-                )
-
-                return (
-                  <li
-                    key={pol.leaderboard.id}
-                    className='flex items-center justify-between'>
-                    <div className='flex items-center'>
-                      <span className='mr-2'>Leaderboard:</span>
-                      <a
-                        href={`/leaderboards/${pol.leaderboard.name}`}
-                        className='text-blue-500 underline'>
-                        {pol.leaderboard.name}
-                      </a>
-                    </div>
-                    {/* Voting Component */}
-                    <Suspense fallback={<div>Loading...</div>}>
-                      {/* @ts-expect-error Server Component */}
-                      <ProfileVoteServer
-                        profileId={profile.id}
-                        leaderboardId={pol.leaderboard.id}
-                        initialUpvotesAmt={upvotesAmt}
-                        initialDownvotesAmt={downvotesAmt}
-                        initialVote={currentVote?.type}
-                        getData={async () => {
-                          return await db.profile.findUnique({
-                            where: {
-                              id: profile.id,
-                            },
-                            include: {
-                              profilesOnLeaderboards: {
-                                where: {
-                                  leaderboardId: pol.leaderboard.id,
-                                },
-                                include: {
-                                  leaderboard: true,
-                                  votes: true,
-                                },
-                              },
-                            },
-                          })
-                        }}
-                      />
-                    </Suspense>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
 
           <Suspense
             fallback={
