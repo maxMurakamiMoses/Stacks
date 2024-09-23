@@ -2,37 +2,34 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import {
-  IconBoxAlignRightFilled,
-  IconClipboardCopy,
-  IconFileBroken,
-  IconSignature,
-  IconTableColumn,
-} from "@tabler/icons-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export function Bento() {
   return (
-    <div className="bg-[#F0FDF4] py-8">
-      <h1 className="text-3xl md:text-7xl text-center font-bold dark:text-white tracking-tight pb-8">
-        Your Front Page on Health
-      </h1>
-      <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[20rem]">
-        {items.map((item, i) => (
-          <BentoGridItem
-            key={i}
-            title={item.title}
-            description={item.description}
-            header={item.header}
-            className={cn("[&>p:text-lg]", item.className)}
-            icon={item.icon}
-          />
-        ))}
-      </BentoGrid>
+    <div className="bg-[#F0FDF4] pt-10">
+      <div className="bg-white rounded-t-[140px] p-4">
+        <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight pt-12 pb-6">
+          The Front Page of Health
+        </h1>
+        <div className="max-w-7xl mx-auto gap-8">
+          <BentoGrid className="md:auto-rows-[20rem]">
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                className={cn("[&>p:text-lg]", item.className)}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+      </div>
     </div>
   );
 }
+
 
 
 const SkeletonOne = () => {
@@ -225,7 +222,6 @@ const items = [
     ),
     header: <SkeletonOne />,
     className: "md:col-span-1",
-    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Popular Stacks",
@@ -236,7 +232,6 @@ const items = [
     ),
     header: <SkeletonFour />,
     className: "md:col-span-2",
-    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Top Stories in the Health Space",
@@ -247,7 +242,6 @@ const items = [
     ),
     header: <SkeletonFour />,
     className: "md:col-span-2",
-    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
   },
 
 
@@ -260,6 +254,5 @@ const items = [
     ),
     header: <SkeletonTwo />,
     className: "md:col-span-1",
-    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
 ];

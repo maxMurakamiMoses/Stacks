@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useScroll, useTransform} from 'framer-motion'
 import { useRef } from 'react';
+import { Bento } from './Bento';
+import { CardStackSection } from '../leaderboards/CardStack';
 
 export const Hero = () => {
     const heroRef = useRef(null);
@@ -25,7 +27,6 @@ export const Hero = () => {
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-b from-black via-black to-[#1AB331] text-transparent bg-clip-text mt-6" style={{ backgroundImage: 'linear-gradient(to bottom, black 65%, #1AB331)' }}>Stacks.</h1>
                     <p className="text-xl text-[#010D3E] tracking-tight mt-6">
                     Biohacker, nerd or athlete? This is for you. <br />
-                    Discover popular stacks, stay up to date on new discoveries, and join the ecosystem of individuals taking their health into their own hands. 
                     </p>
                     <div className="flex gap-1 items-center mt-[30px]">
                         <Link href="/top-stacks" className="btn btn-primary">Learn More</Link>
@@ -35,8 +36,10 @@ export const Hero = () => {
                         </Link>
                     </div>
                 </div>
-                <div className='mt-20 md:mt-0 md:h-[648px] md:flex-1 relative'>
+                <div className='pl-14 mt-20 md:mt-0 md:h-[648px] md:flex-1 relative flex items-center justify-center'>
+                    <CardStackSection />
                 </div>
+
           </div>
         </div>
       </section>
