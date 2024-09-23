@@ -14,20 +14,26 @@ import Image from "next/image";
 
 export function Bento() {
   return (
-    <BentoGrid className="max-w-4xl mx-auto md:auto-rows-[20rem]">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          className={cn("[&>p:text-lg]", item.className)}
-          icon={item.icon}
-        />
-      ))}
-    </BentoGrid>
+    <div className="bg-[#F0FDF4] py-8">
+      <h1 className="text-3xl md:text-7xl text-center font-bold dark:text-white tracking-tight pb-8">
+        Your Front Page on Health
+      </h1>
+      <BentoGrid className="max-w-7xl mx-auto md:auto-rows-[20rem]">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            className={cn("[&>p:text-lg]", item.className)}
+            icon={item.icon}
+          />
+        ))}
+      </BentoGrid>
+    </div>
   );
 }
+
 
 const SkeletonOne = () => {
   const variants = {
