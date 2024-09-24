@@ -65,7 +65,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profileId }) => {
     const fetchData = async () => {
       try {
         const [profileRes, leaderboardsRes] = await Promise.all([
-          axios.get(`/api/tempProfile/update/${profileId}`),
+          axios.get(`/api/profile/update/${profileId}`),
           axios.get('/api/leaderboard/getAll'),
         ])
 
@@ -151,7 +151,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profileId }) => {
         leaderboards: data.leaderboards,
       }
   
-      const res = await axios.put('/api/tempProfile/update/', payload)
+      const res = await axios.put('/api/profile/update/', payload)
   
       if (res.status === 200) {
         toast({

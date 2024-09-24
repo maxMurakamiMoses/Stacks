@@ -27,7 +27,7 @@ const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
       const payload: CommentRequest = { profileId, text, replyToId }
 
       const { data } = await axios.patch(
-        `/api/tempProfile/comment`,
+        `/api/profile/comment`,
         payload
       )
       return data

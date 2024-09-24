@@ -53,7 +53,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
   const { mutate: createProfile } = useMutation({
     mutationFn: async ({ title, content, leaderboardIds }: ProfileCreationRequest) => {
       const payload: ProfileCreationRequest = { title, content, leaderboardIds }
-      const { data } = await axios.post('/api/tempProfile/create', payload)
+      const { data } = await axios.post('/api/profile/create', payload)
       return data
     },
     onError: () => {

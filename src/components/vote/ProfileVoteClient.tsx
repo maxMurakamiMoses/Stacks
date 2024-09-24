@@ -50,7 +50,7 @@ const ProfileVoteClient = ({
         leaderboardId,
       }
 
-      await axios.patch('/api/tempProfile/vote', payload)
+      await axios.patch('/api/profile/vote', payload)
     },
     onError: (err, voteType) => {
       if (voteType === 'UP') setUpvotesAmt((prev) => prev - 1)
