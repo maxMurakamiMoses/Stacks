@@ -78,7 +78,7 @@ const Profile: FC<ProfileProps> = ({
     >
       {/* Gradient Overlay */}
       <div
-        className='absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-white transition-all duration-500 ease-in-out w-0 group-hover:w-3/4 z-0'
+        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-400 via-green-200 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
       ></div>
 
       {/* Content Wrapper */}
