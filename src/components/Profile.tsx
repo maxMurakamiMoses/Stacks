@@ -73,12 +73,12 @@ const Profile: FC<ProfileProps> = ({
 
   return (
     <div
-      className='relative group rounded-md bg-white shadow text-black p-4 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-500 ease-in-out'
+      className='relative group rounded-md bg-white shadow text-black p-4 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-200 ease-in-out'
       onClick={handleCardClick}
     >
       {/* Gradient Overlay */}
       <div
-        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-400 via-green-200 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
+        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
       ></div>
 
       {/* Content Wrapper */}

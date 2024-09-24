@@ -101,11 +101,10 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
             )}
           </div>
         </div>
-        <div className='w-full h-px bg-gray-300'></div>
+        <div className='w-full h-px bg-gray-300 mb-6'></div>
 
         <div className='w-full'>
           <ContentCards
-            content={cleanedContent}
             dietParagraphs={dietParagraphs}
             appsGadgetsParagraphs={appsGadgetsParagraphs}
             vitaminsParagraphs={vitaminsParagraphs}
