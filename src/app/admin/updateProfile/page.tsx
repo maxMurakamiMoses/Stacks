@@ -1,4 +1,3 @@
-// app/profiles/page.tsx
 import { Suspense } from 'react'
 import ProfileEditor from '@/components/admin/ProfileEditor'
 import { db } from '@/lib/db'

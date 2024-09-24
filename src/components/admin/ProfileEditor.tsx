@@ -32,7 +32,7 @@ interface Profile {
   id: string
   title: string
   content: any
-  leaderboards: string[] // Updated to match API
+  leaderboards: string[]
 }
 
 interface ProfileEditorProps {
@@ -60,7 +60,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profileId }) => {
     },
   })
 
-  // Fetch profile and leaderboards data
+
   useEffect(() => {
     const fetchData = async () => {
       try {

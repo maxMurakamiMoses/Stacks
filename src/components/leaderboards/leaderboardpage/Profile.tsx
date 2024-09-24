@@ -3,7 +3,7 @@ import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 import { FC, MouseEvent } from 'react'
-import ProfileVoteClient from './vote/ProfileVoteClient'
+import ProfileVoteClient from '../../vote/ProfileVoteClient'
 import { useRouter } from 'next/navigation'
 
 type PartialVote = Pick<Vote, 'type'>
