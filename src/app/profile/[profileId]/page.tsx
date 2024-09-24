@@ -1,25 +1,25 @@
-import CommentsSection from '@/components/comments/CommentsSection'
-import EditorOutput from '@/components/EditorOutput'
-import { db } from '@/lib/db'
-import { formatTimeToNow } from '@/lib/utils'
-import { Loader2 } from 'lucide-react'
-import { notFound } from 'next/navigation'
-import { Suspense } from 'react'
-import { getAuthSession } from '@/lib/auth'
+import CommentsSection from '@/components/comments/CommentsSection';
+import EditorOutput from '@/components/EditorOutput';
+import { db } from '@/lib/db';
+import { Loader2 } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { getAuthSession } from '@/lib/auth';
+import { preprocessContent } from '@/lib/contentPreprocessor'; // Import from utility file
 
 interface LeaderboardProfilePageProps {
   params: {
-    profileId: string
-  }
+    profileId: string;
+  };
 }
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 const LeaderboardProfilePage = async ({
   params,
 }: LeaderboardProfilePageProps) => {
-  const session = await getAuthSession()
+  const session = await getAuthSession();
 
   const profile = await db.profile.findFirst({
     where: {
@@ -34,9 +34,12 @@ const LeaderboardProfilePage = async ({
         },
       },
     },
-  })
+  });
 
-  if (!profile) return notFound()
+  if (!profile) return notFound();
+
+  // Preprocess the content directly without using useMemo
+  const cleanedContent = preprocessContent(profile.content);
 
   return (
     <div className='h-full flex flex-col sm:flex-row items-center sm:items-start justify-between'>
@@ -44,8 +47,9 @@ const LeaderboardProfilePage = async ({
         {/* Profile Image */}
         <div className="flex-shrink-0">
           <img
-            src={profile.image || '/default-avatar.png'} // Adjust the path as necessary
+            src={profile.image || '/default-avatar.png'}
             className='w-16 h-16 rounded-md'
+            alt={`${profile.title} profile image`}
           />
         </div>
         <div className='flex-1 ml-4'>
@@ -53,7 +57,8 @@ const LeaderboardProfilePage = async ({
             {profile.title}
           </h1>
 
-          <EditorOutput content={profile.content} />
+          {/* Pass the cleaned content to EditorOutput */}
+          <EditorOutput content={cleanedContent} />
 
           <Suspense
             fallback={
@@ -65,7 +70,7 @@ const LeaderboardProfilePage = async ({
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LeaderboardProfilePage
+export default LeaderboardProfilePage;

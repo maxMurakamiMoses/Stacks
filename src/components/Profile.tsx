@@ -2,7 +2,7 @@
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
-import { FC, useRef, MouseEvent } from 'react'
+import { FC, MouseEvent } from 'react'
 import ProfileVoteClient from './vote/ProfileVoteClient'
 import { useRouter } from 'next/navigation'
 
@@ -73,59 +73,70 @@ const Profile: FC<ProfileProps> = ({
 
   return (
     <div
-    className='rounded-md bg-gradient-to-r shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer'
-    style={{background: 'linear-gradient(to right, #f0fff4, white, white, white)'}} 
-    onClick={handleCardClick}
+      className='relative group rounded-md bg-white shadow text-black p-4 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-500 ease-in-out'
+      onClick={handleCardClick}
     >
-      <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
-        <img
-          src={profile.image}
-          alt={`${profile.title} profile`}
-          className='w-24 h-24 rounded-md object-cover'
-        />
-      </div>
+      {/* Gradient Overlay */}
+      <div
+        className='absolute top-0 left-0 h-full bg-gradient-to-r from-green-400 to-white transition-all duration-500 ease-in-out w-0 group-hover:w-3/4 z-0'
+      ></div>
 
-      <div className='flex-1 mb-1 md:mb-0'>
-        <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
-          <h1 className='text-xl font-semibold mb-1 hover:underline'>{profile.title}</h1>
-        </Link>
+      {/* Content Wrapper */}
+      <div className='relative z-10 flex flex-col md:flex-row items-center w-full'>
+        <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
+          <img
+            src={profile.image}
+            alt={`${profile.title} profile`}
+            className='w-24 h-24 rounded-md object-cover'
+          />
+        </div>
 
-        {shortBio && (
-          <div className='mb-0 text-gray-500 text-base'>
-            <p>{shortBio}</p>
-          </div>
-        )}
-
-        <div className='flex items-center'>
-          <Link href={`/profile/${profile.id}`} className='flex items-center text-gray-500 mr-4' onClick={(e) => e.stopPropagation()}>
-            <MessageSquare className='h-5 w-5 mr-1' />
-            <span>{commentAmt}</span>
+        <div className='flex-1 mb-1 md:mb-0'>
+          <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
+            <h1 className='text-xl font-semibold mb-1 hover:underline'>{profile.title}</h1>
           </Link>
 
-          {tags.length > 0 && (
-            <div className='flex items-center text-sm text-gray-500'>
-              {tags.map((tag, index) => (
-                <span key={tag} className='flex items-center'>
-                  {index !== 0 && <span className='mx-2 text-gray-400'>•</span>}
-                  <span>{tag}</span>
-                </span>
-              ))}
+          {shortBio && (
+            <div className='mb-2 text-gray-500 text-base'>
+              <p>{shortBio}</p>
             </div>
           )}
-        </div>
-      </div>
 
-      <div
-        className='flex-shrink-0 mr-10'
-        onClick={handleVoteClick}
-      >
-        <ProfileVoteClient
-          profileId={profile.id}
-          leaderboardId={leaderboardId}
-          initialUpvotesAmt={upvotes}
-          initialDownvotesAmt={downvotes}
-          initialVote={currentVote?.type}
-        />
+          <div className='flex items-center mt-2 md:mt-0'>
+            <Link
+              href={`/profile/${profile.id}`}
+              className='flex items-center text-gray-500 mr-4'
+              onClick={(e) => e.stopPropagation()}
+            >
+              <MessageSquare className='h-5 w-5 mr-1' />
+              <span>{commentAmt}</span>
+            </Link>
+
+            {tags.length > 0 && (
+              <div className='flex items-center text-sm text-gray-500'>
+                {tags.map((tag, index) => (
+                  <span key={tag} className='flex items-center'>
+                    {index !== 0 && <span className='mx-2 text-gray-400'>•</span>}
+                    <span>{tag}</span>
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div
+          className='flex-shrink-0 mr-10'
+          onClick={handleVoteClick}
+        >
+          <ProfileVoteClient
+            profileId={profile.id}
+            leaderboardId={leaderboardId}
+            initialUpvotesAmt={upvotes}
+            initialDownvotesAmt={downvotes}
+            initialVote={currentVote?.type}
+          />
+        </div>
       </div>
     </div>
   )
