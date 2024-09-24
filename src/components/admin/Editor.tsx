@@ -50,17 +50,10 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const pathname = usePathname()
 
-  const { mutate: createOrUpdateProfile } = useMutation({
-    mutationFn: async ({
-      title,
-      content,
-      leaderboardIds,
-    }: ProfileCreationRequest) => {
+  const { mutate: createProfile } = useMutation({
+    mutationFn: async ({ title, content, leaderboardIds }: ProfileCreationRequest) => {
       const payload: ProfileCreationRequest = { title, content, leaderboardIds }
-      const endpoint = initialData
-        ? `/api/leaderboard/profile/update/${initialData.id}`
-        : '/api/tempProfile/create'
-      const { data } = await axios.post(endpoint, payload)
+      const { data } = await axios.post('/api/tempProfile/create', payload)
       return data
     },
     onError: () => {
@@ -74,10 +67,11 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
       router.push('/')
       router.refresh()
       return toast({
-        description: `The profile has been ${initialData ? 'updated' : 'published'}.`,
+        description: 'The profile has been published.',
       })
     },
   })
+  
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import('@editorjs/editorjs')).default
@@ -157,15 +151,16 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
 
   async function onSubmit(data: FormData) {
     const blocks = await ref.current?.save()
-
+  
     const payload: ProfileCreationRequest = {
       title: data.title,
       content: blocks,
       leaderboardIds: data.leaderboardIds,
     }
-
-    createOrUpdateProfile(payload)
+  
+    createProfile(payload)
   }
+  
 
   if (!isMounted) {
     return null
