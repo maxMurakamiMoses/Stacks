@@ -17,7 +17,7 @@ const Page = () => {
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
-      const { data } = await axios.post('/api/leaderboard', { name: input })
+      const { data } = await axios.post('/api/leaderboard/create', { name: input })
       return data as string
     },
     onError: (err) => {

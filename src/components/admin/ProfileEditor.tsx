@@ -66,7 +66,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profileId }) => {
       try {
         const [profileRes, leaderboardsRes] = await Promise.all([
           axios.get(`/api/profiles/${profileId}`),
-          axios.get('/api/leaderboards'),
+          axios.get('/api/leaderboard/getAll'),
         ])
 
         const profileData: Profile = profileRes.data

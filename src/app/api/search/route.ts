@@ -1,3 +1,5 @@
+//used as a search endpoint for the profile search feature
+
 import { db } from '@/lib/db'
 
 export async function GET(req: Request) {

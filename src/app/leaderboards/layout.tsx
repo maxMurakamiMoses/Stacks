@@ -1,4 +1,3 @@
-import { JumpTo } from '@/components/leaderboards/JumpTo'
 import type { Metadata } from 'next'
 import { ReactNode } from 'react'
 

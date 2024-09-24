@@ -59,7 +59,7 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
       const payload: ProfileCreationRequest = { title, content, leaderboardIds }
       const endpoint = initialData
         ? `/api/leaderboard/profile/update/${initialData.id}`
-        : '/api/leaderboard/profile/create'
+        : '/api/tempProfile/create'
       const { data } = await axios.post(endpoint, payload)
       return data
     },

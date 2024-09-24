@@ -38,7 +38,7 @@ const CommentVotes: FC<CommentVotesProps> = ({
         commentId,
       }
 
-      await axios.patch('/api/leaderboard/profile/comment/vote', payload)
+      await axios.patch('/api/tempProfile/comment/vote', payload)
     },
     onError: (err, voteType) => {
       if (voteType === 'UP') setVotesAmt((prev) => prev - 1)

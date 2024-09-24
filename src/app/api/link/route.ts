@@ -1,3 +1,5 @@
+//used to display links in the editor component, alongside its metadata
+
 import axios from 'axios'
 
 export async function GET(req: Request) {

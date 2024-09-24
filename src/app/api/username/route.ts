@@ -1,3 +1,5 @@
+//used to update the username in the user settings page
+
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { UsernameValidator } from '@/lib/validators/username'

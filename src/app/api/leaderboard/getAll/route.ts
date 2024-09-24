@@ -1,4 +1,4 @@
-// app/api/leaderboards/route.ts
+//fetched all availible leaderboards for the updateProfile component
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
