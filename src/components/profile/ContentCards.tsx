@@ -23,7 +23,7 @@ const ContentCards: FC<ContentCardsProps> = ({
         <div className='relative group'>
 
           {/* Glow Effect */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-800 ease-in-out pointer-events-none z-0" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-800 ease-in-out pointer-events-none z-0" />
 
           {/* Card Content */}
           <div className='relative bg-white rounded-lg p-6 w-full border-l-4 border-green-600 z-10'>
@@ -47,7 +47,7 @@ const ContentCards: FC<ContentCardsProps> = ({
           <div className='relative group'>
 
             {/* Glow Effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-teal-500 rounded-lg blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-teal-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
             <div className='relative bg-white rounded-lg p-6 border-l-4 border-blue-600 z-10'>
@@ -68,7 +68,7 @@ const ContentCards: FC<ContentCardsProps> = ({
           <div className='relative group'>
 
             {/* Glow Effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 to-green-500 rounded-lg blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 to-green-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
             <div className='relative bg-white rounded-lg p-6 border-l-4 border-yellow-600 z-10'>
@@ -89,7 +89,7 @@ const ContentCards: FC<ContentCardsProps> = ({
           <div className='relative group'>
 
             {/* Glow Effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
             <div className='relative bg-white rounded-lg p-6 border-l-4 border-purple-600 z-10'>

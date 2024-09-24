@@ -71,7 +71,7 @@ model Leaderboard {
 
 model Profile {
   id            String                  @id @default(cuid())
-  verified      Boolean @default(false)
+  claimed      Boolean @default(false)
   image         String?
   title         String
   content       Json?
