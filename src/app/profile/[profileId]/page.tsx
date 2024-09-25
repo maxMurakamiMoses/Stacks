@@ -89,7 +89,7 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
 
             {tags.length > 0 && (
               <div className='py-2 flex flex-wrap'>
-                {tags.map((tag, index) => (
+                {tags.map((tag: string, index: number) => (
                   <span
                     key={index}
                     className='bg-gray-200 text-gray-800 text-md font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded'

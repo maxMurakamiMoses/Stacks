@@ -44,7 +44,7 @@ export async function GET(req: Request) {
       leaderboardId: pol.leaderboardId,
       leaderboard: pol.leaderboard,
       image: pol.profile.image ?? '',
-      verified: pol.profile.verified ?? false,
+      claimed: pol.profile.claimed ?? false, 
     }));
 
     return NextResponse.json(profiles);

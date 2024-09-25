@@ -3,10 +3,10 @@ import React from 'react';
 const CallToAction = () => {
   return (
     <div className="text-center px-4 md:px-[105px] bg-white rounded-lg py-20">
-       <div className="h-px bg-gray-300"></div>
+      <div className="h-px bg-gray-300"></div>
       <h2 className="text-2xl font-semibold mb-4 pt-20">Join the Mailing List</h2>
       <p className="text-gray-600 text-lg mb-6">
-        Once a month, you'll get a short & clear health-related story, insight, or tip. No fluff.
+        Once a month, you&#39;ll get a short & clear health-related story, insight, or tip. No fluff.
       </p>
       <form className="flex justify-center">
         <input 

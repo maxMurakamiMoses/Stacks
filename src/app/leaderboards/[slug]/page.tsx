@@ -66,7 +66,7 @@ const Page = async ({ params }: PageProps) => { // Changed 'page' to 'Page' for 
     leaderboardId: leaderboard.id, // Include leaderboardId for votes
     leaderboard: leaderboard, // Include the leaderboard property
     image: pol.profile.image ?? '', // Ensure `image` is present
-    verified: pol.profile.verified ?? false, // Ensure `verified` is present
+    claimed: pol.profile.claimed ?? false, 
   }))
 
   return (

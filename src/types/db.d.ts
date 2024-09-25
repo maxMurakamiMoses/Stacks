@@ -7,5 +7,5 @@ export type ExtendedProfile = Profile & {
   comments: Comment[]
   leaderboardId?: string
   image: string
-  verified: boolean
+  claimed: boolean
 }

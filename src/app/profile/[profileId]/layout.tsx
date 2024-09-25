@@ -2,7 +2,6 @@
 import { buttonVariants } from '@/components/ui/Button'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
-import { format } from 'date-fns'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'

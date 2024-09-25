@@ -18,6 +18,7 @@ interface ProfileProps {
     image: string
     verified: boolean
   }
+  rank: number
   upvotes: number
   downvotes: number
   currentVote?: PartialVote
