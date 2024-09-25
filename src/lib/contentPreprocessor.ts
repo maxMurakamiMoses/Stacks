@@ -52,7 +52,7 @@ export const preprocessContent = (content: any): PreprocessedContent => {
     });
 
     // Filter out the blocks to remove
-    const cleanedBlocks = blocks.filter((block) => !blocksToRemove.has(block));
+    const cleanedBlocks = blocks.filter((block: unknown) => !blocksToRemove.has(block));
 
     // Construct cleanedContent without the extracted sections
     const cleanedContent = {

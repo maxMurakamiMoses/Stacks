@@ -26,6 +26,17 @@ interface ProfileProps {
   leaderboardId: string
 }
 
+const getRankIcon = (rank: number) => {
+  if (rank === 1) {
+    return '👑'; 
+  } else if (rank === 2) {
+    return '🥈'; 
+  } else if (rank === 3) {
+    return '🥉'; 
+  }
+  return null; 
+};
+
 const extractSection = (blocks: any[], sectionTitle: string): string | null => {
   const sectionIndex = blocks.findIndex(
     (block) => block.type === 'header' && block.data.text === sectionTitle
@@ -75,16 +86,21 @@ const Profile: FC<ProfileProps> = ({
 
   return (
     <div
-      className='relative group rounded-md bg-white shadow text-black p-4 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-200 ease-in-out'
+      className='relative group rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-200 ease-in-out'
       onClick={handleCardClick}
     >
+      {rank <= 3 && (
+        <div className="absolute top-[-4px] right-0 text-gray-800 text-[26px] rounded-full px-2 py-1">
+          {getRankIcon(rank)}
+        </div>
+      )}
+
+
       {/* Gradient Overlay */}
       <div
-        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
+        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/5 z-0'
       ></div>
-      <h2>
-        Rank #{rank}: {profile.title}
-      </h2>
+
       {/* Content Wrapper */}
       <div className='relative z-10 flex flex-col md:flex-row items-center w-full'>
         <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>

@@ -57,7 +57,7 @@ const Layout = async ({
           {/* Info Sidebar */}
           <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first lg:order-last flex flex-col space-y-6'>
             {/* Leaderboard Rankings */}
-            <div className='my-8 mx-8 lg:my-2 lg:mx-2'>
+            <div className='my-8 mx-8 lg:my-4 lg:mx-4'>
               <h2 className='text-lg font-semibold'>Leaderboard Rankings</h2>
               <ul className='mt-2 space-y-4'>
                 {profile.profilesOnLeaderboards.map((pol) => {
@@ -114,7 +114,7 @@ const Layout = async ({
             </div>
 
             {/* New Box: Report Outdated Information or Claim Profile */}
-            <div className='my-8 mx-8 lg:my-2 lg:mx-2 p-4 border-t border-gray-200 hidden md:block'>
+            <div className='my-8 mx-8 lg:my-4 lg:mx-4 pt-4 border-t border-gray-200 hidden md:block'>
               {/* Is the information outdated? Section */}
               <div className='mb-6'>
                 <h2 className='text-lg font-semibold'>Is the information outdated?</h2>
@@ -133,7 +133,7 @@ const Layout = async ({
 
               {/* Conditionally render the "Is This You?" Section */}
               {!profile.claimed && (
-                <div>
+                <div className="pb-4">
                   <h2 className='text-lg font-semibold pt-4'>Is This You?</h2>
                   <p className='mt-2 text-sm'>
                     Claim your profile to update it whenever you want!
@@ -142,14 +142,13 @@ const Layout = async ({
                     href='https://forms.gle/your-google-form-link-claim'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className={`${buttonVariants({ variant: 'outline' })} w-full mt-4`}
+                    className={`${buttonVariants({ variant: 'outline' })} w-full mt-4 `}
                   >
                     Claim This Profile
                   </Link>
                 </div>
               )}
             </div>
-            {/* End of New Box */}
           </div>
         </div>
       </div>

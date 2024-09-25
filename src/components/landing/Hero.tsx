@@ -2,19 +2,11 @@
 import ArrowIcon from '@/assets/arrow-right-black.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-import {useScroll, useTransform} from 'framer-motion'
 import { useRef } from 'react';
-import { Bento } from './Bento';
 import { CardStackSection } from '../leaderboards/CardStack';
 
 export const Hero = () => {
     const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ['start end', 'end start']
-    });
-
-    const translateY = useTransform(scrollYProgress, [0, 1], [200, -200])
 
     return (
       <section ref={heroRef} className="pt-8 pb-6 md:pt-2 md:pb-2 bg-[radial-gradient(ellipse_210%_110%_at_bottom_left,#1AB331_10%,#F0FDF4_60%)] overflow-x-clip">

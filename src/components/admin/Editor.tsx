@@ -2,7 +2,7 @@
 
 import EditorJS from '@editorjs/editorjs'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -48,7 +48,6 @@ export const Editor: React.FC<EditorProps> = ({ leaderboards, initialData }) => 
   const _titleRef = useRef<HTMLTextAreaElement>(null)
   const router = useRouter()
   const [isMounted, setIsMounted] = useState<boolean>(false)
-  const pathname = usePathname()
 
   const { mutate: createProfile } = useMutation({
     mutationFn: async ({ title, content, leaderboardIds }: ProfileCreationRequest) => {

@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/Input'
 import { FC } from 'react'
 import { UserAvatar } from '@/components/top-bar/UserAvatar'
 import type { Session } from 'next-auth'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 interface MiniCreatePostProps {
   session: Session | null

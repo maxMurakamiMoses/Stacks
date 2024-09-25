@@ -67,9 +67,10 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
             />
           </div>
           <div className='flex-grow'>
-            <h1 className='text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-600 via-green-600 to-green-600 text-transparent bg-clip-text mb-4 md:mb-8'>
-              {profile.title}
-            </h1>
+          <h1 className='text-4xl md:text-6xl font-bold bg-gradient-to-r from-green-600 via-green-600 to-green-600 text-transparent bg-clip-text md:mb-5 pb-3 leading-none overflow-visible'>
+            {profile.title}
+          </h1>
+
 
             <div className='text-lg md:text-2xl mb-5 text-slate-300 block md:hidden'>
               {shortBioParagraphs.map((para, index) => (

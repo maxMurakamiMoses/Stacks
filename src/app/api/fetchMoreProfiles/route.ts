@@ -3,6 +3,8 @@
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
@@ -34,8 +36,7 @@ export async function GET(req: Request) {
       },
       take: limit,
       skip: (page - 1) * limit,
-    })
-    
+    });
 
     // Map to the expected structure
     const profiles = profilesOnLeaderboards.map((pol) => ({
@@ -44,7 +45,7 @@ export async function GET(req: Request) {
       leaderboardId: pol.leaderboardId,
       leaderboard: pol.leaderboard,
       image: pol.profile.image ?? '',
-      claimed: pol.profile.claimed ?? false, 
+      claimed: pol.profile.claimed ?? false,
     }));
 
     return NextResponse.json(profiles);

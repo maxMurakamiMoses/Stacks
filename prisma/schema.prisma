@@ -89,7 +89,7 @@ model ProfilesOnLeaderboards {
   leaderboard   Leaderboard  @relation(fields: [leaderboardId], references: [id])
   leaderboardId String
   votes         Vote[]
-  netVotes      Int          @default(0) // Add this line
+  netVotes      Int          @default(0)
 
   @@id([profileId, leaderboardId])
 }

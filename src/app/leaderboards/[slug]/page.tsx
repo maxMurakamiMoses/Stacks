@@ -63,7 +63,6 @@ const Page = async ({ params }: PageProps) => {
     leaderboard: leaderboard,
     image: pol.profile.image ?? '',
     claimed: pol.profile.claimed ?? false,
-    // Remove 'verified' mapping
     rank: index + 1,
   }))
 

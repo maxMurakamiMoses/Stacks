@@ -37,6 +37,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
       getNextPageParam: (_, pages) => {
         return pages.length + 1
       },
+      
       initialData: { pages: [initialProfiles], pageParams: [1] },
     }
   )
