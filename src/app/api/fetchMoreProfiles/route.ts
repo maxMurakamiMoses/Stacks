@@ -30,13 +30,12 @@ export async function GET(req: Request) {
         leaderboard: true,
       },
       orderBy: {
-        profile: {
-          createdAt: 'desc',
-        },
+        netVotes: 'desc', // Order by netVotes
       },
       take: limit,
       skip: (page - 1) * limit,
-    });
+    })
+    
 
     // Map to the expected structure
     const profiles = profilesOnLeaderboards.map((pol) => ({

@@ -1,3 +1,5 @@
+//api/profile/create/route.ts
+
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { ProfileValidator } from '@/lib/validators/profile'

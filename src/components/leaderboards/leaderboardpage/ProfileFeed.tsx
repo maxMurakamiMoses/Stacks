@@ -52,6 +52,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
   return (
     <ul className='flex flex-col col-span-2 space-y-1'>
       {profiles.map((profile, index) => {
+        const rank = index + 1
         // Separate upvotes and downvotes
         const upvotes = profile.votes.filter((vote: any) => vote.type === 'UP').length
         const downvotes = profile.votes.filter((vote: any) => vote.type === 'DOWN').length
@@ -65,6 +66,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
             <li key={profile.id} ref={ref}>
               <Profile
                 profile={profile}
+                rank={rank}
                 commentAmt={profile.comments.length}
                 upvotes={upvotes}
                 downvotes={downvotes}
@@ -78,6 +80,7 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
           return (
             <Profile
               key={profile.id}
+              rank={rank}
               profile={profile}
               commentAmt={profile.comments.length}
               upvotes={upvotes}

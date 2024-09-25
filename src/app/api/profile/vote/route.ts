@@ -1,3 +1,5 @@
+//api/profile/vote/route.ts
+
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { ProfileVoteValidator } from '@/lib/validators/vote'
@@ -6,16 +8,14 @@ import { z } from 'zod'
 export async function PATCH(req: Request) {
   try {
     const body = await req.json()
-
     const { profileId, leaderboardId, voteType } = ProfileVoteValidator.parse(body)
-
     const session = await getAuthSession()
 
     if (!session?.user) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    // check if user has already voted on this profile in this leaderboard
+    // Check if user has already voted
     const existingVote = await db.vote.findFirst({
       where: {
         userId: session.user.id,
@@ -24,30 +24,9 @@ export async function PATCH(req: Request) {
       },
     })
 
-    const pol = await db.profilesOnLeaderboards.findUnique({
-      where: {
-        profileId_leaderboardId: {
-          profileId,
-          leaderboardId,
-        },
-      },
-      include: {
-        profile: {
-          include: {
-            author: true,
-          },
-        },
-        votes: true,
-      },
-    })
-
-    if (!pol) {
-      return new Response('Profile not found in this leaderboard', { status: 404 })
-    }
-
     if (existingVote) {
-      // if vote type is the same as existing vote, delete the vote
       if (existingVote.type === voteType) {
+        // Delete the vote and adjust netVotes
         await db.vote.delete({
           where: {
             userId_profileId_leaderboardId: {
@@ -58,37 +37,82 @@ export async function PATCH(req: Request) {
           },
         })
 
+        const adjustment = voteType === 'UP' ? -1 : 1
+        await db.profilesOnLeaderboards.update({
+          where: {
+            profileId_leaderboardId: {
+              profileId,
+              leaderboardId,
+            },
+          },
+          data: {
+            netVotes: {
+              increment: adjustment,
+            },
+          },
+        })
+
+        return new Response('OK')
+      } else {
+        // Update the vote and adjust netVotes
+        await db.vote.update({
+          where: {
+            userId_profileId_leaderboardId: {
+              profileId,
+              leaderboardId,
+              userId: session.user.id,
+            },
+          },
+          data: {
+            type: voteType,
+          },
+        })
+
+        const adjustment = voteType === 'UP' ? 2 : -2
+        await db.profilesOnLeaderboards.update({
+          where: {
+            profileId_leaderboardId: {
+              profileId,
+              leaderboardId,
+            },
+          },
+          data: {
+            netVotes: {
+              increment: adjustment,
+            },
+          },
+        })
+
         return new Response('OK')
       }
+    } else {
+      // Create a new vote and adjust netVotes
+      await db.vote.create({
+        data: {
+          type: voteType,
+          userId: session.user.id,
+          profileId,
+          leaderboardId,
+        },
+      })
 
-      // if vote type is different, update the vote
-      await db.vote.update({
+      const adjustment = voteType === 'UP' ? 1 : -1
+      await db.profilesOnLeaderboards.update({
         where: {
-          userId_profileId_leaderboardId: {
+          profileId_leaderboardId: {
             profileId,
             leaderboardId,
-            userId: session.user.id,
           },
         },
         data: {
-          type: voteType,
+          netVotes: {
+            increment: adjustment,
+          },
         },
       })
 
       return new Response('OK')
     }
-
-    // if no existing vote, create a new vote
-    await db.vote.create({
-      data: {
-        type: voteType,
-        userId: session.user.id,
-        profileId,
-        leaderboardId,
-      },
-    })
-
-    return new Response('OK')
   } catch (error) {
     console.error(error)
     if (error instanceof z.ZodError) {

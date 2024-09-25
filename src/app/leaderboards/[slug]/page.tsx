@@ -41,20 +41,18 @@ const Page = async ({ params }: PageProps) => { // Changed 'page' to 'Page' for 
             include: {
               author: true,
               comments: true,
-
             },
           },
           votes: true,
         },
         orderBy: {
-          profile: {
-            createdAt: 'desc',
-          },
+          netVotes: 'desc', // Order by netVotes
         },
         take: INFINITE_SCROLL_PAGINATION_RESULTS,
       },
     },
   })
+  
 
   if (!leaderboard) return notFound()
 

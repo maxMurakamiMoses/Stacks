@@ -1,87 +1,87 @@
-generator client {
-  provider = "prisma-client-js"
-}
+  generator client {
+    provider = "prisma-client-js"
+  }
 
-datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
-}
+  datasource db {
+    provider     = "postgresql"
+    url          = env("DATABASE_URL")
+    relationMode = "prisma"
+  }
 
-enum VoteType {
-  UP
-  DOWN
-}
+  enum VoteType {
+    UP
+    DOWN
+  }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
+  model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])
-}
+    @@unique([provider, providerAccountId])
+  }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
+  model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  }
 
-model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String?         @unique
-  emailVerified DateTime?
-  createdBoards Leaderboard[]   @relation("CreatedBy")
-  votes         Vote[]
-  username      String?         @unique
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  Profile       Profile[]
-  Comment       Comment[]
-  CommentVote   CommentVote[]
-}
+  model User {
+    id            String          @id @default(cuid())
+    name          String?
+    email         String?         @unique
+    emailVerified DateTime?
+    createdBoards Leaderboard[]   @relation("CreatedBy")
+    votes         Vote[]
+    username      String?         @unique
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    Profile       Profile[]
+    Comment       Comment[]
+    CommentVote   CommentVote[]
+  }
 
-model Leaderboard {
-  id        String                  @id @default(cuid())
-  name      String                  @unique
-  description String?
-  createdAt DateTime                @default(now())
-  updatedAt DateTime                @updatedAt
-  creatorId String?
-  Creator   User?                   @relation("CreatedBy", fields: [creatorId], references: [id])
-  profilesOnLeaderboards ProfilesOnLeaderboards[]
+  model Leaderboard {
+    id        String                  @id @default(cuid())
+    name      String                  @unique
+    description String?
+    createdAt DateTime                @default(now())
+    updatedAt DateTime                @updatedAt
+    creatorId String?
+    Creator   User?                   @relation("CreatedBy", fields: [creatorId], references: [id])
+    profilesOnLeaderboards ProfilesOnLeaderboards[]
 
-  @@index([name])
-}
+    @@index([name])
+  }
 
-model Profile {
-  id            String                  @id @default(cuid())
-  claimed      Boolean @default(false)
-  image         String?
-  title         String
-  content       Json?
-  createdAt     DateTime                @default(now())
-  updatedAt     DateTime                @updatedAt
-  author        User                    @relation(fields: [authorId], references: [id])
-  authorId      String
-  comments      Comment[] 
-  profilesOnLeaderboards ProfilesOnLeaderboards[]
-}
+  model Profile {
+    id            String                  @id @default(cuid())
+    claimed      Boolean @default(false)
+    image         String?
+    title         String
+    content       Json?
+    createdAt     DateTime                @default(now())
+    updatedAt     DateTime                @updatedAt
+    author        User                    @relation(fields: [authorId], references: [id])
+    authorId      String
+    comments      Comment[] 
+    profilesOnLeaderboards ProfilesOnLeaderboards[]
+  }
 
 model ProfilesOnLeaderboards {
   profile       Profile      @relation(fields: [profileId], references: [id])
@@ -89,44 +89,46 @@ model ProfilesOnLeaderboards {
   leaderboard   Leaderboard  @relation(fields: [leaderboardId], references: [id])
   leaderboardId String
   votes         Vote[]
+  netVotes      Int          @default(0) // Add this line
 
   @@id([profileId, leaderboardId])
 }
 
-model Vote {
-  userId        String
-  user          User                   @relation(fields: [userId], references: [id])
-  profileId     String
-  leaderboardId String
-  profilesOnLeaderboards ProfilesOnLeaderboards @relation(fields: [profileId, leaderboardId], references: [profileId, leaderboardId], onDelete: Cascade)
-  type          VoteType
 
-  @@id([userId, profileId, leaderboardId])
-}
+  model Vote {
+    userId        String
+    user          User                   @relation(fields: [userId], references: [id])
+    profileId     String
+    leaderboardId String
+    profilesOnLeaderboards ProfilesOnLeaderboards @relation(fields: [profileId, leaderboardId], references: [profileId, leaderboardId], onDelete: Cascade)
+    type          VoteType
 
-model Comment {
-  id        String   @id @default(cuid())
-  text      String
-  createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  profileId String
+    @@id([userId, profileId, leaderboardId])
+  }
 
-  replyToId String?
-  replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  replies   Comment[] @relation("ReplyTo")
+  model Comment {
+    id        String   @id @default(cuid())
+    text      String
+    createdAt DateTime @default(now())
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  String
+    profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+    profileId String
 
-  votes     CommentVote[]
-  commentId String?
-}
+    replyToId String?
+    replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+    replies   Comment[] @relation("ReplyTo")
 
-model CommentVote {
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  commentId String
-  type      VoteType
+    votes     CommentVote[]
+    commentId String?
+  }
 
-  @@id([userId, commentId])
-}
+  model CommentVote {
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    comment   Comment  @relation(fields: [commentId], references: [id], onDelete: Cascade)
+    commentId String
+    type      VoteType
+
+    @@id([userId, commentId])
+  }

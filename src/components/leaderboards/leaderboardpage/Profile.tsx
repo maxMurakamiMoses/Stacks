@@ -11,6 +11,7 @@ type PartialVote = Pick<Vote, 'type'>
 interface ProfileProps {
   profile: ProfileType & {
     author: User
+    rank: number
     votes: Vote[]
     content: any
     createdAt: string | Date
@@ -47,6 +48,7 @@ const extractTags = (tagsString: string): string[] => {
 
 const Profile: FC<ProfileProps> = ({
   profile,
+  rank,
   upvotes,
   downvotes,
   currentVote,
@@ -80,7 +82,7 @@ const Profile: FC<ProfileProps> = ({
       <div
         className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
       ></div>
-
+      <h2>Rank #{rank}: {profile.title}</h2>
       {/* Content Wrapper */}
       <div className='relative z-10 flex flex-col md:flex-row items-center w-full'>
         <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
@@ -93,7 +95,7 @@ const Profile: FC<ProfileProps> = ({
 
         <div className='flex-1 mb-1 md:mb-0'>
           <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
-            <h1 className='text-xl font-semibold mb-1 hover:underline'>{profile.title}</h1>
+            <h1 className='text-xl font-semibold mb-1'>{profile.title}</h1>
           </Link>
 
           {shortBio && (
