@@ -32,12 +32,12 @@ const ProfileVoteClient = ({
   const { loginToast } = useCustomToasts()
   const [upvotesAmt, setUpvotesAmt] = useState<number>(initialUpvotesAmt)
   const [downvotesAmt, setDownvotesAmt] = useState<number>(initialDownvotesAmt)
-  const [currentVote, setCurrentVote] = useState<VoteType | undefined>(initialVote)
+  const [currentVote, setCurrentVote] = useState<VoteType | undefined>(initialVote ?? undefined)
   const prevVote = usePrevious(currentVote)
 
   // Ensure sync with server
   useEffect(() => {
-    setCurrentVote(initialVote)
+    setCurrentVote(initialVote ?? undefined)
   }, [initialVote])
 
   const { mutate: vote } = useMutation({

@@ -10,13 +10,11 @@ import { FaArrowLeft } from 'react-icons/fa'
 // Helper function to format the leaderboard name
 const formatLeaderboardName = (name: string): string => {
   if (name.includes('-')) {
-    // Split by hyphen, capitalize each word, and join with spaces
     return name
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
   } else {
-    // Capitalize the first letter of the single word
     return name.charAt(0).toUpperCase() + name.slice(1)
   }
 }
@@ -27,7 +25,7 @@ interface PageProps {
   }
 }
 
-const Page = async ({ params }: PageProps) => { // Changed 'page' to 'Page' for React component naming convention
+const Page = async ({ params }: PageProps) => {
   const { slug } = params
 
   const session = await getAuthSession()
@@ -46,46 +44,44 @@ const Page = async ({ params }: PageProps) => { // Changed 'page' to 'Page' for 
           votes: true,
         },
         orderBy: {
-          netVotes: 'desc', // Order by netVotes
+          netVotes: 'desc',
         },
         take: INFINITE_SCROLL_PAGINATION_RESULTS,
       },
     },
   })
-  
 
   if (!leaderboard) return notFound()
 
-  // Preprocess the leaderboard name
   const formattedLeaderboardName = formatLeaderboardName(leaderboard.name)
 
   // Extract profiles from profilesOnLeaderboards
-  const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol) => ({
+  const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol, index) => ({
     ...pol.profile,
     votes: pol.votes,
-    leaderboardId: leaderboard.id, // Include leaderboardId for votes
-    leaderboard: leaderboard, // Include the leaderboard property
-    image: pol.profile.image ?? '', // Ensure `image` is present
-    claimed: pol.profile.claimed ?? false, 
+    leaderboardId: leaderboard.id,
+    leaderboard: leaderboard,
+    image: pol.profile.image ?? '',
+    claimed: pol.profile.claimed ?? false,
+    // Remove 'verified' mapping
+    rank: index + 1,
   }))
 
   return (
     <>
-
       <Link href="/leaderboards" className="group flex items-center text-white hover:text-neonGreen transition-all">
         <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
-        <span className="text-sm">Back to Leaderboards</span> {/* Smaller text size */}
+        <span className="text-sm">Back to Leaderboards</span>
       </Link>
 
-      {/* Container for the Leaderboard Title and Squiggly Line */}
-      <div className="inline-block mt-4"> {/* Added mt-4 for spacing */}
+      <div className="inline-block mt-4">
         <h1 className='font-bold text-3xl md:text-5xl'>
           {formattedLeaderboardName} Leaderboard
         </h1>
         <svg
-          className="w-full h-6 mt-1" // Reduced height for smaller amplitude
+          className="w-full h-6 mt-1"
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 200 20" // Adjusted viewBox for more frequent waves
+          viewBox="0 0 200 20"
           preserveAspectRatio="none"
         >
           <path

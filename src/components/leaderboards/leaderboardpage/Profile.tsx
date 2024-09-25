@@ -11,12 +11,11 @@ type PartialVote = Pick<Vote, 'type'>
 interface ProfileProps {
   profile: ProfileType & {
     author: User
-    rank: number
     votes: Vote[]
     content: any
     createdAt: string | Date
     image: string
-    verified: boolean
+    claimed: boolean
   }
   rank: number
   upvotes: number
@@ -83,7 +82,9 @@ const Profile: FC<ProfileProps> = ({
       <div
         className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/4 z-0'
       ></div>
-      <h2>Rank #{rank}: {profile.title}</h2>
+      <h2>
+        Rank #{rank}: {profile.title}
+      </h2>
       {/* Content Wrapper */}
       <div className='relative z-10 flex flex-col md:flex-row items-center w-full'>
         <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>

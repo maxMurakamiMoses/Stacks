@@ -8,4 +8,5 @@ export type ExtendedProfile = Profile & {
   leaderboardId?: string
   image: string
   claimed: boolean
+  rank: number
 }
