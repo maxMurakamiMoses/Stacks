@@ -10,4 +10,11 @@ export type ExtendedProfile = Profile & {
   claimed: boolean
   rank: number
   dudedinScore?: number
+
+  // New fields for social media followers
+  youtubeFollowers?: number
+  twitterFollowers?: number
+  instagramFollowers?: number
+  tiktokFollowers?: number
+  totalFollowers?: number
 }

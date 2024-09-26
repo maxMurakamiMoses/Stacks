@@ -1,5 +1,3 @@
-// app/profile/[profileId]/layout.tsx
-
 import { buttonVariants } from '@/components/ui/Button'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -48,6 +46,13 @@ const Layout = async ({
       .join(' ')
   }
 
+  // Calculate total followers for the profile
+  const profileTotalFollowers =
+    (profile.youtubeFollowers ?? 0) +
+    (profile.twitterFollowers ?? 0) +
+    (profile.instagramFollowers ?? 0) +
+    (profile.tiktokFollowers ?? 0)
+
   return (
     <div className='sm:container max-w-7xl mx-auto h-full pt-20'>
       <div>
@@ -79,11 +84,16 @@ const Layout = async ({
                           {formatLeaderboardName(pol.leaderboard.name)}
                         </Link>
                       </div>
-                      {/* Conditionally render the voting component or dudedinScore */}
+                      {/* Conditionally render the voting component or other info */}
                       {pol.leaderboard.name === 'dudedin-pace' ? (
                         // Display dudedinScore
                         <div className='flex-shrink-0 mr-10'>
-                          <p className='text-lg font-semibold'>{profile.dudedinScore || 0}</p>
+                          <p className='text-lg font-semibold'>Score: {profile.dudedinScore || 0}</p>
+                        </div>
+                      ) : pol.leaderboard.name === 'social-media' ? (
+                        // Display total followers
+                        <div className='flex-shrink-0 mr-10'>
+                          <p className='text-lg font-semibold'>Followers: {profileTotalFollowers || 0}</p>
                         </div>
                       ) : (
                         // Display the voting component

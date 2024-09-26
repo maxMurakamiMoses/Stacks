@@ -56,18 +56,30 @@ const Page = async ({ params }: PageProps) => {
   const formattedLeaderboardName = formatLeaderboardName(leaderboard.name)
 
   // Extract profiles from profilesOnLeaderboards
-const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol, index) => ({
-  ...pol.profile,
-  votes: pol.votes,
-  leaderboardId: leaderboard.id,
-  leaderboard: leaderboard,
-  image: pol.profile.image ?? '',
-  claimed: pol.profile.claimed ?? false,
-  rank: index + 1,
-  // Include dudedinScore
-  dudedinScore: pol.profile.dudedinScore ?? 0,
-}));
+  const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol, index) => {
+    const profile = pol.profile;
+    const totalFollowers =
+      (profile.youtubeFollowers ?? 0) +
+      (profile.twitterFollowers ?? 0) +
+      (profile.instagramFollowers ?? 0) +
+      (profile.tiktokFollowers ?? 0);
 
+    return {
+      ...profile,
+      votes: pol.votes,
+      leaderboardId: leaderboard.id,
+      leaderboard: leaderboard,
+      image: profile.image ?? '',
+      claimed: profile.claimed ?? false,
+      rank: index + 1,
+      dudedinScore: profile.dudedinScore ?? 0,
+      youtubeFollowers: profile.youtubeFollowers ?? 0,
+      twitterFollowers: profile.twitterFollowers ?? 0,
+      instagramFollowers: profile.instagramFollowers ?? 0,
+      tiktokFollowers: profile.tiktokFollowers ?? 0,
+      totalFollowers,
+    };
+  });
 
   return (
     <>
@@ -98,11 +110,11 @@ const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol, index) => (
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
         <MiniAddProfile session={session} />
       )}
-<ProfileFeed
-  initialProfiles={initialProfiles}
-  leaderboardName={leaderboard.name} // Pass the raw name
-  leaderboardId={leaderboard.id}
-/>
+      <ProfileFeed
+        initialProfiles={initialProfiles}
+        leaderboardName={leaderboard.name} // Pass the raw name
+        leaderboardId={leaderboard.id}
+      />
     </>
   )
 }

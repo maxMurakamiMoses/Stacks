@@ -66,9 +66,8 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
           return (
             <li key={profile.id} ref={ref}>
               <Profile
-                key={profile.id}
-                rank={rank}
                 profile={profile}
+                rank={rank}
                 commentAmt={profile.comments.length}
                 upvotes={upvotes}
                 downvotes={downvotes}
@@ -76,23 +75,21 @@ const ProfileFeed: FC<ProfileFeedProps> = ({ initialProfiles, leaderboardName, l
                 leaderboardName={leaderboardName}
                 leaderboardId={profile.leaderboard?.id || leaderboardId || ''}
               />
-
             </li>
           )
         } else {
           return (
-        <Profile
-          key={profile.id}
-          rank={rank}
-          profile={profile}
-          commentAmt={profile.comments.length}
-          upvotes={upvotes}
-          downvotes={downvotes}
-          currentVote={currentVote}
-          leaderboardName={leaderboardName}
-          leaderboardId={profile.leaderboard?.id || leaderboardId || ''}
-        />
-
+            <Profile
+              key={profile.id}
+              rank={rank}
+              profile={profile}
+              commentAmt={profile.comments.length}
+              upvotes={upvotes}
+              downvotes={downvotes}
+              currentVote={currentVote}
+              leaderboardName={leaderboardName}
+              leaderboardId={profile.leaderboard?.id || leaderboardId || ''}
+            />
           )
         }
       })}

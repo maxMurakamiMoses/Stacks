@@ -17,6 +17,11 @@ interface ProfileProps {
     image: string
     claimed: boolean
     dudedinScore?: number
+    youtubeFollowers?: number
+    twitterFollowers?: number
+    instagramFollowers?: number
+    tiktokFollowers?: number
+    totalFollowers?: number
   }
   rank: number
   upvotes: number
@@ -63,9 +68,9 @@ const Profile: FC<ProfileProps> = ({
   rank,
   upvotes,
   downvotes,
-  leaderboardName,
   currentVote,
   leaderboardId,
+  leaderboardName,
   commentAmt,
 }) => {
   const router = useRouter()
@@ -145,27 +150,32 @@ const Profile: FC<ProfileProps> = ({
             )}
           </div>
         </div>
-        {leaderboardName === 'dudedin-pace' ? (
-  // Display dudedinScore
-  <div className='flex-shrink-0 mr-10'>
-    <p className='text-lg font-semibold'>Score: {profile.dudedinScore || 0}</p>
-  </div>
-) : (
-  // Display the voting component
-  <div
-    className='flex-shrink-0 mr-10'
-    onClick={handleVoteClick}
-  >
-    <ProfileVoteClient
-      profileId={profile.id}
-      leaderboardId={leaderboardId}
-      initialUpvotesAmt={upvotes}
-      initialDownvotesAmt={downvotes}
-      initialVote={currentVote?.type}
-    />
-  </div>
-)}
 
+        {leaderboardName === 'social-media' ? (
+          // Display total followers
+          <div className='flex-shrink-0 mr-10'>
+            <p className='text-lg font-semibold'>Followers: {profile.totalFollowers || 0}</p>
+          </div>
+        ) : leaderboardName === 'dudedin-pace' ? (
+          // Display dudedinScore
+          <div className='flex-shrink-0 mr-10'>
+            <p className='text-lg font-semibold'>Score: {profile.dudedinScore || 0}</p>
+          </div>
+        ) : (
+          // Display the voting component
+          <div
+            className='flex-shrink-0 mr-10'
+            onClick={handleVoteClick}
+          >
+            <ProfileVoteClient
+              profileId={profile.id}
+              leaderboardId={leaderboardId}
+              initialUpvotesAmt={upvotes}
+              initialDownvotesAmt={downvotes}
+              initialVote={currentVote?.type}
+            />
+          </div>
+        )}
       </div>
     </div>
   )

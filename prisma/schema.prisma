@@ -83,11 +83,11 @@
     comments      Comment[] 
     profilesOnLeaderboards ProfilesOnLeaderboards[]
 
-    youtubeFollowers?: number
-    twitterFollowers?: number
-    instagramFollowers?: number
-    tiktokFollowers?: number
-    totalFollowers?: number
+    youtubeFollowers Int?
+    twitterFollowers Int?
+    instagramFollowers Int?
+    tiktokFollowers Int?
+    totalFollowers Int?
   }
 
 model ProfilesOnLeaderboards {
