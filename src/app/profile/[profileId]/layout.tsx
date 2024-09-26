@@ -1,4 +1,5 @@
 // app/profile/[profileId]/layout.tsx
+
 import { buttonVariants } from '@/components/ui/Button'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -78,35 +79,43 @@ const Layout = async ({
                           {formatLeaderboardName(pol.leaderboard.name)}
                         </Link>
                       </div>
-                      {/* Voting Component */}
-                      <Suspense fallback={<div>Loading...</div>}>
-                        {/* @ts-expect-error Server Component */}
-                        <ProfileVoteServer
-                          profileId={profile.id}
-                          leaderboardId={pol.leaderboard.id}
-                          initialUpvotesAmt={upvotesAmt}
-                          initialDownvotesAmt={downvotesAmt}
-                          initialVote={currentVote?.type}
-                          getData={async () => {
-                            return await db.profile.findUnique({
-                              where: {
-                                id: profile.id,
-                              },
-                              include: {
-                                profilesOnLeaderboards: {
-                                  where: {
-                                    leaderboardId: pol.leaderboard.id,
-                                  },
-                                  include: {
-                                    leaderboard: true,
-                                    votes: true,
+                      {/* Conditionally render the voting component or dudedinScore */}
+                      {pol.leaderboard.name === 'dudedin-pace' ? (
+                        // Display dudedinScore
+                        <div className='flex-shrink-0 mr-10'>
+                          <p className='text-lg font-semibold'>{profile.dudedinScore || 0}</p>
+                        </div>
+                      ) : (
+                        // Display the voting component
+                        <Suspense fallback={<div>Loading...</div>}>
+                          {/* @ts-expect-error Server Component */}
+                          <ProfileVoteServer
+                            profileId={profile.id}
+                            leaderboardId={pol.leaderboard.id}
+                            initialUpvotesAmt={upvotesAmt}
+                            initialDownvotesAmt={downvotesAmt}
+                            initialVote={currentVote?.type}
+                            getData={async () => {
+                              return await db.profile.findUnique({
+                                where: {
+                                  id: profile.id,
+                                },
+                                include: {
+                                  profilesOnLeaderboards: {
+                                    where: {
+                                      leaderboardId: pol.leaderboard.id,
+                                    },
+                                    include: {
+                                      leaderboard: true,
+                                      votes: true,
+                                    },
                                   },
                                 },
-                              },
-                            })
-                          }}
-                        />
-                      </Suspense>
+                              })
+                            }}
+                          />
+                        </Suspense>
+                      )}
                     </li>
                   )
                 })}

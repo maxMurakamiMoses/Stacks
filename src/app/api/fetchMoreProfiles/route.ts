@@ -26,6 +26,7 @@ export async function GET(req: Request) {
           include: {
             author: true,
             comments: true,
+            // Include dudedinScore here
           },
         },
         votes: true,
@@ -46,6 +47,8 @@ export async function GET(req: Request) {
       leaderboard: pol.leaderboard,
       image: pol.profile.image ?? '',
       claimed: pol.profile.claimed ?? false,
+      // Add dudedinScore to the profile data
+      dudedinScore: pol.profile.dudedinScore ?? 0,
     }));
 
     return NextResponse.json(profiles);

@@ -9,4 +9,5 @@ export type ExtendedProfile = Profile & {
   image: string
   claimed: boolean
   rank: number
+  dudedinScore?: number
 }

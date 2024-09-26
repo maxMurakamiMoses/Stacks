@@ -16,6 +16,7 @@ interface ProfileProps {
     createdAt: string | Date
     image: string
     claimed: boolean
+    dudedinScore?: number
   }
   rank: number
   upvotes: number
@@ -62,8 +63,8 @@ const Profile: FC<ProfileProps> = ({
   rank,
   upvotes,
   downvotes,
-  currentVote,
   leaderboardName,
+  currentVote,
   leaderboardId,
   commentAmt,
 }) => {
@@ -144,19 +145,27 @@ const Profile: FC<ProfileProps> = ({
             )}
           </div>
         </div>
+        {leaderboardName === 'dudedin-pace' ? (
+  // Display dudedinScore
+  <div className='flex-shrink-0 mr-10'>
+    <p className='text-lg font-semibold'>Score: {profile.dudedinScore || 0}</p>
+  </div>
+) : (
+  // Display the voting component
+  <div
+    className='flex-shrink-0 mr-10'
+    onClick={handleVoteClick}
+  >
+    <ProfileVoteClient
+      profileId={profile.id}
+      leaderboardId={leaderboardId}
+      initialUpvotesAmt={upvotes}
+      initialDownvotesAmt={downvotes}
+      initialVote={currentVote?.type}
+    />
+  </div>
+)}
 
-        <div
-          className='flex-shrink-0 mr-10'
-          onClick={handleVoteClick}
-        >
-          <ProfileVoteClient
-            profileId={profile.id}
-            leaderboardId={leaderboardId}
-            initialUpvotesAmt={upvotes}
-            initialDownvotesAmt={downvotes}
-            initialVote={currentVote?.type}
-          />
-        </div>
       </div>
     </div>
   )

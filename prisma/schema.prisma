@@ -72,6 +72,7 @@
   model Profile {
     id            String                  @id @default(cuid())
     claimed      Boolean @default(false)
+    dudedinScore  Int? 
     image         String?
     title         String
     content       Json?
@@ -81,6 +82,12 @@
     authorId      String
     comments      Comment[] 
     profilesOnLeaderboards ProfilesOnLeaderboards[]
+
+    youtubeFollowers?: number
+    twitterFollowers?: number
+    instagramFollowers?: number
+    tiktokFollowers?: number
+    totalFollowers?: number
   }
 
 model ProfilesOnLeaderboards {
