@@ -8,7 +8,6 @@ import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { toast } from '../../hooks/use-toast'
-import { Button } from '../ui/Button'
 import { Triangle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -101,42 +100,34 @@ const ProfileVoteClient = ({
   return (
     <div className='flex space-x-2'>
       {/* Upvotes Box */}
-      <div className='flex flex-col items-center p-1 bg-transparent rounded-lg border border-gray-300'>
-        <Button
-          onClick={() => handleVote('UP')}
-          size='sm'
-          variant='ghost'
-          aria-label='upvote'
-          disabled={disableVoting}
-          className='hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none'>
-          <Triangle
-            className={cn('h-5 w-5', {
-              'text-emerald-500 fill-emerald-500': currentVote === 'UP',
-              'text-zinc-700': currentVote !== 'UP',
-            })}
-          />
-        </Button>
-        <span className='text-sm font-semibold text-gray-900 mt-[-5px]'>{upvotesAmt}</span>
-      </div>
+      <button
+        onClick={() => handleVote('UP')}
+        disabled={disableVoting}
+        aria-label='upvote'
+        className='flex flex-col items-center p-1.5 bg-transparent rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none'>
+        <Triangle
+          className={cn('h-5 w-5', {
+            'text-emerald-500 fill-emerald-500': currentVote === 'UP',
+            'text-zinc-700': currentVote !== 'UP',
+          })}
+        />
+        <span className='text-sm font-semibold text-gray-900'>{upvotesAmt}</span>
+      </button>
 
       {/* Downvotes Box */}
-      <div className='flex flex-col items-center p-1 bg-transparent rounded-lg border border-gray-300'>
-        <Button
-          onClick={() => handleVote('DOWN')}
-          size='sm'
-          variant='ghost'
-          aria-label='downvote'
-          disabled={disableVoting}
-          className='hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none'>
-          <Triangle
-            className={cn('h-5 w-5 transform rotate-180', {
-              'text-red-500 fill-red-500': currentVote === 'DOWN',
-              'text-zinc-700': currentVote !== 'DOWN',
-            })}
-          />
-        </Button>
-        <span className='text-sm font-semibold text-gray-900 mt-[-5px]'>{downvotesAmt}</span>
-      </div>
+      <button
+        onClick={() => handleVote('DOWN')}
+        disabled={disableVoting}
+        aria-label='downvote'
+        className='flex flex-col items-center p-1.5 bg-transparent rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none'>
+        <Triangle
+          className={cn('h-5 w-5 transform rotate-180', {
+            'text-red-500 fill-red-500': currentVote === 'DOWN',
+            'text-zinc-700': currentVote !== 'DOWN',
+          })}
+        />
+        <span className='text-sm font-semibold text-gray-900'>{downvotesAmt}</span>
+      </button>
     </div>
   )
 }

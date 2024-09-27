@@ -12,11 +12,11 @@ const Navbar = async () => {
           <UserAccountNav user={session.user} />
         </div>
       ) : (
-        <div className="bg-white rounded-[28px] p-6 lg:block hidden">
-          <Link href='/sign-in'>
+        <Link href='/sign-in'>
+          <div className="bg-white rounded-[28px] p-6 lg:block hidden cursor-pointer">
             Sign In
-          </Link>
-        </div>
+          </div>
+        </Link>
       )}
     </div>
   );
