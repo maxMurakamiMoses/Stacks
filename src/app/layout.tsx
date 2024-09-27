@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/Toaster'
 import '@/styles/globals.css'
 import { NavbarComponent } from '@/components/top-bar/Navbar'
 import Profile from '@/components/top-bar/Profile'
+import { Footer } from '@/components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,6 +36,7 @@ export default function RootLayout({
           <Profile />
           {authModal}
           {children}
+          <Footer />
         </Providers>
         <Toaster />
       </body>

@@ -104,14 +104,14 @@ const ProfileVoteClient = ({
         onClick={() => handleVote('UP')}
         disabled={disableVoting}
         aria-label='upvote'
-        className='flex flex-col items-center p-1.5 bg-transparent rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none'>
+        className='flex flex-col items-center p-2 bg-gray-800 rounded-lg border border-gray-600 hover:bg-gray-700 focus:outline-none'>
         <Triangle
           className={cn('h-5 w-5', {
-            'text-emerald-500 fill-emerald-500': currentVote === 'UP',
-            'text-zinc-700': currentVote !== 'UP',
+            'text-emerald-400 fill-emerald-400': currentVote === 'UP',
+            'text-gray-300': currentVote !== 'UP',
           })}
         />
-        <span className='text-sm font-semibold text-gray-900'>{upvotesAmt}</span>
+        <span className='text-sm font-semibold text-gray-100'>{upvotesAmt}</span>
       </button>
 
       {/* Downvotes Box */}
@@ -119,14 +119,14 @@ const ProfileVoteClient = ({
         onClick={() => handleVote('DOWN')}
         disabled={disableVoting}
         aria-label='downvote'
-        className='flex flex-col items-center p-1.5 bg-transparent rounded-lg border border-gray-300 hover:bg-gray-100 focus:outline-none'>
+        className='flex flex-col items-center p-2 bg-gray-800 rounded-lg border border-gray-600 hover:bg-gray-700 focus:outline-none'>
         <Triangle
           className={cn('h-5 w-5 transform rotate-180', {
-            'text-red-500 fill-red-500': currentVote === 'DOWN',
-            'text-zinc-700': currentVote !== 'DOWN',
+            'text-red-400 fill-red-400': currentVote === 'DOWN',
+            'text-gray-300': currentVote !== 'DOWN',
           })}
         />
-        <span className='text-sm font-semibold text-gray-900'>{downvotesAmt}</span>
+        <span className='text-sm font-semibold text-gray-100'>{downvotesAmt}</span>
       </button>
     </div>
   )

@@ -6,6 +6,13 @@ import { db } from '@/lib/db'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { FaArrowLeft } from 'react-icons/fa'
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 // Helper function to format the leaderboard name
 const formatLeaderboardName = (name: string): string => {
@@ -83,28 +90,17 @@ const Page = async ({ params }: PageProps) => {
 
   return (
     <>
+    <div className={robotoMono.className}>
       <Link href="/leaderboards" className="group flex items-center text-white hover:text-neonGreen transition-all">
         <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
         <span className="text-sm">Back to Leaderboards</span>
       </Link>
 
       <div className="inline-block mt-4">
-        <h1 className='font-bold text-3xl md:text-5xl'>
+        <h1 className='font-bold text-3xl md:text-5xl pb-4'>
           {formattedLeaderboardName} Leaderboard
         </h1>
-        <svg
-          className="w-full h-6 mt-1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 200 20"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,10 Q10,15 20,10 T40,10 T60,10 T80,10 T100,10 T120,10 T140,10 T160,10 T180,10 T200,10"
-            stroke="#00FF00"
-            strokeWidth="1"
-            fill="none"
-          />
-        </svg>
+
       </div>
 
       {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
@@ -115,6 +111,7 @@ const Page = async ({ params }: PageProps) => {
         leaderboardName={leaderboard.name} // Pass the raw name
         leaderboardId={leaderboard.id}
       />
+      </div>
     </>
   )
 }

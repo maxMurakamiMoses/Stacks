@@ -16,7 +16,7 @@ export function LeaderboardFeed() {
         <div className="lg:col-span-4">
           <Link href="/leaderboards/dudedin-pace">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
-              Dudedin Pace Leaderboard
+              Dudedin-Pace Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/dudedin-pace">
@@ -46,7 +46,7 @@ export function LeaderboardFeed() {
         </div>
         <div className="lg:col-span-4">
           <Link href="/leaderboards/community-voted">
-            <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer md:whitespace-nowrap">
+            <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
               Community Voted Leaderboard
             </p>
           </Link>
@@ -70,9 +70,9 @@ export function LeaderboardFeed() {
 
         {/* Third Item (Text on Left, Image on Right) */}
         <div className="lg:col-span-4">
-          <Link href="/leaderboards/world-records">
+          <Link href="/leaderboards/social-media">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
-              Athletic Records Leaderboard
+            Social Media Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/world-records">
@@ -101,9 +101,9 @@ export function LeaderboardFeed() {
           <p>IMAGE PLACEHOLDER</p>
         </div>
         <div className="lg:col-span-4">
-          <Link href="/leaderboards/social-media">
+          <Link href="/leaderboards/athletic-records">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
-              Social Media Leaderboard
+            Athletic Records Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/social-media">

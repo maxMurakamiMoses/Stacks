@@ -7,6 +7,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ReactNode } from 'react'
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
+
 
 export const metadata: Metadata = {
   title: 'Stacks',
@@ -57,6 +65,7 @@ const Layout = async ({
           <ul className='flex flex-col col-span-2 space-y-6'>{children}</ul>
 
           {/* info sidebar */}
+          <div className={robotoMono.className}>
           <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last'>
             <div className='px-6 py-4'>
               <p className='font-semibold py-3'>About this leaderboard</p>
@@ -94,6 +103,7 @@ const Layout = async ({
                     {session?.user ? 'Join Leaderboard' : 'Join Leaderboard'}
                 </Link>
             </dl>
+          </div>
           </div>
         </div>
       </div>
