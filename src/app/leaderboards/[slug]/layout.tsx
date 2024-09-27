@@ -1,4 +1,4 @@
-// import ToFeedButton from '@/components/ToFeedButton'
+//leaderboards/[slug]/layout.tsx
 import { buttonVariants } from '@/components/ui/Button'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'

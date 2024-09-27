@@ -1,3 +1,5 @@
+//Profile.tsx
+
 'use client'
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
@@ -5,6 +7,8 @@ import Link from 'next/link'
 import { FC, MouseEvent } from 'react'
 import ProfileVoteClient from '../../vote/ProfileVoteClient'
 import { useRouter } from 'next/navigation'
+import Rays from './Rays';
+import Beams from './Beams';
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -91,58 +95,60 @@ const Profile: FC<ProfileProps> = ({
   }
 
   return (
-    <div
-      className='relative group rounded-md bg-white shadow text-black p-2 flex flex-col md:flex-row items-center cursor-pointer overflow-hidden transition-colors duration-200 ease-in-out'
-      onClick={handleCardClick}
-    >
-      {rank <= 3 && (
-        <div className="absolute top-[-4px] right-0 text-gray-800 text-[26px] rounded-full px-2 py-1">
-          {getRankIcon(rank)}
-        </div>
-      )}
-
-
-      {/* Gradient Overlay */}
-      <div
-        className='absolute bottom-0 left-0 w-full bg-gradient-to-t from-green-200 via-green-100 to-transparent transition-all duration-700 ease-in-out h-0 group-hover:h-1/5 z-0'
-      ></div>
-
+<div
+  className="relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318]"
+  onClick={handleCardClick}
+>
+  {/* Rays and Beams Background */}
+  <div className="absolute inset-0 z-0 pointer-events-none">
+    {/* <Rays /> */}
+    <Beams />
+  </div>
       {/* Content Wrapper */}
-      <div className='relative z-10 flex flex-col md:flex-row items-center w-full'>
-        <div className='flex-shrink-0 mb-4 md:mb-0 md:mr-6'>
+      <div className="relative z-10 p-6 flex flex-col md:flex-row items-center text-white">
+        {/* Rank Icon */}
+        {rank <= 3 && (
+          <div className="absolute top-[-4px] right-0 text-gray-200 text-[26px] rounded-full px-2 py-1">
+            {getRankIcon(rank)}
+          </div>
+        )}
+
+        {/* Profile Image */}
+        <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
           <img
             src={profile.image}
             alt={`${profile.title} profile`}
-            className='w-24 h-24 rounded-md object-cover'
+            className="w-24 h-24 rounded-md object-cover"
           />
         </div>
 
-        <div className='flex-1 mb-1 md:mb-0'>
+        {/* Profile Details */}
+        <div className="flex-1 mb-1 md:mb-0">
           <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
-            <h1 className='text-xl font-semibold mb-1'>{profile.title}</h1>
+            <h1 className="text-2xl text-white font-bold mb-1">{profile.title}</h1>
           </Link>
 
           {shortBio && (
-            <div className='mb-2 text-gray-500 text-base'>
+            <div className="mb-2 text-white text-base font-semibold">
               <p>{shortBio}</p>
             </div>
           )}
 
-          <div className='flex items-center mt-2 md:mt-0'>
+          <div className="flex items-center mt-2 md:mt-0">
             <Link
               href={`/profile/${profile.id}`}
-              className='flex items-center text-gray-500 mr-4'
+              className="flex items-center text-gray-400 mr-4"
               onClick={(e) => e.stopPropagation()}
             >
-              <MessageSquare className='h-5 w-5 mr-1' />
+              <MessageSquare className="h-5 w-5 mr-1" />
               <span>{commentAmt}</span>
             </Link>
 
             {tags.length > 0 && (
-              <div className='flex items-center text-sm text-gray-500'>
+              <div className="flex items-center text-sm text-white">
                 {tags.map((tag, index) => (
-                  <span key={tag} className='flex items-center'>
-                    {index !== 0 && <span className='mx-2 text-gray-400'>•</span>}
+                  <span key={tag} className="flex items-center">
+                    {index !== 0 && <span className="mx-2 text-white">•</span>}
                     <span>{tag}</span>
                   </span>
                 ))}
@@ -151,22 +157,15 @@ const Profile: FC<ProfileProps> = ({
           </div>
         </div>
 
-        {leaderboardName === 'social-media' ? (
-          // Display total followers
-          <div className='flex-shrink-0 mr-10'>
-            <p className='text-lg font-semibold'>Followers: {profile.totalFollowers || 0}</p>
-          </div>
-        ) : leaderboardName === 'dudedin-pace' ? (
-          // Display dudedinScore
-          <div className='flex-shrink-0 mr-10'>
-            <p className='text-lg font-semibold'>Score: {profile.dudedinScore || 0}</p>
-          </div>
-        ) : (
-          // Display the voting component
-          <div
-            className='flex-shrink-0 mr-10'
-            onClick={handleVoteClick}
-          >
+        {/* Voting or Score Display */}
+        <div className="flex-shrink-0 mr-10" onClick={handleVoteClick}>
+          {leaderboardName === 'social-media' ? (
+            <p className="text-lg font-semibold">
+              Followers: {profile.totalFollowers || 0}
+            </p>
+          ) : leaderboardName === 'dudedin-pace' ? (
+            <p className="text-lg font-semibold">Score: {profile.dudedinScore || 0}</p>
+          ) : (
             <ProfileVoteClient
               profileId={profile.id}
               leaderboardId={leaderboardId}
@@ -174,11 +173,11 @@ const Profile: FC<ProfileProps> = ({
               initialDownvotesAmt={downvotes}
               initialVote={currentVote?.type}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;
