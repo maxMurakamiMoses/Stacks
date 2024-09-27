@@ -4,11 +4,12 @@
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, useState} from 'react'
 import ProfileVoteClient from '../../vote/ProfileVoteClient'
 import { useRouter } from 'next/navigation'
-import Beams from './Beams';
-import BeamsHover from './BeamsHover';
+import { CanvasRevealEffect } from '@/components/ui/canvas-reveal-effect';
+import { AnimatePresence, motion } from 'framer-motion';
+
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -85,6 +86,7 @@ const Profile: FC<ProfileProps> = ({
   const tags = tagsString ? extractTags(tagsString) : []
 
   const shortBio = extractSection(blocks, '{SHORTBIO}')
+  const [hovered, setHovered] = useState(false);
 
   const handleCardClick = () => {
     router.push(`/profile/${profile.id}`)
@@ -98,18 +100,30 @@ const Profile: FC<ProfileProps> = ({
     <div
       className="relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318]"
       onClick={handleCardClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* Beams Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Base Beams */}
-        <div className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">
-          <Beams />
-        </div>
-        {/* Hover Beams */}
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute inset-0">
-          <BeamsHover />
-        </div>
-      </div>
+      {/* Pixelated Background Reveal on Hover */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 z-0"
+          >
+            <CanvasRevealEffect
+              animationSpeed={5}
+              containerClassName="bg-transparent"
+              colors={[[59, 130, 246], [139, 92, 246]]}
+              opacities={[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 1]}
+              dotSize={2}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
       {/* Content Wrapper */}
       <div className="relative z-10 p-2 flex flex-col md:flex-row items-center text-white">
         {/* Rank Icon */}
