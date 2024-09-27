@@ -1,9 +1,18 @@
+// layout.tsx
+
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import Sidebar from '@/components/profile/Sidebar';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Stacks',
@@ -45,7 +54,7 @@ const Layout = async ({
     (profile.tiktokFollowers ?? 0);
 
   return (
-    <div className="sm:container max-w-7xl mx-auto h-full pt-20">
+    <div className={`${robotoMono.className} sm:container max-w-7xl mx-auto h-full pt-20`}>
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-y-4 md:gap-x-4 py-6">
           {/* Main Content */}

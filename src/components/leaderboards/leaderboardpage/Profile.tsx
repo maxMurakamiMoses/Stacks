@@ -1,40 +1,55 @@
 // Profile.tsx
 
-'use client'
-import { Profile as ProfileType, User, Vote } from '@prisma/client'
-import { MessageSquare } from 'lucide-react'
-import Link from 'next/link'
-import { FC, MouseEvent, useState} from 'react'
-import ProfileVoteClient from '../../vote/ProfileVoteClient'
-import { useRouter } from 'next/navigation'
+'use client';
+import { Profile as ProfileType, User, Vote } from '@prisma/client';
+import { MessageSquare } from 'lucide-react';
+import Link from 'next/link';
+import { FC, MouseEvent, useState } from 'react';
+import ProfileVoteClient from '../../vote/ProfileVoteClient';
+import { useRouter } from 'next/navigation';
 import { CanvasRevealEffect } from '@/components/ui/canvas-reveal-effect';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Orbitron } from 'next/font/google';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 
-type PartialVote = Pick<Vote, 'type'>
+// Initialize Orbitron font
+const orbitron = Orbitron({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-orbitron',
+});
+
+type PartialVote = Pick<Vote, 'type'>;
 
 interface ProfileProps {
   profile: ProfileType & {
-    author: User
-    votes: Vote[]
-    content: any
-    createdAt: string | Date
-    image: string
-    claimed: boolean
-    dudedinScore?: number
-    youtubeFollowers?: number
-    twitterFollowers?: number
-    instagramFollowers?: number
-    tiktokFollowers?: number
-    totalFollowers?: number
-  }
-  rank: number
-  upvotes: number
-  downvotes: number
-  currentVote?: PartialVote
-  commentAmt: number
-  leaderboardName?: string
-  leaderboardId: string
+    author: User;
+    votes: Vote[];
+    content: any;
+    createdAt: string | Date;
+    image: string;
+    claimed: boolean;
+    dudedinScore?: number;
+    youtubeFollowers?: number;
+    twitterFollowers?: number;
+    instagramFollowers?: number;
+    tiktokFollowers?: number;
+    totalFollowers?: number;
+  };
+  rank: number;
+  upvotes: number;
+  downvotes: number;
+  currentVote?: PartialVote;
+  commentAmt: number;
+  leaderboardName?: string;
+  leaderboardId: string;
 }
 
 const getRankIcon = (rank: number) => {
@@ -51,22 +66,22 @@ const getRankIcon = (rank: number) => {
 const extractSection = (blocks: any[], sectionTitle: string): string | null => {
   const sectionIndex = blocks.findIndex(
     (block) => block.type === 'header' && block.data.text === sectionTitle
-  )
+  );
   if (sectionIndex !== -1 && blocks[sectionIndex + 1]) {
-    return blocks[sectionIndex + 1].data.text
+    return blocks[sectionIndex + 1].data.text;
   }
-  return null
-}
+  return null;
+};
 
 const extractTags = (tagsString: string): string[] => {
-  const regex = /\[([^\]]+)\]/g
-  const tags: string[] = []
-  let match
+  const regex = /\[([^\]]+)\]/g;
+  const tags: string[] = [];
+  let match;
   while ((match = regex.exec(tagsString)) !== null) {
-    tags.push(match[1])
+    tags.push(match[1]);
   }
-  return tags
-}
+  return tags;
+};
 
 const Profile: FC<ProfileProps> = ({
   profile,
@@ -78,27 +93,27 @@ const Profile: FC<ProfileProps> = ({
   leaderboardName,
   commentAmt,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
 
-  const blocks = profile.content?.blocks || []
+  const blocks = profile.content?.blocks || [];
 
-  const tagsString = extractSection(blocks, '{TAGS}')
-  const tags = tagsString ? extractTags(tagsString) : []
+  const tagsString = extractSection(blocks, '{TAGS}');
+  const tags = tagsString ? extractTags(tagsString) : [];
 
-  const shortBio = extractSection(blocks, '{SHORTBIO}')
+  const shortBio = extractSection(blocks, '{SHORTBIO}');
   const [hovered, setHovered] = useState(false);
 
   const handleCardClick = () => {
-    router.push(`/profile/${profile.id}`)
-  }
+    router.push(`/profile/${profile.id}`);
+  };
 
   const handleVoteClick = (e: MouseEvent) => {
-    e.stopPropagation()
-  }
+    e.stopPropagation();
+  };
 
   return (
     <div
-      className="relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318]"
+      className={`relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318] ${robotoMono.className}`}
       onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -122,7 +137,6 @@ const Profile: FC<ProfileProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
-
 
       {/* Content Wrapper */}
       <div className="relative z-10 p-2 flex flex-col md:flex-row items-center text-white">

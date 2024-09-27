@@ -6,6 +6,13 @@ import { Suspense } from 'react';
 import ProfileVoteServer from '@/components/vote/ProfileVoteServer';
 import { notFound } from 'next/navigation';
 import { formatLeaderboardName } from '@/lib/utils';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 interface SidebarProps {
   profile: any;
@@ -15,7 +22,9 @@ interface SidebarProps {
 
 const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
   return (
-    <div className="overflow-hidden h-fit rounded-lg border border-gray-200 order-first lg:order-last flex flex-col space-y-6">
+    <div
+      className={`${robotoMono.className} overflow-hidden h-fit rounded-lg border border-gray-200 order-first lg:order-last flex flex-col space-y-6`}
+    >
       {/* Leaderboard Rankings */}
       <div className="my-8 mx-8 lg:my-4 lg:mx-4">
         <h2 className="text-lg font-semibold">Leaderboard Rankings</h2>
@@ -38,9 +47,7 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
                 {pol.leaderboard.name === 'dudedin-pace' ? (
                   // Display dudedinScore
                   <div className="flex-shrink-0 mr-10">
-                    <p className="text-lg font-semibold">
-                      Score: {profile.dudedinScore || 0}
-                    </p>
+                    <p className="text-lg font-semibold">Score: {profile.dudedinScore || 0}</p>
                   </div>
                 ) : pol.leaderboard.name === 'social-media' ? (
                   // Display total followers
@@ -115,7 +122,7 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
               href="https://forms.gle/your-google-form-link-claim"
               target="_blank"
               rel="noopener noreferrer"
-              className={`${buttonVariants({ variant: 'outline' })} w-full mt-4 `}
+              className={`${buttonVariants({ variant: 'outline' })} w-full mt-4`}
             >
               Claim This Profile
             </Link>

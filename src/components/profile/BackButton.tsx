@@ -3,6 +3,14 @@
 
 import { useRouter } from 'next/navigation';
 import { FaArrowLeft } from 'react-icons/fa';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
+
 
 const BackButton = () => {
   const router = useRouter();
@@ -15,7 +23,7 @@ const BackButton = () => {
       <FaArrowLeft
         className="mr-2 transform transition-transform group-hover:translate-x-[-4px]"
       />
-      <span className="text-sm">Back</span>
+      <span className={`text-sm ${robotoMono.className}`}>Back</span>
     </button>
   );
 };

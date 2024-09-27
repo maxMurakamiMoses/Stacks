@@ -3,6 +3,13 @@
 import { cn } from "@/lib/utils";
 import { motion, stagger, useAnimate, useInView } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 export const TypewriterEffect = ({
   words,
@@ -16,7 +23,7 @@ export const TypewriterEffect = ({
   className?: string;
   cursorClassName?: string;
 }) => {
-  // split text inside of words into array of characters
+  // Split text inside of words into an array of characters
   const wordsArray = words.map((word) => {
     return {
       ...word,
@@ -32,7 +39,6 @@ export const TypewriterEffect = ({
 
   useEffect(() => {
     if (isInView) {
-
       const timeout = setTimeout(() => {
         animate(
           "span",
@@ -47,11 +53,11 @@ export const TypewriterEffect = ({
             ease: "easeInOut",
           }
         );
-      }, 500); //delay
+      }, 500); // Delay
 
       return () => clearTimeout(timeout);
     }
-  }, [isInView]);
+  }, [isInView, animate]);
 
   useEffect(() => {
     if (repeatCount < 20) {
@@ -65,7 +71,7 @@ export const TypewriterEffect = ({
 
   const renderWords = () => {
     return (
-      <motion.div ref={scope} className="inline">
+      <motion.div ref={scope} className={cn("inline", robotoMono.className)}>
         {wordsArray.map((word, idx) => {
           return (
             <div key={`word-${idx}`} className="inline-block">
@@ -88,14 +94,15 @@ export const TypewriterEffect = ({
       </motion.div>
     );
   };
-  
+
   return (
     <div
       className={cn(
         "text-[60px] lg:text-[70px] xl:text-[86px] font-bold",
-        className
+        className,
+        robotoMono.className
       )}
-      style={{ whiteSpace: 'nowrap' }}
+      style={{ whiteSpace: "nowrap" }}
     >
       {renderWords()}
       {repeatCount < 6 && (
