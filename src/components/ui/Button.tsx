@@ -4,20 +4,24 @@ import { Loader2 } from 'lucide-react'
 import * as React from 'react'
 
 const buttonVariants = cva(
-  'active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:opacity-50 dark:focus:ring-slate-400 disabled:pointer-events-none dark:focus:ring-offset-slate-900',
+  // Removed focus ring styles from base
+  'active:scale-95 inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none disabled:opacity-50 disabled:pointer-events-none',
   {
     variants: {
       variant: {
         default:
-          'bg-zinc-900 text-zinc-100 hover:bg-zinc-800',
-        destructive: 'text-white hover:bg-red-600 dark:hover:bg-red-600',
+          // Added focus ring styles to default variant
+          'bg-zinc-900 text-zinc-100 hover:bg-zinc-800 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2',
+        destructive:
+          'text-white hover:bg-red-600 dark:hover:bg-red-600 focus:ring-2 focus:ring-red-400 focus:ring-offset-2',
         outline:
-          'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 outline outline-1 outline-zinc-300',
+          'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 outline outline-1 outline-zinc-300 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2',
         subtle:
-          'hover:bg-zinc-200 bg-zinc-100 text-zinc-900',
+          'hover:bg-zinc-200 bg-zinc-100 text-zinc-900 focus:ring-2 focus:ring-slate-400 focus:ring-offset-2',
         ghost:
-          'bg-transparent hover:bg-zinc-100 text-zinc-800 data-[state=open]:bg-transparent data-[state=open]:bg-transparent',
-        link: 'bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent',
+          // Removed focus ring for ghost variant
+          'bg-transparent hover:bg-zinc-100 text-zinc-800 data-[state=open]:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0',
+        link: 'bg-transparent dark:bg-transparent underline-offset-4 hover:underline text-slate-900 dark:text-slate-100 hover:bg-transparent dark:hover:bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0',
       },
       size: {
         default: 'h-10 py-2 px-4',

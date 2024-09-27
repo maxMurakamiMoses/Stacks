@@ -98,7 +98,7 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
         {/* Is the information outdated? Section */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold">Is the information outdated?</h2>
-          <p className="mt-2 text-sm">
+          <p className="mt-2 text-sm text-gray-300">
             If you believe the information on this profile is outdated, let us know!
           </p>
           <Link
@@ -114,8 +114,8 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
         {/* Conditionally render the "Is This You?" Section */}
         {!profile.claimed && (
           <div className="pb-4">
-            <h2 className="text-lg font-semibold pt-4">Is This You?</h2>
-            <p className="mt-2 text-sm">
+            <h2 className="text-lg font-semibold pt-4 ">Is This You?</h2>
+            <p className="mt-2 text-sm text-gray-300">
               Claim your profile to update it whenever you want!
             </p>
             <Link

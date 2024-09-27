@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/Button'
+import { Button, buttonVariants } from '@/components/ui/Button'
 import { toast } from '@/hooks/use-toast'
 import { CommentRequest } from '@/lib/validators/comment'
 
@@ -68,6 +68,7 @@ const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
           <Button
             isLoading={isLoading}
             disabled={input.length === 0}
+            className={`${buttonVariants({ variant: 'outline' })} mt-4`}
             onClick={() => comment({ profileId, text: input, replyToId })}>
             Post
           </Button>

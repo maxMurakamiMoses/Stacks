@@ -77,35 +77,46 @@ const CommentVotes: FC<CommentVotesProps> = ({
 
   return (
     <div className='flex gap-1'>
-      {/* upvote */}
+      {/* Upvote */}
       <Button
         onClick={() => vote('UP')}
         size='xs'
         variant='ghost'
-        aria-label='upvote'>
+        aria-label='upvote'
+        className={cn(
+          'bg-transparent hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none active:ring-0',
+          {
+            'text-emerald-500': currentVote?.type === 'UP',
+          }
+        )}
+      >
         <ArrowBigUp
-          className={cn('h-5 w-5 text-zinc-700', {
+          className={cn('h-5 w-5 text-zinc-300', {
             'text-emerald-500 fill-emerald-500': currentVote?.type === 'UP',
           })}
         />
       </Button>
 
-      {/* score */}
-      <p className='text-center py-2 px-1 font-medium text-xs text-zinc-900'>
+      {/* Score */}
+      <p className='text-center py-2 px-1 font-medium text-xs text-zinc-300'>
         {votesAmt}
       </p>
 
-      {/* downvote */}
+      {/* Downvote */}
       <Button
         onClick={() => vote('DOWN')}
         size='xs'
-        className={cn({
-          'text-emerald-500': currentVote?.type === 'DOWN',
-        })}
         variant='ghost'
-        aria-label='downvote'>
+        aria-label='downvote'
+        className={cn(
+          'bg-transparent hover:bg-transparent focus:outline-none focus:ring-0 active:outline-none active:ring-0',
+          {
+            'text-red-500': currentVote?.type === 'DOWN',
+          }
+        )}
+      >
         <ArrowBigDown
-          className={cn('h-5 w-5 text-zinc-700', {
+          className={cn('h-5 w-5 text-zinc-300', {
             'text-red-500 fill-red-500': currentVote?.type === 'DOWN',
           })}
         />

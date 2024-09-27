@@ -54,8 +54,13 @@ const Layout = async ({
     (profile.tiktokFollowers ?? 0);
 
   return (
-    <div className={`${robotoMono.className} sm:container max-w-7xl mx-auto h-full pt-20`}>
-      <div>
+    <div className={`relative min-h-screen w-full bg-gray-900 text-white ${robotoMono.className}`}>
+      {/* Background Overlays */}
+      <div className="absolute inset-0 bg-gradient-radial from-neonGreen/30 via-neonGreen/10 to-transparent opacity-40"></div>
+      <div className="absolute inset-0 bg-grid-neonGreen/[0.1] mix-blend-overlay"></div>
+
+      {/* Main Content Container */}
+      <div className="container max-w-8xl mx-auto h-full pt-20 relative">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-y-4 md:gap-x-4 py-6">
           {/* Main Content */}
           <div className="flex flex-col col-span-3 space-y-6">{children}</div>

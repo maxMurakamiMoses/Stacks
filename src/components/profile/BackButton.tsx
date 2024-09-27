@@ -18,7 +18,7 @@ const BackButton = () => {
   return (
     <button
       onClick={() => router.back()}
-      className="group flex items-center font-bold text-black hover:text-green-600 transition-all pb-4"
+      className="group flex items-center font-bold text-white hover:text-neonGreen transition-all pb-4"
     >
       <FaArrowLeft
         className="mr-2 transform transition-transform group-hover:translate-x-[-4px]"

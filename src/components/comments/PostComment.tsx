@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { FC, useRef, useState } from 'react'
 import CommentVotes from './CommentVotes'
 import { UserAvatar } from '../top-bar/UserAvatar'
-import { Button } from '../ui/Button'
+import { Button, buttonVariants } from '../ui/Button'
 import { Label } from '../ui/Label'
 import { Textarea } from '../ui/Textarea'
 import { toast } from '../../hooks/use-toast'
@@ -79,15 +79,15 @@ const ProfileComment: FC<ProfileCommentProps> = ({
           className='h-6 w-6'
         />
         <div className='ml-2 flex items-center gap-x-2'>
-          <p className='text-sm font-medium text-gray-900'>u/{comment.author.username}</p>
+          <p className='text-sm font-medium text-gray-300'>u/{comment.author.username}</p>
 
-          <p className='max-h-40 truncate text-xs text-zinc-500'>
+          <p className='max-h-40 truncate text-xs text-zinc-300'>
             {formatTimeToNow(new Date(comment.createdAt))}
           </p>
         </div>
       </div>
 
-      <p className='text-sm text-zinc-900 mt-2'>{comment.text}</p>
+      <p className='text-sm text-zinc-300 mt-2'>{comment.text}</p>
 
       <div className='flex gap-2 items-center'>
         <CommentVotes
@@ -96,13 +96,15 @@ const ProfileComment: FC<ProfileCommentProps> = ({
           currentVote={currentVote}
         />
 
+        {/* Updated Reply Button */}
         <Button
           onClick={() => {
             if (!session) return router.push('/sign-in')
             setIsReplying(true)
           }}
-          variant='ghost'
-          size='xs'>
+          size='xs'
+          className="bg-transparent text-gray-300 hover:bg-transparent hover:text-green-500 !bg-transparent !hover:bg-transparent"
+        >
           <MessageSquare className='h-4 w-4 mr-1.5' />
           Reply
         </Button>
@@ -110,7 +112,7 @@ const ProfileComment: FC<ProfileCommentProps> = ({
 
       {isReplying ? (
         <div className='grid w-full gap-1.5'>
-          <Label htmlFor='comment'>Your comment</Label>
+          <Label htmlFor='comment' className='text-gray-300'>Your comment</Label>
           <div className='mt-2'>
             <Textarea
               onFocus={(e) =>
@@ -125,13 +127,16 @@ const ProfileComment: FC<ProfileCommentProps> = ({
               onChange={(e) => setInput(e.target.value)}
               rows={1}
               placeholder='What are your thoughts?'
+              
             />
 
             <div className='mt-2 flex justify-end gap-2'>
               <Button
                 tabIndex={-1}
                 variant='subtle'
-                onClick={() => setIsReplying(false)}>
+                onClick={() => setIsReplying(false)}
+                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
+                >
                 Cancel
               </Button>
               <Button
@@ -143,8 +148,11 @@ const ProfileComment: FC<ProfileCommentProps> = ({
                     text: input,
                     replyToId: comment.replyToId ?? comment.id, // default to top-level comment
                   })
-                }}>
-                Post
+                }}
+                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
+                >
+                  
+                Post on subcomment
               </Button>
             </div>
           </div>
