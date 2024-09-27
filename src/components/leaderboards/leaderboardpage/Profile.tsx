@@ -1,4 +1,4 @@
-//Profile.tsx
+// Profile.tsx
 
 'use client'
 import { Profile as ProfileType, User, Vote } from '@prisma/client'
@@ -7,8 +7,8 @@ import Link from 'next/link'
 import { FC, MouseEvent } from 'react'
 import ProfileVoteClient from '../../vote/ProfileVoteClient'
 import { useRouter } from 'next/navigation'
-import Rays from './Rays';
 import Beams from './Beams';
+import BeamsHover from './BeamsHover';
 
 type PartialVote = Pick<Vote, 'type'>
 
@@ -38,13 +38,13 @@ interface ProfileProps {
 
 const getRankIcon = (rank: number) => {
   if (rank === 1) {
-    return '👑'; 
+    return '👑';
   } else if (rank === 2) {
-    return '🥈'; 
+    return '🥈';
   } else if (rank === 3) {
-    return '🥉'; 
+    return '🥉';
   }
-  return null; 
+  return null;
 };
 
 const extractSection = (blocks: any[], sectionTitle: string): string | null => {
@@ -95,17 +95,23 @@ const Profile: FC<ProfileProps> = ({
   }
 
   return (
-<div
-  className="relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318]"
-  onClick={handleCardClick}
->
-  {/* Rays and Beams Background */}
-  <div className="absolute inset-0 z-0 pointer-events-none">
-    {/* <Rays /> */}
-    <Beams />
-  </div>
+    <div
+      className="relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318]"
+      onClick={handleCardClick}
+    >
+      {/* Beams Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Base Beams */}
+        <div className="opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+          <Beams />
+        </div>
+        {/* Hover Beams */}
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute inset-0">
+          <BeamsHover />
+        </div>
+      </div>
       {/* Content Wrapper */}
-      <div className="relative z-10 p-6 flex flex-col md:flex-row items-center text-white">
+      <div className="relative z-10 p-2 flex flex-col md:flex-row items-center text-white">
         {/* Rank Icon */}
         {rank <= 3 && (
           <div className="absolute top-[-4px] right-0 text-gray-200 text-[26px] rounded-full px-2 py-1">

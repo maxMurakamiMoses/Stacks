@@ -1,5 +1,5 @@
 // Beams.js
-const Beams = () => {
+const BeamsHover = () => {
     return (
       <svg
         width="380"
@@ -13,11 +13,11 @@ const Beams = () => {
           <circle cx="34" cy="52" r="114" fill="#40E0D0" />
         </g>
         <g filter="url(#filter1_f_120_7473)">
-        <circle cx="332" cy="24" r="102" fill="#40E0D0" />
+        <circle cx="332" cy="230" r="70" fill="#00FF00" /> 
 
         </g>
         <g filter="url(#filter2_f_120_7473)">
-        <circle cx="191" cy="53" r="102" fill="#40E0D0" /> 
+        <circle cx="191" cy="53" r="90" fill="#40E0D0" /> 
         </g>
         <defs>
           <filter
@@ -88,5 +88,5 @@ const Beams = () => {
     );
   };
   
-  export default Beams;
+  export default BeamsHover;
   
