@@ -1,5 +1,5 @@
 // src/app/profile/[profileId]/page.tsx
-import CommentsSection from '@/components/comments/CommentsSection';
+import CommentsSection from '@/components/profile/comments/CommentsSection';
 import { db } from '@/lib/db';
 import { Loader2 } from 'lucide-react';
 import { notFound } from 'next/navigation';

@@ -1,5 +1,3 @@
-// Profile.tsx
-
 'use client';
 import { Profile as ProfileType, User, Vote } from '@prisma/client';
 import { MessageSquare } from 'lucide-react';
@@ -7,7 +5,6 @@ import Link from 'next/link';
 import { FC, MouseEvent, useState } from 'react';
 import ProfileVoteClient from '../../vote/ProfileVoteClient';
 import { useRouter } from 'next/navigation';
-import { CanvasRevealEffect } from '@/components/ui/canvas-reveal-effect';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Orbitron } from 'next/font/google';
 import { Roboto_Mono } from 'next/font/google';
@@ -17,7 +14,6 @@ const robotoMono = Roboto_Mono({
   weight: ['400', '700'],
   variable: '--font-roboto-mono',
 });
-
 
 // Initialize Orbitron font
 const orbitron = Orbitron({
@@ -117,29 +113,28 @@ const Profile: FC<ProfileProps> = ({
       onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      style={{
+        boxShadow: hovered
+          ? '0 0 1px rgba(57, 255, 20, 0.6)' // Neon green glow
+          : 'none',
+        transition: 'box-shadow 0.3s ease-in-out',
+      }}
     >
-      {/* Pixelated Background Reveal on Hover */}
+      {/* Dark Neon Green Flow Effect */}
       <AnimatePresence>
         {hovered && (
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            animate={{ opacity: 0.08 }} // Increased opacity for stronger glow
             exit={{ opacity: 0 }}
-            className="absolute inset-0 z-0"
-          >
-            <CanvasRevealEffect
-              animationSpeed={5}
-              containerClassName="bg-transparent"
-              colors={[[59, 130, 246], [139, 92, 246]]}
-              opacities={[0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4, 1]}
-              dotSize={2}
-            />
-          </motion.div>
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="absolute inset-0 z-10 bg-gradient-to-bl from-[#39FF14] via-[#00FF7F] to-transparent pointer-events-none"
+          />
         )}
       </AnimatePresence>
 
       {/* Content Wrapper */}
-      <div className="relative z-10 p-2 flex flex-col md:flex-row items-center text-white">
+      <div className="relative z-20 p-4 flex flex-col md:flex-row items-center text-white">
         {/* Rank Icon */}
         {rank <= 3 && (
           <div className="absolute top-[-4px] right-0 text-gray-200 text-[26px] rounded-full px-2 py-1">
