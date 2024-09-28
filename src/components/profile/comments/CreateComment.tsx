@@ -1,9 +1,10 @@
+// File 3: CreateComment.tsx
+
 'use client'
 
-import { Button, buttonVariants } from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 import { toast } from '@/hooks/use-toast'
 import { CommentRequest } from '@/lib/validators/comment'
-
 import { useCustomToasts } from '@/hooks/use-custom-toasts'
 import { useMutation } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios'
@@ -15,9 +16,10 @@ import { Textarea } from '@/components/ui/Textarea'
 interface CreateCommentProps {
   profileId: string
   replyToId?: string
+  onCommentPosted?: () => void
 }
 
-const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
+const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId, onCommentPosted }) => {
   const [input, setInput] = useState<string>('')
   const router = useRouter()
   const { loginToast } = useCustomToasts()
@@ -26,10 +28,7 @@ const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
     mutationFn: async ({ profileId, text, replyToId }: CommentRequest) => {
       const payload: CommentRequest = { profileId, text, replyToId }
 
-      const { data } = await axios.patch(
-        `/api/profile/comment`,
-        payload
-      )
+      const { data } = await axios.patch(`/api/profile/comment`, payload)
       return data
     },
 
@@ -49,6 +48,9 @@ const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
     onSuccess: () => {
       router.refresh()
       setInput('')
+      if (onCommentPosted) {
+        onCommentPosted()
+      }
     },
   })
 
@@ -67,9 +69,9 @@ const CreateComment: FC<CreateCommentProps> = ({ profileId, replyToId }) => {
         <div className='mt-2 flex justify-end'>
           <Button
             isLoading={isLoading}
-            disabled={input.length === 0}
-            className={`${buttonVariants({ variant: 'outline' })} mt-4`}
-            onClick={() => comment({ profileId, text: input, replyToId })}>
+            disabled={input.trim().length === 0}
+            onClick={() => comment({ profileId, text: input.trim(), replyToId })}
+          >
             Post
           </Button>
         </div>

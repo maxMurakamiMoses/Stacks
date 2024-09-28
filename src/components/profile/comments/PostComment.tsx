@@ -1,75 +1,40 @@
+// File 4: PostComment.tsx
+
 'use client'
 
-import { useOnClickOutside } from '@/hooks/use-on-click-outside'
-import { formatTimeToNow } from '@/lib/utils'
-import { CommentRequest } from '@/lib/validators/comment'
+import { FC } from 'react'
 import { Comment, CommentVote, User } from '@prisma/client'
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-import { MessageSquare } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { FC, useRef, useState } from 'react'
+import { formatTimeToNow } from '@/lib/utils'
 import CommentVotes from './CommentVotes'
-import { UserAvatar } from '../../top-bar/UserAvatar'
-import { Button, buttonVariants } from '../../ui/Button'
-import { Label } from '../../ui/Label'
-import { Textarea } from '../../ui/Textarea'
-import { toast } from '../../../hooks/use-toast'
+import { MessageSquare } from 'lucide-react'
+import { UserAvatar } from '@/components/top-bar/UserAvatar'
+import { Button } from '@/components/ui/Button'
 import { useSession } from 'next-auth/react'
 
 type ExtendedComment = Comment & {
-  votes: CommentVote[]
   author: User
+  votes: CommentVote[]
 }
 
-interface ProfileCommentProps {
+interface PostCommentProps {
   comment: ExtendedComment
   votesAmt: number
   currentVote: CommentVote | undefined
   profileId: string
+  onReply: () => void
 }
 
-const ProfileComment: FC<ProfileCommentProps> = ({
+const PostComment: FC<PostCommentProps> = ({
   comment,
   votesAmt,
   currentVote,
   profileId,
+  onReply,
 }) => {
   const { data: session } = useSession()
-  const [isReplying, setIsReplying] = useState<boolean>(false)
-  const commentRef = useRef<HTMLDivElement>(null)
-  const [input, setInput] = useState<string>(`@${comment.author.username} `)
-  const router = useRouter()
-  useOnClickOutside(commentRef, () => {
-    setIsReplying(false)
-  })
-
-  const { mutate: profileComment, isLoading } = useMutation({
-    mutationFn: async ({ profileId, text, replyToId }: CommentRequest) => {
-      const payload: CommentRequest = { profileId, text, replyToId }
-
-      const { data } = await axios.patch(
-        `/api/profile/comment`,
-        payload
-      )
-      return data
-    },
-
-    onError: () => {
-      return toast({
-        title: 'Something went wrong.',
-        description: "Comment wasn't created successfully. Please try again.",
-        variant: 'destructive',
-      })
-    },
-    onSuccess: () => {
-      router.refresh()
-      setIsReplying(false)
-    },
-  })
 
   return (
-    <div ref={commentRef} className='flex flex-col'>
+    <div className='flex flex-col'>
       <div className='flex items-center'>
         <UserAvatar
           user={{
@@ -96,70 +61,24 @@ const ProfileComment: FC<ProfileCommentProps> = ({
           currentVote={currentVote}
         />
 
-        {/* Updated Reply Button */}
         <Button
           onClick={() => {
-            if (!session) return router.push('/sign-in')
-            setIsReplying(true)
+            if (!session) {
+              // Optionally, handle redirection to sign-in
+              // e.g., window.location.href = '/sign-in'
+              return
+            }
+            onReply()
           }}
           size='xs'
-          className="bg-transparent text-gray-300 hover:bg-transparent hover:text-green-500 !bg-transparent !hover:bg-transparent"
+          className='bg-transparent text-gray-300 hover:bg-transparent hover:text-green-500'
         >
           <MessageSquare className='h-4 w-4 mr-1.5' />
           Reply
         </Button>
       </div>
-
-      {isReplying ? (
-        <div className='grid w-full gap-1.5'>
-          <Label htmlFor='comment' className='text-gray-300'>Your comment</Label>
-          <div className='mt-2'>
-            <Textarea
-              onFocus={(e) =>
-                e.currentTarget.setSelectionRange(
-                  e.currentTarget.value.length,
-                  e.currentTarget.value.length
-                )
-              }
-              autoFocus
-              id='comment'
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              rows={1}
-              placeholder='What are your thoughts?'
-              
-            />
-
-            <div className='mt-2 flex justify-end gap-2'>
-              <Button
-                tabIndex={-1}
-                variant='subtle'
-                onClick={() => setIsReplying(false)}
-                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
-                >
-                Cancel
-              </Button>
-              <Button
-                isLoading={isLoading}
-                onClick={() => {
-                  if (!input) return
-                  profileComment({
-                    profileId,
-                    text: input,
-                    replyToId: comment.replyToId ?? comment.id, // default to top-level comment
-                  })
-                }}
-                className={`${buttonVariants({ variant: 'outline' })} mt-4`}
-                >
-                  
-                Post on subcomment
-              </Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
   )
 }
 
-export default ProfileComment
+export default PostComment

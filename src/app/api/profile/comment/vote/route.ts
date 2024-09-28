@@ -1,3 +1,5 @@
+//api/profile/comment/vote/route.ts
+
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { CommentVoteValidator } from '@/lib/validators/vote'

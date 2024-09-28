@@ -1,3 +1,5 @@
+// File 6: /api/profile/comment/route.ts
+
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { CommentValidator } from '@/lib/validators/comment'
@@ -15,7 +17,6 @@ export async function PATCH(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    // if no existing vote, create a new vote
     await db.comment.create({
       data: {
         text,
@@ -32,7 +33,7 @@ export async function PATCH(req: Request) {
     }
 
     return new Response(
-      'Could not post to leaderboard at this time. Please try later',
+      'Could not post to profile at this time. Please try later',
       { status: 500 }
     )
   }
