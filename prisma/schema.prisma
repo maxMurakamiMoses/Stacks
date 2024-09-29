@@ -72,7 +72,7 @@
   model Profile {
     id            String                  @id @default(cuid())
     claimed      Boolean @default(false)
-    dudedinScore  Int? 
+    dudedinScore  Float? 
     image         String?
     title         String
     content       Json?
@@ -87,7 +87,6 @@
     twitterFollowers Int?
     instagramFollowers Int?
     tiktokFollowers Int?
-    totalFollowers Int?
   }
 
 model ProfilesOnLeaderboards {

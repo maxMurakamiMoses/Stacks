@@ -14,7 +14,7 @@ export function Header() {
   const words = [
     {
       text: "Leaderboards",
-      className: "text-green-500",
+      className: "text-green-500 tracking-tight",
     },
   ];
 

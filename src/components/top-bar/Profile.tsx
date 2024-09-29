@@ -6,7 +6,7 @@ import { UserAccountNav } from './UserAccountNav';
 const Navbar = async () => {
   const session = await getServerSession(authOptions);
   return (
-    <div className="fixed top-2 right-4 z-80">
+    <div className="fixed top-2 right-4 z-[50]">
       {session?.user ? (
         <div className="relative left-[-20px] top-[20px]">
           <UserAccountNav user={session.user} />

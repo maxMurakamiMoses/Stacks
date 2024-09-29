@@ -1,3 +1,5 @@
+// Profile.tsx
+
 'use client';
 import { Profile as ProfileType, User, Vote } from '@prisma/client';
 import { MessageSquare } from 'lucide-react';
@@ -8,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Orbitron } from 'next/font/google';
 import { Roboto_Mono } from 'next/font/google';
+import { formatNumber } from '@/lib/utils'; // Import formatNumber
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -113,12 +116,7 @@ const Profile: FC<ProfileProps> = ({
       onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
-        boxShadow: hovered
-          ? '0 0 1px rgba(57, 255, 20, 0.6)' // Neon green glow
-          : 'none',
-        transition: 'box-shadow 0.3s ease-in-out',
-      }}
+
     >
       {/* Dark Neon Green Flow Effect */}
       <AnimatePresence>
@@ -190,7 +188,7 @@ const Profile: FC<ProfileProps> = ({
         <div className="flex-shrink-0 mr-10" onClick={handleVoteClick}>
           {leaderboardName === 'social-media' ? (
             <p className="text-lg font-semibold">
-              Followers: {profile.totalFollowers || 0}
+              {formatNumber(profile.totalFollowers || 0)} followers
             </p>
           ) : leaderboardName === 'dudedin-pace' ? (
             <p className="text-lg font-semibold">Score: {profile.dudedinScore || 0}</p>

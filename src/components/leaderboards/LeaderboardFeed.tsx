@@ -1,6 +1,7 @@
 import { ShiftedButton } from "./ShiftedButton";
 import Link from 'next/link';
 import { Roboto_Mono } from 'next/font/google';
+import { LeaderboardPreview } from "./LeaderboardPreview";
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -33,16 +34,17 @@ export function LeaderboardFeed() {
           <div className="flex flex-row items-center justify-center space-x-20 md:justify-start md:ml-1 py-10">
             <div className="flex items-center">
               <ShiftedButton />
+              
             </div>
           </div>
         </div>
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <p>IMAGE PLACEHOLDER</p>
+          <LeaderboardPreview />
         </div>
 
         {/* Second Item (Image on Left, Text on Right) */}
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <p>IMAGE PLACEHOLDER</p>
+          <p>aksjndkajn sdkjna skdj kaj  aksj dkja sdsdj akjskdj kaj  aksj dkja sdsdj akjs dk aks asd a sd a sd a sd a sd a kdj kaj  aksj dkja sdsdj akjs dk aks asd a sd a sd a sd a sd a  dk aks asd a sd a sd a sd a sd a sd a sd a sdjd kajsdj </p>
         </div>
         <div className="lg:col-span-4">
           <Link href="/leaderboards/community-voted">

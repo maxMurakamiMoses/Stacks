@@ -1,4 +1,5 @@
 // Sidebar.tsx
+
 import { buttonVariants } from '@/components/ui/Button';
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
@@ -6,7 +7,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import ProfileVoteServerWhite from '@/components/vote/ProfileVoteServerWhite';
 import { notFound } from 'next/navigation';
-import { formatLeaderboardName } from '@/lib/utils';
+import { formatLeaderboardName, formatNumber } from '@/lib/utils'; // Import formatNumber
 import { Roboto_Mono } from 'next/font/google';
 
 const robotoMono = Roboto_Mono({
@@ -23,7 +24,7 @@ interface SidebarProps {
 
 const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
   return (
-    <div className={`${robotoMono.className} overflow-hidden h-fit rounded-lg border border-gray-200 flex flex-col`}>
+    <div className={`${robotoMono.className} overflow-hidden h-fit rounded-lg border border-gray-200 flex flex-col `}>
       
       {/* Top Section without Background */}
       <div className="px-6 py-4">
@@ -31,10 +32,10 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
       </div>
 
       {/* Divider */}
-      <div className="border-t border-gray-200"></div>
+      <div className="border-t border-gray-100"></div>
 
-      {/* Content Section with White Background */}
-      <div className="bg-white px-6 py-4">
+      {/* Content Section with light gray Background */}
+      <div className="bg-gray-100 px-6 py-4">
         <ul className="mt-2 space-y-4">
           {profile.profilesOnLeaderboards.map((pol: any) => {
             const upvotesAmt = pol.votes.filter((vote: any) => vote.type === 'UP').length;
@@ -45,7 +46,7 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
 
             return (
               <li key={pol.leaderboard.id} className="flex items-center justify-between">
-                <div className="flex items-center">
+                <div className="flex items-center flex-grow">
                   <Link
                     href={`/leaderboards/${pol.leaderboard.name}`}
                     className="text-gray-500 hover:underline"
@@ -53,50 +54,44 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
                     {formatLeaderboardName(pol.leaderboard.name)}
                   </Link>
                 </div>
-                {/* Conditionally render the voting component or other info */}
-                {pol.leaderboard.name === 'dudedin-pace' ? (
-                  // Display dudedinScore
-                  <div className="flex-shrink-0 mr-10">
+                <div className="flex items-center justify-end space-x-10">
+                  {pol.leaderboard.name === 'dudedin-pace' ? (
                     <p className="text-lg text-gray-700">{profile.dudedinScore || 0}</p>
-                  </div>
-                ) : pol.leaderboard.name === 'social-media' ? (
-                  // Display total followers
-                  <div className="flex-shrink-0 mr-10">
+                  ) : pol.leaderboard.name === 'social-media' ? (
                     <p className="text-lg text-gray-700">
-                      {profileTotalFollowers || 0} followers
+                      {formatNumber(profileTotalFollowers || 0)} followers
                     </p>
-                  </div>
-                ) : (
-                  // Display the voting component
-                  <Suspense fallback={<div>Loading...</div>}>
-                    {/* @ts-expect-error Server Component */}
-                    <ProfileVoteServerWhite
-                      profileId={profile.id}
-                      leaderboardId={pol.leaderboard.id}
-                      initialUpvotesAmt={upvotesAmt}
-                      initialDownvotesAmt={downvotesAmt}
-                      initialVote={currentVote?.type}
-                      getData={async () => {
-                        return await db.profile.findUnique({
-                          where: {
-                            id: profile.id,
-                          },
-                          include: {
-                            profilesOnLeaderboards: {
-                              where: {
-                                leaderboardId: pol.leaderboard.id,
-                              },
-                              include: {
-                                leaderboard: true,
-                                votes: true,
+                  ) : (
+                    <Suspense fallback={<div>Loading...</div>}>
+                      {/* @ts-expect-error Server Component */}
+                      <ProfileVoteServerWhite
+                        profileId={profile.id}
+                        leaderboardId={pol.leaderboard.id}
+                        initialUpvotesAmt={upvotesAmt}
+                        initialDownvotesAmt={downvotesAmt}
+                        initialVote={currentVote?.type}
+                        getData={async () => {
+                          return await db.profile.findUnique({
+                            where: {
+                              id: profile.id,
+                            },
+                            include: {
+                              profilesOnLeaderboards: {
+                                where: {
+                                  leaderboardId: pol.leaderboard.id,
+                                },
+                                include: {
+                                  leaderboard: true,
+                                  votes: true,
+                                },
                               },
                             },
-                          },
-                        });
-                      }}
-                    />
-                  </Suspense>
-                )}
+                          });
+                        }}
+                      />
+                    </Suspense>
+                  )}
+                </div>
               </li>
             );
           })}
@@ -104,7 +99,7 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
       </div>
 
       {/* Report Outdated Information or Claim Profile */}
-      <div className="bg-white px-6 py-4 border-t border-gray-200">
+      <div className="bg-gray-100 px-6 py-4 border-t border-gray-200">
         {/* Is the information outdated? Section */}
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-gray-700">Is the information outdated?</h2>

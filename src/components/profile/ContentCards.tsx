@@ -31,12 +31,12 @@ const ContentCards: FC<ContentCardsProps> = ({
           <div className="absolute -inset-4 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-800 ease-in-out pointer-events-none z-0" />
 
           {/* Card Content */}
-          <div className="relative bg-white rounded-lg p-6 w-full border-l-4 border-green-600 z-10">
+          <div className="relative bg-gray-100 rounded-lg p-6 w-full border-l-4 border-green-600 z-10">
             <h2 className="text-2xl font-bold mb-4 flex items-center text-green-600 uppercase tracking-wide">
               <FaAppleAlt className="mr-2 text-green-600" /> Diet
             </h2>
             {dietParagraphs.map((para, index) => (
-              <p key={index} className="mb-2">
+              <p key={index} className="mb-2 text-gray-700">
                 {para.data.text}
               </p>
             ))}
@@ -53,12 +53,12 @@ const ContentCards: FC<ContentCardsProps> = ({
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-teal-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
-            <div className="relative bg-white rounded-lg p-6 border-l-4 border-blue-600 z-10">
+            <div className="relative bg-gray-100 rounded-lg p-6 border-l-4 border-blue-600 z-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center text-blue-600 uppercase tracking-wide">
                 <FaMobileAlt className="mr-2 text-blue-600" /> Gadget Stack
               </h2>
               {appsGadgetsParagraphs.map((para, index) => (
-                <p key={index} className="mb-2">
+                <p key={index} className="mb-2 text-gray-700">
                   {para.data.text}
                 </p>
               ))}
@@ -73,12 +73,12 @@ const ContentCards: FC<ContentCardsProps> = ({
             <div className="absolute -inset-4 bg-gradient-to-r from-yellow-400 to-green-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
-            <div className="relative bg-white rounded-lg p-6 border-l-4 border-yellow-600 z-10">
+            <div className="relative bg-gray-100 rounded-lg p-6 border-l-4 border-yellow-600 z-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center text-yellow-600 uppercase tracking-wide">
                 <FaCapsules className="mr-2 text-yellow-600" /> Vitamin Stacks
               </h2>
               {vitaminsParagraphs.map((para, index) => (
-                <p key={index} className="mb-2">
+                <p key={index} className="mb-2 text-gray-700">
                   {para.data.text}
                 </p>
               ))}
@@ -93,12 +93,12 @@ const ContentCards: FC<ContentCardsProps> = ({
             <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 to-pink-500 rounded-lg blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 ease-in-out pointer-events-none z-0" />
 
             {/* Card Content */}
-            <div className="relative bg-white rounded-lg p-6 border-l-4 border-purple-600 z-10">
+            <div className="relative bg-gray-100 rounded-lg p-6 border-l-4 border-purple-600 z-10">
               <h2 className="text-2xl font-bold mb-4 flex items-center text-purple-600 uppercase tracking-wide">
                 <FaRegClock className="mr-2 text-purple-600" /> Habit Stack
               </h2>
               {habitStackParagraphs.map((para, index) => (
-                <p key={index} className="mb-2">
+                <p key={index} className="mb-2 text-gray-700">
                   {para.data.text}
                 </p>
               ))}

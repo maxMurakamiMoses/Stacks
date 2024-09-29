@@ -61,3 +61,17 @@ export const formatLeaderboardName = (name: string): string => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
+
+
+export function formatNumber(num: number): string {
+  if (num >= 1_000_000) {
+    // Divide by 1,000,000 and keep one decimal place
+    return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'mil';
+  } else if (num >= 10_000) {
+    // Divide by 1,000 and round to nearest integer
+    return Math.round(num / 1_000) + 'k';
+  } else {
+    // Return the number as is
+    return num.toString();
+  }
+}

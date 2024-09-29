@@ -104,7 +104,7 @@ const ProfileVoteClientWhite = ({
         onClick={() => handleVote('UP')}
         disabled={disableVoting}
         aria-label='upvote'
-        className='flex flex-col items-center p-2 bg-white rounded-lg hover:bg-gray-200 focus:outline-none'>
+        className='flex flex-col items-center p-2 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none'>
         <Triangle
           className={cn('h-5 w-5', {
             'text-emerald-400 fill-emerald-400': currentVote === 'UP',
@@ -119,7 +119,7 @@ const ProfileVoteClientWhite = ({
         onClick={() => handleVote('DOWN')}
         disabled={disableVoting}
         aria-label='downvote'
-        className='flex flex-col items-center p-2 bg-white rounded-lg hover:bg-gray-200 focus:outline-none'>
+        className='flex flex-col items-center p-2 bg-gray-100 rounded-lg hover:bg-gray-200 focus:outline-none'>
         <Triangle
           className={cn('h-5 w-5 transform rotate-180', {
             'text-red-400 fill-red-400': currentVote === 'DOWN',
