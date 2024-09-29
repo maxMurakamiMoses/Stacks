@@ -1,7 +1,7 @@
 
 import { CurrentSystem } from '@/components/about/CurrentSystem'
 import { Hero } from '@/components/about/Hero'
-import News from '@/components/landing/News'
+import OurVision from '@/components/about/OurVision'
 import React from 'react'
 
 const page = () => {
@@ -9,6 +9,7 @@ const page = () => {
     <>
         <Hero />
         <CurrentSystem />
+        <OurVision />
 
     </>
   )
