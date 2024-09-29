@@ -7,7 +7,7 @@ const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
   ssr: false,
 });
 
-export function GlobeDemo() {
+export function Globe() {
   const globeConfig = {
     pointSize: 4,
     globeColor: "#062056",
@@ -30,7 +30,7 @@ export function GlobeDemo() {
     autoRotate: true,
     autoRotateSpeed: 0.5,
   };
-  const colors = ["#06b6d4", "#3b82f6", "#6366f1"];
+  const colors = ["#bbf7d0", "#4ade80", "#86efac", "#6ee7b7", "#5eead4", "#a7f3d0", "#34d399", "#99f6e4"];
   const sampleArcs = [
     {
       order: 1,
@@ -397,7 +397,7 @@ export function GlobeDemo() {
 
   return (
     <div className="flex flex-col items-center justify-center py-20 min-h-screen bg-black w-full">
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[45rem] px-4 min-w-[45rem] flex flex-col items-center justify-center">
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4 min-w-[40rem] flex flex-col items-center justify-center">
         {/* Text Section */}
         <motion.div
           initial={{
@@ -413,7 +413,7 @@ export function GlobeDemo() {
           }}
           className="mb-[-20px]"
         >
-          <p className="text-center text-base md:text-lg font-normal text-neutral-200 max-w-md mx-auto">
+          <p className="text-center text-base md:text-lg font-normal text-gray-400 max-w-md mx-auto">
             A Global Decentralized Movement
           </p>
         </motion.div>
