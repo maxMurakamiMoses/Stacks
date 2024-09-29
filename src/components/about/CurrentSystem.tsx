@@ -20,7 +20,7 @@ export function CurrentSystem() {
   return (
     <div className="container max-w-8xl mx-auto">
       <div className={robotoMono.className}>
-        <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 pt-6 lg:pt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 py-6 lg:py-24">
           <div className="lg:col-span-4">
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight pb-8 pt-8 text-black">
               We are living in a time of <span className="text-black">Science-Friction</span>,<br />
@@ -42,8 +42,7 @@ export function CurrentSystem() {
             </div>
           </div>
         </div>
-
-        <Separator />
+        
       </div>
     </div>
   );

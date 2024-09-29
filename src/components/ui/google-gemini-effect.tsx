@@ -2,6 +2,14 @@
 import { cn } from "@/lib/utils";
 import { motion, MotionValue } from "framer-motion";
 import React from "react";
+import { Roboto_Mono } from 'next/font/google';
+
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
 
 const transition = {
   duration: 0,
@@ -21,13 +29,15 @@ export const GoogleGeminiEffect = ({
 }) => {
   return (
     <div className={cn("sticky top-60", className)}>
-      <p className="text-3xl md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300">
+      <div className={robotoMono.className}>
+      <p className="text-3xl md:text-7xl font-normal pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-300 tracking-tight">
         {title || `The Front Page of Health`}
       </p>
-      <p className="text-lg md:text-2xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto">
+      <p className="text-lg md:text-2xl font-normal text-center text-neutral-400 mt-4 max-w-lg mx-auto tracking-tight">
         {description ||
           `The future of health lies in the hands of biohackers, researchers, athletes, and nerds - not the captured institutions.`}
       </p>
+      </div>
       <svg
             width="100vw"
             height="890"

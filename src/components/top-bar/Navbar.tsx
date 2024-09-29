@@ -23,22 +23,18 @@ function Navbar({ className }: { className?: string }) {
     <HoveredLink href="/" setActive={setActive}>Home</HoveredLink>
     <HoveredLink href="/about" setActive={setActive}>About</HoveredLink>
     <HoveredLink href="/" setActive={setActive}>FAQ</HoveredLink>
+    <div className="lg:hidden"> {/* Hide on large screens and up */}
+      <HoveredLink href='/sign-in'>Sign in</HoveredLink>
+    </div>
   </div>
 </MenuItem>
 <MenuItem setActive={setActive} active={active} item="Explore">
   <div className="text-sm grid grid-cols-2 gap-10 p-4">
     <ProductItem
-      title="Community Labs"
-      href="/foods"
+      title="News"
+      href="/news"
       src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
       description="The stuff you are putting into your body daily - yeah you might want to be informed."
-      setActive={setActive}
-    />
-    <ProductItem
-      title="Marketplace"
-      href="/gagets"
-      src="https://assets.aceternity.com/demos/algochurn.webp"
-      description="Discover cool new gagets biohackers, nerds and athletes are using."
       setActive={setActive}
     />
     <ProductItem
@@ -49,8 +45,15 @@ function Navbar({ className }: { className?: string }) {
       setActive={setActive}
     />
     <ProductItem
-      title="Tools"
-      href="/tools"
+      title="Marketplace"
+      href="/gagets"
+      src="https://assets.aceternity.com/demos/algochurn.webp"
+      description="Discover cool new gagets biohackers, nerds and athletes are using."
+      setActive={setActive}
+    />
+    <ProductItem
+      title="Stacks"
+      href="/stacks"
       src="https://assets.aceternity.com/demos/Screenshot+2024-02-21+at+11.47.07%E2%80%AFPM.png"
       description="Tools and resources to live a long, prosperous, and healthy life."
       setActive={setActive}
@@ -59,13 +62,9 @@ function Navbar({ className }: { className?: string }) {
 </MenuItem>
 <MenuItem setActive={setActive} active={active} item="Follow">
   <div className="flex flex-col space-y-4 text-sm">
-    <HoveredLink href="/hobby">YouTube</HoveredLink>
-    <HoveredLink href="/individual">X</HoveredLink>
-    <HoveredLink href="/team">Instagram</HoveredLink>
-    <HoveredLink href="/enterprise">TikTok</HoveredLink>
-    <div className="lg:hidden"> {/* Hide on large screens and up */}
-      <HoveredLink href='/sign-in'>Sign in</HoveredLink>
-    </div>
+    <HoveredLink href="https://www.localharvest.org/organic-farms/">Join the Newsletter</HoveredLink>
+    <HoveredLink href="https://www.ewg.org/foodnews/dirty-dozen.php">X (Twitter)</HoveredLink>
+    <HoveredLink href="/team">Farcaster</HoveredLink>
   </div>
 </MenuItem>
 
