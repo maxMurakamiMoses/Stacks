@@ -396,8 +396,8 @@ export function Globe() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center py-20 min-h-screen bg-black w-full">
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden h-full md:h-[40rem] px-4 min-w-[40rem] flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-black w-full max-h-[]">
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden md:h-[40rem] px-4 min-w-[40rem] flex flex-col items-center justify-center">
         {/* Text Section */}
         <motion.div
           initial={{
@@ -418,7 +418,7 @@ export function Globe() {
           </p>
         </motion.div>
 
-        <div className="w-full h-72 md:h-full">
+        <div className="w-full md:h-full">
           <World data={sampleArcs} globeConfig={globeConfig} />
         </div>
 

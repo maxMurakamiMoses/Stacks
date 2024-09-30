@@ -1,12 +1,11 @@
-import React from 'react'
+// File: components/news/News.tsx
 
-const Body = () => {
+import React from 'react';
+
+const News = () => {
   return (
     <div className="bg-[#F0FDF4] px-4 md:px-[105px] pt-12">
       {/* Centered heading */}
-
-
-      
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left side (3/4 width) */}
         <div className="w-full md:w-3/4 p-4 space-y-4">
@@ -36,7 +35,7 @@ const Body = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Body
+export default News;

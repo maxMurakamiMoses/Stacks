@@ -22,7 +22,7 @@ function Navbar({ className }: { className?: string }) {
   <div className="flex flex-col space-y-4 text-sm">
     <HoveredLink href="/" setActive={setActive}>Home</HoveredLink>
     <HoveredLink href="/about" setActive={setActive}>About</HoveredLink>
-    <HoveredLink href="/" setActive={setActive}>FAQ</HoveredLink>
+    <HoveredLink href="/about#faq" setActive={setActive}>FAQ</HoveredLink>
     <div className="lg:hidden"> {/* Hide on large screens and up */}
       <HoveredLink href='/sign-in'>Sign in</HoveredLink>
     </div>
@@ -32,7 +32,7 @@ function Navbar({ className }: { className?: string }) {
   <div className="text-sm grid grid-cols-2 gap-10 p-4">
     <ProductItem
       title="News"
-      href="/news"
+      href="/#news"
       src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
       description="The stuff you are putting into your body daily - yeah you might want to be informed."
       setActive={setActive}

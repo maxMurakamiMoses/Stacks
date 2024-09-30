@@ -1,4 +1,3 @@
-"use client"
 import Image from "next/image";
 // import logo from "@/assets/logosaas.png";
 import SocialX from "@/assets/footer/social-x.svg";
@@ -15,10 +14,11 @@ export const Footer = () => {
       </div>
       <nav className="flex flex-col md:flex-row md:justify-center gap-6 mt-6 w-full">
         <a href="/">Home</a>
-        <a href="/news">News</a>
+        <a href="/about">About</a>
+        <a href="/#news">News</a>
         <a href="/leaderboards">Leaderboards</a>
-        <a href="/products">Prodcuts</a>
-        <a href="/tools">Tools</a>
+        <a href="/marketplace">Marketplace</a>
+        <a href="/stacks">Stacks</a>
         <a href="mailto:max.mtesting@gmail.com">Contact</a>
       </nav>
       <div className="flex justify-center gap-6 mt-6 w-full">
@@ -28,6 +28,9 @@ export const Footer = () => {
         <Image src={SocialYoutube} alt="Social Youtube"/>
       </div>
       <p className="mt-6">&copy; 2024 Stacks, Inc. All rights reserved.</p>
+      <p className="mt-6 max-w-xl mx-auto text-xs text-[#888]">
+        Disclaimer: Nothing on this website constitutes medical advice. Always consult with a qualified healthcare professional before making any changes to your health regiment.
+      </p>
     </footer>
   );
 };

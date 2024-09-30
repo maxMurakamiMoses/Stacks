@@ -11,7 +11,7 @@ export const Highlight = ({
   className?: string;
 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.5 });
+  const isInView = useInView(ref, { once: true, threshold: 1.0 });
 
   return (
     <motion.span
