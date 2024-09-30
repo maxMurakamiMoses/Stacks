@@ -4,9 +4,18 @@ import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
+
 
 export function Bento() {
   return (
+    <div className={robotoMono.className}>
     <div className="bg-[#F0FDF4] pt-10">
       <div className="bg-white rounded-t-[140px] p-4">
         <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight pt-12 pb-6">
@@ -26,6 +35,7 @@ export function Bento() {
           </BentoGrid>
         </div>
       </div>
+    </div>
     </div>
   );
 }

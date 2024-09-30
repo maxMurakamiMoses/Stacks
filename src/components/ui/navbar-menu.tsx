@@ -1,8 +1,10 @@
+// components/ui/navbar-menu.tsx
+
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/image';
 
 const transition = {
   type: "spring",
@@ -18,20 +20,32 @@ export const MenuItem = ({
   active,
   item,
   children,
+  href, // New optional prop
 }: {
-  setActive: (item: string) => void;
+  setActive: (item: string | null) => void;
   active: string | null;
   item: string;
   children?: React.ReactNode;
+  href?: string; // Define href as optional
 }) => {
   return (
-    <div onMouseEnter={() => setActive(item)} className="relative ">
-      <motion.p
-        transition={{ duration: 0.3 }}
-        className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
-      >
-        {item}
-      </motion.p>
+    <div onMouseEnter={() => setActive(item)} className="relative">
+      {/* Conditionally render as Link or p */}
+      {href ? (
+        <Link href={href} className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white">
+          <motion.p transition={{ duration: 0.3 }}>
+            {item}
+          </motion.p>
+        </Link>
+      ) : (
+        <motion.p
+          transition={{ duration: 0.3 }}
+          className="cursor-pointer text-black hover:opacity-[0.9] dark:text-white"
+        >
+          {item}
+        </motion.p>
+      )}
+      
       {active !== null && (
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
@@ -59,6 +73,7 @@ export const MenuItem = ({
     </div>
   );
 };
+
 
 export const Menu = ({
   setActive,

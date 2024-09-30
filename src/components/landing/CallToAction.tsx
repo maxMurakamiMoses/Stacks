@@ -1,7 +1,16 @@
 import React from 'react';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
+
 
 const CallToAction = () => {
   return (
+    <div className={robotoMono.className}>
     <div className="text-center px-4 md:px-[105px] bg-white rounded-lg py-20">
       <div className="h-px bg-gray-300"></div>
       <h2 className="text-2xl font-semibold mb-4 pt-20">Join the Mailing List</h2>
@@ -12,7 +21,7 @@ const CallToAction = () => {
         <input 
           type="email" 
           placeholder="Enter your email" 
-          className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none"
         />
         <button 
           type="submit" 
@@ -22,6 +31,7 @@ const CallToAction = () => {
         </button>
       </form>
     </div>
+    </div>  
   );
 }
 

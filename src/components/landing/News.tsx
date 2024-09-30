@@ -1,9 +1,18 @@
 // File: components/news/News.tsx
 
 import React from 'react';
+import { Roboto_Mono } from 'next/font/google';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-roboto-mono',
+});
+
 
 const News = () => {
   return (
+    <div className={robotoMono.className}>
     <div className="bg-[#F0FDF4] px-4 md:px-[105px] pt-12">
       {/* Centered heading */}
       <div className="flex flex-col md:flex-row min-h-screen">
@@ -34,6 +43,7 @@ const News = () => {
           <p>Something</p>
         </div>
       </div>
+    </div>
     </div>
   );
 };
