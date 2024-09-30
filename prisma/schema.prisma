@@ -138,3 +138,9 @@ model ProfilesOnLeaderboards {
 
     @@id([userId, commentId])
   }
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  subscribedAt DateTime @default(now())
+}
