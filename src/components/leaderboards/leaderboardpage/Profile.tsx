@@ -8,7 +8,6 @@ import { FC, MouseEvent, useState } from 'react';
 import ProfileVoteClient from '../../vote/ProfileVoteClient';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Orbitron } from 'next/font/google';
 import { Roboto_Mono } from 'next/font/google';
 import { formatNumber } from '@/lib/utils'; // Import formatNumber
 
@@ -16,13 +15,6 @@ const robotoMono = Roboto_Mono({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-roboto-mono',
-});
-
-// Initialize Orbitron font
-const orbitron = Orbitron({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-orbitron',
 });
 
 type PartialVote = Pick<Vote, 'type'>;

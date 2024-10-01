@@ -39,12 +39,12 @@ export function LeaderboardFeed() {
           </div>
         </div>
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <LeaderboardPreview />
+          <LeaderboardPreview leaderboardName='dudedin-pace'/>
         </div>
 
         {/* Second Item (Image on Left, Text on Right) */}
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <p>aksjndkajn sdkjna skdj kaj  aksj dkja sdsdj akjskdj kaj  aksj dkja sdsdj akjs dk aks asd a sd a sd a sd a sd a kdj kaj  aksj dkja sdsdj akjs dk aks asd a sd a sd a sd a sd a  dk aks asd a sd a sd a sd a sd a sd a sd a sdjd kajsdj </p>
+          <LeaderboardPreview leaderboardName='community-voted'/>
         </div>
         <div className="lg:col-span-4">
           <Link href="/leaderboards/community-voted">
@@ -77,7 +77,7 @@ export function LeaderboardFeed() {
             Social Media Leaderboard
             </p>
           </Link>
-          <Link href="/leaderboards/world-records">
+          <Link href="/leaderboards/social-media">
             <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
@@ -95,12 +95,12 @@ export function LeaderboardFeed() {
           </div>
         </div>
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <p>IMAGE PLACEHOLDER</p>
+          <LeaderboardPreview leaderboardName='social-media'/>
         </div>
 
         {/* Fourth Item (Image on Left, Text on Right) */}
         <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
-          <p>IMAGE PLACEHOLDER</p>
+          <LeaderboardPreview leaderboardName='athletic-records'/>
         </div>
         <div className="lg:col-span-4">
           <Link href="/leaderboards/athletic-records">

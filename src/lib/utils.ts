@@ -75,3 +75,34 @@ export function formatNumber(num: number): string {
     return num.toString();
   }
 }
+
+
+export function extractShortBio(content: any): string {
+  if (content && Array.isArray(content.blocks)) {
+    let isShortBioSection = false;
+    let shortBio = [];
+
+    for (const block of content.blocks) {
+      // Check if the current block is the SHORTBIO header
+      if (block.type === 'header' && block.data.text.trim() === '{SHORTBIO}') {
+        isShortBioSection = true;
+        continue; // Move to the next block to start collecting bio
+      }
+
+      // If another header is found and we are in the SHORTBIO section, stop collecting
+      if (isShortBioSection && block.type === 'header') {
+        break;
+      }
+
+      // If we're in the SHORTBIO section and the block is a paragraph, collect the text
+      if (isShortBioSection && block.type === 'paragraph') {
+        shortBio.push(block.data.text.trim());
+      }
+    }
+
+    // Join all collected paragraphs into a single string separated by spaces
+    return shortBio.join(' ');
+  }
+
+  return ''; // Return an empty string if SHORTBIO is not found
+}
