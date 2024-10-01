@@ -10,6 +10,8 @@ import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Roboto_Mono } from 'next/font/google';
 import { formatNumber } from '@/lib/utils'; // Import formatNumber
+import { IoMdPeople } from "react-icons/io";
+
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -124,7 +126,7 @@ const Profile: FC<ProfileProps> = ({
       </AnimatePresence>
 
       {/* Content Wrapper */}
-      <div className="relative z-20 p-4 flex flex-col md:flex-row items-center text-white">
+      <div className="relative z-20 p-1 flex flex-col md:flex-row items-center text-white">
         {/* Rank Icon */}
         {rank <= 3 && (
           <div className="absolute top-[-4px] right-0 text-gray-200 text-[26px] rounded-full px-2 py-1">
@@ -148,7 +150,7 @@ const Profile: FC<ProfileProps> = ({
           </Link>
 
           {shortBio && (
-            <div className="mb-2 text-white text-base font-semibold">
+            <div className="mb-2 text-white text-base">
               <p>{shortBio}</p>
             </div>
           )}
@@ -164,10 +166,10 @@ const Profile: FC<ProfileProps> = ({
             </Link>
 
             {tags.length > 0 && (
-              <div className="flex items-center text-sm text-white">
+              <div className="flex items-center text-sm text-gray-400">
                 {tags.map((tag, index) => (
                   <span key={tag} className="flex items-center">
-                    {index !== 0 && <span className="mx-2 text-white">•</span>}
+                    {index !== 0 && <span className="mx-2 text-gray-400">•</span>}
                     <span>{tag}</span>
                   </span>
                 ))}
@@ -179,9 +181,10 @@ const Profile: FC<ProfileProps> = ({
         {/* Voting or Score Display */}
         <div className="flex-shrink-0 mr-10" onClick={handleVoteClick}>
           {leaderboardName === 'social-media' ? (
-            <p className="text-lg font-semibold">
-              {formatNumber(profile.totalFollowers || 0)} followers
-            </p>
+              <p className="text-lg font-semibold flex items-center">
+                {formatNumber(profile.totalFollowers || 0)}
+                <IoMdPeople className="ml-2 text-white" size={20} />
+              </p>
           ) : leaderboardName === 'dudedin-pace' ? (
             <p className="text-lg font-semibold">Score: {profile.dudedinScore || 0}</p>
           ) : (

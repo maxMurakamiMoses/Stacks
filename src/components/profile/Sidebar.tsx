@@ -9,6 +9,7 @@ import ProfileVoteServerWhite from '@/components/vote/ProfileVoteServerWhite';
 import { notFound } from 'next/navigation';
 import { formatLeaderboardName, formatNumber } from '@/lib/utils'; // Import formatNumber
 import { Roboto_Mono } from 'next/font/google';
+import { IoMdPeople } from "react-icons/io";
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -58,9 +59,10 @@ const Sidebar = ({ profile, session, profileTotalFollowers }: SidebarProps) => {
                   {pol.leaderboard.name === 'dudedin-pace' ? (
                     <p className="text-lg text-gray-700">{profile.dudedinScore || 0}</p>
                   ) : pol.leaderboard.name === 'social-media' ? (
-                    <p className="text-lg text-gray-700">
-                      {formatNumber(profileTotalFollowers || 0)} followers
-                    </p>
+                    <p className="text-lg font-semibold flex items-center text-gray-700">
+                      {formatNumber(profileTotalFollowers || 0)}
+                      <IoMdPeople className="ml-2 text-gray-700" size={20} />
+                  </p>
                   ) : (
                     <Suspense fallback={<div>Loading...</div>}>
                       {/* @ts-expect-error Server Component */}

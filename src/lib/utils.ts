@@ -65,16 +65,23 @@ export const formatLeaderboardName = (name: string): string => {
 
 export function formatNumber(num: number): string {
   if (num >= 1_000_000) {
-    // Divide by 1,000,000 and keep one decimal place
-    return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'mil';
-  } else if (num >= 10_000) {
-    // Divide by 1,000 and round to nearest integer
-    return Math.round(num / 1_000) + 'k';
+    // Convert to millions with up to two decimal places
+    const millions = (num / 1_000_000).toFixed(2);
+    // Remove trailing zeros and decimal if necessary
+    const formattedMillions = millions.replace(/\.0+$|(\.\d*[1-9])0+$/, '$1') + 'm';
+    return formattedMillions;
+  } else if (num >= 1_000) {
+    // Convert to thousands with up to one decimal place
+    const thousands = (num / 1_000).toFixed(1);
+    // Remove trailing zero and decimal if necessary
+    const formattedThousands = thousands.replace(/\.0$/, '') + 'k';
+    return formattedThousands;
   } else {
-    // Return the number as is
+    // Return the number as a string without leading zeros
     return num.toString();
   }
 }
+
 
 
 export function extractShortBio(content: any): string {

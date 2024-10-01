@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FaTrophy } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import axios from "axios";
+import Link from 'next/link'; // Import Link if using Next.js
 
 // Skeleton component for a single leaderboard card
 function LeaderboardCardSkeleton() {
@@ -43,10 +44,10 @@ export function LeaderboardPreview({ leaderboardName }) {
           },
         });
 
-        // Map the data to include ctaLink if necessary
+        // Map the data to include ctaLink pointing to the leaderboard
         const mappedData = response.data.map((profile) => ({
           ...profile,
-          ctaLink: `/profile/${profile.id}`, // Adjust the URL structure as per your routing
+          ctaLink: `/leaderboards/${leaderboardName}`, // Updated URL structure
         }));
 
         setCards(mappedData);
@@ -87,22 +88,23 @@ export function LeaderboardPreview({ leaderboardName }) {
   return (
     <ul className="max-w-xl mx-auto w-full gap-4">
       {cardsWithDelays.map((card, index) => (
-        <a
+        // Use Link instead of <a> if using Next.js
+        <Link
           key={card.id}
           href={card.ctaLink}
-          target="_blank"
-          rel="noopener noreferrer"
+          passHref
+          // Remove target and rel since it's internal navigation
           className="p-4 flex flex-row justify-between items-center rounded-xl cursor-pointer "
         >
           <div className="flex gap-4 flex-row">
             <div
               className={`relative overflow-hidden h-14 w-14 flex items-center justify-center rounded-lg ${
                 index === 0
-                  ? "bg-yellow-500" // Gold
+                  ? "bg-[#ffd700]" // Gold
                   : index === 1
-                  ? "bg-gray-400" // Silver
+                  ? "bg-[#c0c0c0]" // Silver
                   : index === 2
-                  ? "bg-yellow-800" // Bronze
+                  ? "bg-[#cd7f32]" // Bronze
                   : "bg-green-500" // For #4 icon
               }`}
             >
@@ -150,7 +152,7 @@ export function LeaderboardPreview({ leaderboardName }) {
             className="h-5 w-5 text-neutral-500"
             aria-label="External Link Icon"
           />
-        </a>
+        </Link>
       ))}
     </ul>
   );
