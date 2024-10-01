@@ -256,10 +256,10 @@ const items = [
 
 
   {
-    title: "Useful Tools",
+    title: "Marketplace",
     description: (
       <span className="text-sm">
-        Links to cool things in the health space...explore?
+        See all the compaines in the health & longevity space.
       </span>
     ),
     header: <SkeletonTwo />,

@@ -52,7 +52,7 @@ function Navbar({ className }: { className?: string }) {
             />
             <ProductItem
               title="Marketplace"
-              href="/gadgets" // Fixed typo from '/gagets' to '/gadgets'
+              href="/marketplace" // Fixed typo from '/gagets' to '/gadgets'
               src="https://assets.aceternity.com/demos/algochurn.webp"
               description="Discover cool new gadgets biohackers, nerds, and athletes are using."
               setActive={setActive}
