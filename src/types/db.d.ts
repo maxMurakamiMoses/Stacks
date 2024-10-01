@@ -18,3 +18,7 @@ export type ExtendedProfile = Profile & {
   tiktokFollowers?: number
   totalFollowers?: number
 }
+
+export interface HomeProps {
+  searchParams: FilterProps;
+}

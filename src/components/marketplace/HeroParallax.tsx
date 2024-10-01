@@ -29,7 +29,7 @@ export const products = [
     title: "Eight Sleep",
     link: "https://www.eightsleep.com/",
     thumbnail:
-      "https://utfs.io/f/fcg0NKRG3OpCzGakRj35xqrpaoNtTID4M9lvGPA8YZCdiWjX",
+      "https://utfs.io/f/fcg0NKRG3OpCLCp7A5OQEiU7fdk0Rz2ucneFmDaK8OTYqJt1",
   },
   {
     title: "Nutrisense",
