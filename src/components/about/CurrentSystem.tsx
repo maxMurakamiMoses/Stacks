@@ -1,5 +1,3 @@
-import { TypewriterEffect } from "../ui/typewriter-effect";
-import { Separator } from "@/components/ui/Separator";
 import { Roboto_Mono } from 'next/font/google';
 import { ListofIssues } from "./ListOfIssues";
 
