@@ -1,3 +1,5 @@
+//app/(auth)/sign-in/page.tsx
+
 import SignIn from '@/components/auth/SignIn'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
@@ -7,8 +9,8 @@ import { FC } from 'react'
 
 const page: FC = () => {
   return (
-    <div className='absolute inset-0'>
-      <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20'>
+    
+      <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20 py-64'>
         <Link
           href='/'
           className={cn(
@@ -21,7 +23,6 @@ const page: FC = () => {
 
         <SignIn />
       </div>
-    </div>
   )
 }
 

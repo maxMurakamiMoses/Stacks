@@ -1,3 +1,5 @@
+//app/(auth)/sign-up/page.tsx
+
 import SignUp from '@/components/auth/SignUp'
 import { buttonVariants } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
@@ -9,8 +11,7 @@ interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
   return (
-    <div className='absolute inset-0'>
-      <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20'>
+      <div className='h-full max-w-2xl mx-auto flex flex-col items-center justify-center gap-20 py-64 '>
         <Link
           href='/'
           className={cn(
@@ -23,7 +24,6 @@ const page: FC<pageProps> = ({}) => {
 
         <SignUp />
       </div>
-    </div>
   )
 }
 

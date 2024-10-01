@@ -9,6 +9,7 @@ const page = () => {
         <Header />
         <LeaderboardFeed />
         
+        
     </>
   )
 }

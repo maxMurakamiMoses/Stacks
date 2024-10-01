@@ -2,6 +2,8 @@ import { ShiftedButton } from "./ShiftedButton";
 import Link from 'next/link';
 import { Roboto_Mono } from 'next/font/google';
 import { LeaderboardPreview } from "./LeaderboardPreview";
+import { FiExternalLink } from "react-icons/fi";
+
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -12,7 +14,7 @@ const robotoMono = Roboto_Mono({
 export function LeaderboardFeed() {
   return (
     <div className={robotoMono.className}>
-      <div className="grid grid-cols-1 lg:grid-cols-8 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 pb-20">
         {/* First Item (Text on Left, Image on Right) */}
         <div className="lg:col-span-4">
           <Link href="/leaderboards/dudedin-pace">
@@ -21,7 +23,7 @@ export function LeaderboardFeed() {
             </p>
           </Link>
           <Link href="/leaderboards/dudedin-pace">
-            <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
@@ -38,12 +40,12 @@ export function LeaderboardFeed() {
             </div>
           </div>
         </div>
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
+        <div className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='dudedin-pace'/>
         </div>
 
         {/* Second Item (Image on Left, Text on Right) */}
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
+        <div className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='community-voted'/>
         </div>
         <div className="lg:col-span-4">
@@ -53,7 +55,7 @@ export function LeaderboardFeed() {
             </p>
           </Link>
           <Link href="/leaderboards/community-voted">
-            <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
@@ -63,7 +65,7 @@ export function LeaderboardFeed() {
             </p>
           </Link>
 
-          <div className="flex flex-row items-center justify-center space-x-20 md:justify-start md:ml-1 py-10">
+          <div className="flex flex-row items-center space-x-20 md:justify-start md:ml-1 py-10">
             <div className="flex items-center">
               <ShiftedButton />
             </div>
@@ -78,7 +80,7 @@ export function LeaderboardFeed() {
             </p>
           </Link>
           <Link href="/leaderboards/social-media">
-            <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
@@ -88,18 +90,18 @@ export function LeaderboardFeed() {
             </p>
           </Link>
 
-          <div className="flex flex-row items-center justify-center space-x-20 md:justify-start md:ml-1 py-10">
+          <div className="flex flex-row items-center space-x-20 md:justify-start md:ml-1 py-10">
             <div className="flex items-center">
               <ShiftedButton />
             </div>
           </div>
         </div>
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
+        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='social-media'/>
         </div>
 
         {/* Fourth Item (Image on Left, Text on Right) */}
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
+        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='athletic-records'/>
         </div>
         <div className="lg:col-span-4">
@@ -109,7 +111,7 @@ export function LeaderboardFeed() {
             </p>
           </Link>
           <Link href="/leaderboards/social-media">
-            <p className="hidden md:block text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
@@ -120,7 +122,7 @@ export function LeaderboardFeed() {
           </Link>
 
           <div className="flex flex-row items-center justify-center space-x-20 md:justify-start md:ml-1 py-10">
-            <div className="flex items-center">
+            <div className="flex items-center ">
               <ShiftedButton />
             </div>
           </div>

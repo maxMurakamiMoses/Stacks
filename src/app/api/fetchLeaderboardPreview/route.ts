@@ -104,7 +104,7 @@ export async function GET(req: NextRequest) {
       console.log('Fetched Profiles:', profiles);
     } else {
       return NextResponse.json(
-        { error: 'Invalid leaderboard name' },
+        { error: 'Leaderboard coming soon...' },
         { status: 400 }
       );
     }

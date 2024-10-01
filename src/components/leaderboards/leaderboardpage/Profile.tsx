@@ -104,7 +104,7 @@ const Profile: FC<ProfileProps> = ({
 
   return (
     <div
-      className={`relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235] to-[#121318] ${robotoMono.className}`}
+      className={`relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235]/40 to-[#121318]/40 ${robotoMono.className}`}
       onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

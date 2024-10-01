@@ -65,7 +65,7 @@ const PostComment: FC<PostCommentProps> = ({
           onClick={() => {
             if (!session) {
               // Optionally, handle redirection to sign-in
-              // e.g., window.location.href = '/sign-in'
+              window.location.href = '/sign-in'
               return
             }
             onReply()

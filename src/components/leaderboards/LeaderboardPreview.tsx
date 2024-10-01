@@ -5,8 +5,28 @@ import { FaTrophy } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 import axios from "axios";
 
+// Skeleton component for a single leaderboard card
+function LeaderboardCardSkeleton() {
+  return (
+    <div className="p-4 flex flex-row justify-between items-center rounded-xl animate-pulse">
+      <div className="flex gap-4 flex-row">
+        <div className="relative overflow-hidden h-14 w-14 flex items-center justify-center rounded-lg bg-neutral-700">
+          {/* Placeholder for Icon/Number */}
+          <div className="h-8 w-8 bg-neutral-600 rounded-full"></div>
+          {/* Glare Effect Placeholder */}
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-neutral-600 to-transparent opacity-50"></div>
+        </div>
+        <div className="flex flex-col">
+          <div className="h-4 bg-neutral-600 rounded w-24 mb-2"></div>
+          <div className="h-3 bg-neutral-500 rounded w-80"></div>
+        </div>
+      </div>
+      <div className="h-5 w-5 bg-neutral-600 rounded"></div>
+    </div>
+  );
+}
+
 export function LeaderboardPreview({ leaderboardName }) {
-  
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -44,29 +64,35 @@ export function LeaderboardPreview({ leaderboardName }) {
   const cardsWithDelays = useMemo(() => {
     return cards.map((card) => ({
       ...card,
-      initialDelay: Math.random() * 4, // Random delay between 0 to 4 seconds
-      repeatDelay: Math.random() * 8, // Random delay between repeats
+      initialDelay: Math.random() * 3, // Random delay between 0 to 3 seconds
+      repeatDelay: Math.random() * 6, // Random delay between repeats
     }));
   }, [cards]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    // Render multiple skeletons to indicate loading state
+    return (
+      <ul className="max-w-xl mx-auto w-full gap-4">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <LeaderboardCardSkeleton key={index} />
+        ))}
+      </ul>
+    );
   }
 
   if (error || cards.length === 0) {
-    return <p>Error: {error || "No data available."}</p>;
+    return <p className="text-red-500 text-center">{error || "No data available."}</p>;
   }
 
   return (
     <ul className="max-w-xl mx-auto w-full gap-4">
-      <p>{leaderboardName}</p>
       {cardsWithDelays.map((card, index) => (
         <a
           key={card.id}
           href={card.ctaLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-4 flex flex-row justify-between items-center rounded-xl cursor-pointer"
+          className="p-4 flex flex-row justify-between items-center rounded-xl cursor-pointer "
         >
           <div className="flex gap-4 flex-row">
             <div
@@ -108,7 +134,7 @@ export function LeaderboardPreview({ leaderboardName }) {
                   width: "200%",
                   height: "200%",
                   background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)",
                   transform: "rotate(45deg)",
                 }}
               />
