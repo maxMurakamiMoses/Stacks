@@ -1,5 +1,3 @@
-//app/api/fetchMoreProfiles/route.ts
-
 import { db } from '@/lib/db';
 import { NextResponse } from 'next/server';
 
@@ -16,7 +14,36 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: 'Leaderboard ID is required' }, { status: 400 });
     }
 
-    // Fetch profiles via profilesOnLeaderboards to match the initial data structure
+    // Fetch the leaderboard to get its name
+    const leaderboard = await db.leaderboard.findUnique({
+      where: { id: leaderboardId },
+    });
+
+    if (!leaderboard) {
+      return NextResponse.json({ error: 'Leaderboard not found' }, { status: 404 });
+    }
+
+    // Determine the ordering based on the leaderboard name
+    let orderByClause: any;
+
+    if (leaderboard.name === 'dudedin-pace') {
+      orderByClause = {
+        profile: {
+          dudedinScore: 'asc', // Order by dudedinScore
+        },
+      };
+    } else if (leaderboard.name === 'community-voted') {
+      orderByClause = {
+        netVotes: 'desc', // Order by netVotes
+      };
+    } else {
+      // Default ordering
+      orderByClause = {
+        netVotes: 'desc',
+      };
+    }
+
+    // Fetch profiles via profilesOnLeaderboards with the correct ordering
     const profilesOnLeaderboards = await db.profilesOnLeaderboards.findMany({
       where: {
         leaderboardId: leaderboardId,
@@ -31,15 +58,13 @@ export async function GET(req: Request) {
         votes: true,
         leaderboard: true,
       },
-      orderBy: {
-        netVotes: 'desc', // Order by netVotes
-      },
+      orderBy: orderByClause,
       take: limit,
       skip: (page - 1) * limit,
     });
 
-    // Map to the expected structure
-    const profiles = profilesOnLeaderboards.map((pol) => {
+    // Map to the expected structure and calculate ranks
+    const profiles = profilesOnLeaderboards.map((pol, index) => {
       const profile = pol.profile;
       const totalFollowers =
         (profile.youtubeFollowers ?? 0) +
@@ -54,6 +79,7 @@ export async function GET(req: Request) {
         leaderboard: pol.leaderboard,
         image: profile.image ?? '',
         claimed: profile.claimed ?? false,
+        rank: (page - 1) * limit + index + 1, // Calculate the correct rank
         dudedinScore: profile.dudedinScore ?? 0,
         youtubeFollowers: profile.youtubeFollowers ?? 0,
         twitterFollowers: profile.twitterFollowers ?? 0,

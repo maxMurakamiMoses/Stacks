@@ -20,7 +20,7 @@ export function CurrentSystem() {
       <div className={robotoMono.className}>
         <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 py-6 lg:py-24">
           <div className="lg:col-span-4">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight pb-8 pt-8 text-black">
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight pb-8 text-black">
               We are living in a time of <span className="text-black">Science-Friction</span>,<br />
               not <span className="bg-gradient-to-r from-green-300 via-green-400 to-green-500 text-transparent bg-clip-text relative">
                 Science-Fiction.
@@ -33,20 +33,21 @@ export function CurrentSystem() {
               comes from a system designed to maintain the status quo, making it harder for transformative ideas to break 
               through and truly improve human well-being.
             </p>
-            <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
-              Instead of breakthroughs that could revolutionize healthcare, we face a landscape where life-saving drugs and 
-              technologies are delayed or suppressed, as entrenched industries prioritize profits over progress. The friction 
-              comes from a system designed to maintain the status quo, making it harder for transformative ideas to break 
-              through and truly improve human well-being.
-            </p>
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px] pt-4">
+  This persistent friction doesn&apos;t just hinder innovation—it also exacerbates the challenges
+  within our healthcare system. As a result, healthcare costs are soaring, while the quality of care and overall health
+  outcomes are declining. Patients encounter longer wait times, reduced access to cutting-edge
+  treatments, and a lack of personalized care options. These issues are symptomatic of a
+  fundamentally broken system.
+</p>
+
           </div>
-          <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
+          <div className="lg:col-span-4 flex justify-center items-center">
             <div className="hidden sm:block">
               <ListofIssues />
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   );

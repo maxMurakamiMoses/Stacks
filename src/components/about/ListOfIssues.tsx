@@ -201,7 +201,7 @@ export const CloseIcon = () => {
 
 const cards = [
   {
-    description: "It&apos;s a surprising and unfortunate...",
+    description: "It's a surprising and unfortunate...",
     title: "🔒 Research Behind Closed Walls",
     src: PayWall,
     ctaText: "Open",
@@ -217,7 +217,7 @@ const cards = [
     },
   },
   {
-    description: "Journal publishers&apos; central claim...",
+    description: "Journal publishers' central claim...",
     title: "📉 Declining Research Quality",
     src: ReplicationCrisis,
     ctaText: "Open",

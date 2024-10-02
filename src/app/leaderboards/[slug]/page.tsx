@@ -37,26 +37,76 @@ const Page = async ({ params }: PageProps) => {
 
   const session = await getAuthSession()
 
-  const leaderboard = await db.leaderboard.findFirst({
-    where: { name: slug },
-    include: {
-      profilesOnLeaderboards: {
-        include: {
-          profile: {
-            include: {
-              author: true,
-              comments: true,
+  // Fetch the leaderboard with conditional ordering based on the slug
+  let leaderboard
+
+  if (slug === 'community-voted') {
+    leaderboard = await db.leaderboard.findFirst({
+      where: { name: slug },
+      include: {
+        profilesOnLeaderboards: {
+          include: {
+            profile: {
+              include: {
+                author: true,
+                comments: true,
+              },
+            },
+            votes: true,
+          },
+          orderBy: {
+            netVotes: 'desc', // Current ordering
+          },
+          take: INFINITE_SCROLL_PAGINATION_RESULTS,
+        },
+      },
+    })
+  } else if (slug === 'dudedin-pace') {
+    leaderboard = await db.leaderboard.findFirst({
+      where: { name: slug },
+      include: {
+        profilesOnLeaderboards: {
+          include: {
+            profile: {
+              include: {
+                author: true,
+                comments: true,
+              },
+            },
+            votes: true,
+          },
+          orderBy: {
+            profile: {
+              dudedinScore: 'asc', // New ordering based on dudedinScore
             },
           },
-          votes: true,
+          take: INFINITE_SCROLL_PAGINATION_RESULTS,
         },
-        orderBy: {
-          netVotes: 'desc',
-        },
-        take: INFINITE_SCROLL_PAGINATION_RESULTS,
       },
-    },
-  })
+    })
+  } else {
+    // Handle other leaderboard types or default behavior
+    leaderboard = await db.leaderboard.findFirst({
+      where: { name: slug },
+      include: {
+        profilesOnLeaderboards: {
+          include: {
+            profile: {
+              include: {
+                author: true,
+                comments: true,
+              },
+            },
+            votes: true,
+          },
+          orderBy: {
+            netVotes: 'desc', // Default ordering
+          },
+          take: INFINITE_SCROLL_PAGINATION_RESULTS,
+        },
+      },
+    })
+  }
 
   if (!leaderboard) return notFound()
 
@@ -65,11 +115,6 @@ const Page = async ({ params }: PageProps) => {
   // Extract profiles from profilesOnLeaderboards
   const initialProfiles = leaderboard.profilesOnLeaderboards.map((pol, index) => {
     const profile = pol.profile;
-    const totalFollowers =
-      (profile.youtubeFollowers ?? 0) +
-      (profile.twitterFollowers ?? 0) +
-      (profile.instagramFollowers ?? 0) +
-      (profile.tiktokFollowers ?? 0);
 
     return {
       ...profile,
@@ -84,33 +129,32 @@ const Page = async ({ params }: PageProps) => {
       twitterFollowers: profile.twitterFollowers ?? 0,
       instagramFollowers: profile.instagramFollowers ?? 0,
       tiktokFollowers: profile.tiktokFollowers ?? 0,
-      totalFollowers,
+      totalFollowers: profile.totalFollowers ?? 0,
     };
   });
 
   return (
     <>
-    <div className={robotoMono.className}>
-      <Link href="/leaderboards" className="group flex items-center text-white hover:text-neonGreen transition-all">
-        <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
-        <span className="text-sm">Back to Leaderboards</span>
-      </Link>
+      <div className={robotoMono.className}>
+        <Link href="/leaderboards" className="group flex items-center text-white hover:text-neonGreen transition-all">
+          <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
+          <span className="text-sm">Back to Leaderboards</span>
+        </Link>
 
-      <div className="inline-block mt-4">
-        <h1 className='font-bold text-3xl md:text-5xl pb-4'>
-          {formattedLeaderboardName} Leaderboard
-        </h1>
+        <div className="inline-block mt-4">
+          <h1 className='font-bold text-3xl md:text-5xl pb-4'>
+            {formattedLeaderboardName} Leaderboard
+          </h1>
+        </div>
 
-      </div>
-
-      {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
-        <MiniAddProfile session={session} />
-      )}
-      <ProfileFeed
-        initialProfiles={initialProfiles}
-        leaderboardName={leaderboard.name} // Pass the raw name
-        leaderboardId={leaderboard.id}
-      />
+        {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
+          <MiniAddProfile session={session} />
+        )}
+        <ProfileFeed
+          initialProfiles={initialProfiles}
+          leaderboardName={leaderboard.name} // Pass the raw name
+          leaderboardId={leaderboard.id}
+        />
       </div>
     </>
   )
