@@ -29,6 +29,9 @@ const CommentsSection = async ({ profileId }: CommentsSectionProps) => {
       author: true,
       votes: true,
     },
+    orderBy: {
+      createdAt: 'asc', // Optional: Order comments by creation time
+    },
   })
 
   // Function to build a comment tree from flat comments list
@@ -66,13 +69,15 @@ const CommentsSection = async ({ profileId }: CommentsSectionProps) => {
       {/* Top-level comment form */}
       <CreateComment profileId={profileId} />
 
-      <div className='flex flex-col gap-y-6 mt-4'>
+      {/* Scrollable Comments Container */}
+      <div className='flex flex-col gap-y-6 mt-4 max-h-[800px] overflow-y-auto'>
         {commentTree.map((topLevelComment) => (
           <CommentComponent
             key={topLevelComment.id}
             comment={topLevelComment}
             currentUserId={session?.user.id || null}
             profileId={profileId}
+            level={0} // Initialize top-level comments with level 0
           />
         ))}
       </div>

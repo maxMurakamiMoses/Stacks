@@ -2,7 +2,7 @@
 
 'use client'
 
-import { Key, useState } from 'react'
+import { useState } from 'react'
 import { ExtendedComment } from './CommentsSection' // Ensure this import is correct
 import PostComment from './PostComment'
 import CreateComment from './CreateComment'
@@ -13,11 +13,31 @@ interface CommentProps {
   comment: ExtendedComment
   currentUserId: string | null
   profileId: string
+  level?: number // Added level prop
 }
 
-const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId }) => {
+const LShapeConnector = () => (
+  <svg
+    width="100" // Increased width to accommodate longer horizontal line
+    height="100" // Increased height to accommodate longer vertical line
+    viewBox="0 0 100 100" // Updated viewBox accordingly
+    className="absolute top-[-13px] left-[-24px]" // Adjusted positioning
+  >
+    <path
+      d="M5 0 V20 Q5 25,10 25 H30" // Added a quadratic curve
+      stroke="#a1a1aa"
+      strokeWidth="2"
+      fill="none"
+    />
+  </svg>
+)
+
+const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId, level = 0 }) => {
   const [isReplying, setIsReplying] = useState(false)
-  const [isCollapsed, setIsCollapsed] = useState(true) // Initialize to collapsed
+  // Initialize isCollapsed: 
+  // - If the current comment is at level 0, its children (level 1) should be open (isCollapsed = false)
+  // - Otherwise, collapse the children by default
+  const [isCollapsed, setIsCollapsed] = useState(level === 0 ? false : true)
 
   const votesAmt = comment.votes.reduce((acc: number, vote: { type: string }) => {
     if (vote.type === 'UP') return acc + 1
@@ -49,7 +69,7 @@ const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId }) 
           <Button
             size='xs'
             onClick={() => setIsCollapsed(!isCollapsed)} // Toggle state
-            className='ml-2' // Added left margin for spacing
+            className='mt-[52px] bg-transparent border-0 hover:bg-transparent focus:bg-transparent' // Added left margin for spacing
             aria-label={isCollapsed ? 'Expand replies' : 'Collapse replies'}
           >
             {isCollapsed ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
@@ -70,13 +90,15 @@ const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId }) 
 
       {/* Render Immediate Child Replies Only */}
       {!isCollapsed && comment.children.length > 0 && (
-        <div className='ml-6 mt-2 border-l-2 border-zinc-300 pl-4'>
+        <div className='relative ml-6 mt-2 pl-4 comment-connector'>
+          <LShapeConnector />
           {comment.children.map((childComment: ExtendedComment) => (
             <Comment
               key={childComment.id}
               comment={childComment}
               currentUserId={currentUserId}
               profileId={profileId}
+              level={level + 1} // Increment level for child comments
             />
           ))}
         </div>
