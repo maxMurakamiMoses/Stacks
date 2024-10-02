@@ -201,7 +201,7 @@ export const CloseIcon = () => {
 
 const cards = [
   {
-    description: "It's a surprising and unfortunate...",
+    description: "It&apos;s a surprising and unfortunate...",
     title: "🔒 Research Behind Closed Walls",
     src: PayWall,
     ctaText: "Open",
@@ -209,15 +209,15 @@ const cards = [
     content: () => {
       return (
         <p>
-          It's a surprising and unfortunate fact that the majority of the
-          world's research, mostly conducted with public funding, is kept behind
+          It&apos;s a surprising and unfortunate fact that the majority of the
+          world&apos;s research, mostly conducted with public funding, is kept behind
           paywalls run by a tiny number of publishing corporations.
         </p>
       );
     },
   },
   {
-    description: "Journal publishers' central claim...",
+    description: "Journal publishers&apos; central claim...",
     title: "📉 Declining Research Quality",
     src: ReplicationCrisis,
     ctaText: "Open",
@@ -225,10 +225,10 @@ const cards = [
     content: () => {
       return (
         <p>
-          Journal publishers' central claim is that they act as safeguards of
+          Journal publishers&apos; central claim is that they act as safeguards of
           quality. Yet the fact that the replication crisis that first emerged
-          in psychology in the early 2010's has since spread to numerous other
-          fields suggests the publishers aren't adding nearly as much value in
+          in psychology in the early 2010&apos;s has since spread to numerous other
+          fields suggests the publishers aren&apos;t adding nearly as much value in
           this area as they claim.
         </p>
       );
@@ -243,16 +243,16 @@ const cards = [
     content: () => {
       return (
         <p>
-          Innovation in the pharmaceutical industry isn't merely slow—it's
+          Innovation in the pharmaceutical industry isn&apos;t merely slow&mdash;it&apos;s
           actively discouraged. The relationship between Big Pharma and the FDA
           has evolved into a symbiotic partnership that inadvertently suppresses
           progress. The FDA favors large pharmaceutical companies capable of
           navigating its complex Clinical Investigation Design (CID)
-          requirements. Big Pharma welcomes the FDA's stringent protocols, as
+          requirements. Big Pharma welcomes the FDA&apos;s stringent protocols, as
           they create formidable barriers to entry for smaller, more innovative
-          competitors. This system doesn't just slow innovation; it creates an
+          competitors. This system doesn&apos;t just slow innovation; it creates an
           environment where groundbreaking ideas from nimble startups are
-          stifled before they can reach fruition. The result? A pharmaceutical
+          stifled before they can reach fruition. The result&quest; A pharmaceutical
           landscape dominated by incremental improvements rather than
           revolutionary breakthroughs.
         </p>
@@ -271,12 +271,12 @@ const cards = [
           The modern FDA seems more concerned with avoiding negative publicity
           than achieving tangible health outcomes. A prime example of this is
           the phenomenon known as drug lag. When a potentially life-saving drug
-          is delayed for months or even years in the approval process, there's
+          is delayed for months or even years in the approval process, there&apos;s
           an invisible but very real cost in human lives. This excess mortality
-          can be directly attributed to the FDA's sluggish bureaucracy. The true
+          can be directly attributed to the FDA&apos;s sluggish bureaucracy. The true
           tragedy lies in the fact that these deaths are often overlooked. As
-          economist Alex Tabarrok poignantly observes: "People still die, but
-          the bodies are buried in an invisible graveyard."
+          economist Alex Tabarrok poignantly observes&colon; &quot;People still die, but
+          the bodies are buried in an invisible graveyard.&quot;
         </p>
       );
     },

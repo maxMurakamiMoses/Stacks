@@ -1,6 +1,5 @@
 // import { fetchCars } from "@utils";
 import { HomeProps } from "@/types/db";
-import  SearchBar  from "@/components/marketplace/SearchBar";
 import { Hero } from '@/components/marketplace/HeroParallax';
 import { Roboto_Mono } from 'next/font/google';
 

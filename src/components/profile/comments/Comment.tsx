@@ -2,8 +2,8 @@
 
 'use client'
 
-import { useState } from 'react'
-import { ExtendedComment } from './CommentsSection'
+import { Key, useState } from 'react'
+import { ExtendedComment } from './CommentsSection' // Ensure this import is correct
 import PostComment from './PostComment'
 import CreateComment from './CreateComment'
 import { Button } from '@/components/ui/Button'
@@ -19,13 +19,13 @@ const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId }) 
   const [isReplying, setIsReplying] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(true) // Initialize to collapsed
 
-  const votesAmt = comment.votes.reduce((acc, vote) => {
+  const votesAmt = comment.votes.reduce((acc: number, vote: { type: string }) => {
     if (vote.type === 'UP') return acc + 1
     if (vote.type === 'DOWN') return acc - 1
     return acc
   }, 0)
 
-  const currentVote = comment.votes.find((vote) => vote.userId === currentUserId)
+  const currentVote = comment.votes.find((vote: { userId: string | null }) => vote.userId === currentUserId)
 
   // Callback to close the reply box after posting a reply
   const handleReplySuccess = () => {
@@ -71,7 +71,7 @@ const Comment: React.FC<CommentProps> = ({ comment, currentUserId, profileId }) 
       {/* Render Immediate Child Replies Only */}
       {!isCollapsed && comment.children.length > 0 && (
         <div className='ml-6 mt-2 border-l-2 border-zinc-300 pl-4'>
-          {comment.children.map((childComment) => (
+          {comment.children.map((childComment: ExtendedComment) => (
             <Comment
               key={childComment.id}
               comment={childComment}

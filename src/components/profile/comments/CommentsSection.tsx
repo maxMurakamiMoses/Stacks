@@ -1,4 +1,4 @@
-// File 1: CommentsSection.tsx
+// File: CommentsSection.tsx
 
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
@@ -6,7 +6,8 @@ import { Comment, CommentVote, User } from '@prisma/client'
 import CreateComment from './CreateComment'
 import CommentComponent from './Comment' // Import the recursive Comment component
 
-type ExtendedComment = Comment & {
+// **Export the ExtendedComment type**
+export type ExtendedComment = Comment & {
   votes: CommentVote[]
   author: User
   children: ExtendedComment[]

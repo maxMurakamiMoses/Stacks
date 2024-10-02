@@ -31,7 +31,7 @@ export function Header() {
           <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
             Browse through leaderboards to discover people pushing the boundaries. Dive into their
             stack, gain insights from their experiences, and get inspired by those who are constantly
-            redefining what's possible.
+            redefining what&#39;s possible.
           </p>
 
           <div className="hidden md:block ml-[4px]">

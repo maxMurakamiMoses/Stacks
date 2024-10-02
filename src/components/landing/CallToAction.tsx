@@ -1,5 +1,3 @@
-// components/CallToAction.tsx
-
 'use client';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -77,7 +75,7 @@ const CallToAction: React.FC = () => {
         <div className="h-px bg-gray-300"></div>
         <h2 className="text-2xl font-semibold mb-4 pt-20">Join the Mailing List</h2>
         <p className="text-gray-600 text-lg mb-6 max-w-[900px] mx-auto">
-          Once a month, you'll get a short & clear health-related story, insight, or tip.<br/> No fluff.
+          Once a month, you&#39;ll get a short & clear health-related story, insight, or tip.<br/> No fluff.
         </p>
         <form className="flex justify-center mx-auto max-w-[600px]" onSubmit={handleSubscribe}>
           <Input
@@ -101,7 +99,6 @@ const CallToAction: React.FC = () => {
       </div>
     </div>
   );
-  
 };
 
 export default CallToAction;

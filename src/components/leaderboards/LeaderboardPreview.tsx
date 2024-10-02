@@ -3,8 +3,25 @@ import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaTrophy } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Link from 'next/link'; // Import Link if using Next.js
+
+// Define interfaces for type safety
+interface Profile {
+  id: string;
+  name: string;
+  content: string;
+  // Add other fields as necessary based on API response
+}
+
+interface ProfileWithCTA extends Profile {
+  ctaLink: string;
+}
+
+interface Card extends ProfileWithCTA {
+  initialDelay: number;
+  repeatDelay: number;
+}
 
 // Skeleton component for a single leaderboard card
 function LeaderboardCardSkeleton() {
@@ -27,10 +44,10 @@ function LeaderboardCardSkeleton() {
   );
 }
 
-export function LeaderboardPreview({ leaderboardName }) {
-  const [cards, setCards] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export function LeaderboardPreview({ leaderboardName }: { leaderboardName: string }) {
+  const [cards, setCards] = useState<ProfileWithCTA[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Fetch data from the API endpoint using axios
   useEffect(() => {
@@ -38,35 +55,42 @@ export function LeaderboardPreview({ leaderboardName }) {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get("/api/fetchLeaderboardPreview", {
-          params: {
-            leaderboardName: leaderboardName,
-          },
+        const response = await axios.get<Profile[]>("/api/fetchLeaderboardPreview", {
+          params: { leaderboardName },
         });
 
+        // Ensure response.data is an array
+        if (!Array.isArray(response.data)) {
+          throw new Error("Invalid data format received from API.");
+        }
+
         // Map the data to include ctaLink pointing to the leaderboard
-        const mappedData = response.data.map((profile) => ({
+        const mappedData: ProfileWithCTA[] = response.data.map((profile: Profile) => ({
           ...profile,
-          ctaLink: `/leaderboards/${leaderboardName}`, // Updated URL structure
+          ctaLink: `/leaderboards/${leaderboardName}`,
         }));
 
         setCards(mappedData);
       } catch (err) {
-        console.error(err);
-        setError(err.response?.data?.error || "An error occurred while fetching data.");
+        if (axios.isAxiosError(err)) {
+          setError(err.response?.data?.error || "An error occurred while fetching data.");
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
 
     fetchData();
   }, [leaderboardName]);
 
   // Generate random delays for each card once
-  const cardsWithDelays = useMemo(() => {
+  const cardsWithDelays: Card[] = useMemo(() => {
     return cards.map((card) => ({
       ...card,
       initialDelay: Math.random() * 3, // Random delay between 0 to 3 seconds
-      repeatDelay: Math.random() * 6, // Random delay between repeats
+      repeatDelay: Math.random() * 6,  // Random delay between repeats
     }));
   }, [cards]);
 
@@ -105,7 +129,7 @@ export function LeaderboardPreview({ leaderboardName }) {
                   ? "bg-[#c0c0c0]" // Silver
                   : index === 2
                   ? "bg-[#cd7f32]" // Bronze
-                  : "bg-green-500" // For #4 icon
+                  : "bg-green-500" // For #4 and beyond
               }`}
             >
               {index < 3 ? (

@@ -1,3 +1,4 @@
+'use client';
 import {
   Accordion,
   AccordionContent,
@@ -12,14 +13,15 @@ export function AccordionSection() {
       collapsible
       className="min-w-[24rem] max-w-[24rem] xl:min-w-[35rem] xl:max-w-[35rem]"
     >
-
+      {/* Item 5 */}
       <AccordionItem value="item-5">
-        <AccordionTrigger>What does "Stacks" mean?</AccordionTrigger>
+        <AccordionTrigger>What does &quot;Stacks&quot; mean?</AccordionTrigger>
         <AccordionContent>
-        Stacks refer to combinations of supplements, gadgets, and practices used together to achieve specific health or performance outcomes. They can include vitamins, nootropics, wearables, and biohacks.
+          Stacks refer to combinations of supplements, gadgets, and practices used together to achieve specific health or performance outcomes. They can include vitamins, nootropics, wearables, and biohacks.
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 1 */}
       <AccordionItem value="item-1">
         <AccordionTrigger>How can I contribute?</AccordionTrigger>
         <AccordionContent>
@@ -38,6 +40,7 @@ export function AccordionSection() {
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 2 */}
       <AccordionItem value="item-2">
         <AccordionTrigger>
           How do you get your information on stacks? Is it accurate?
@@ -58,6 +61,7 @@ export function AccordionSection() {
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 3 */}
       <AccordionItem value="item-3">
         <AccordionTrigger>How are you funded?</AccordionTrigger>
         <AccordionContent>
@@ -65,21 +69,23 @@ export function AccordionSection() {
         </AccordionContent>
       </AccordionItem>
 
-
+      {/* Item 4 */}
       <AccordionItem value="item-4">
         <AccordionTrigger>How do I join leaderboards?</AccordionTrigger>
         <AccordionContent>
-          Please click "Join Leaderboard" below the leaderboard you wish to join on the leaderboards page. 
+          Please click &quot;Join Leaderboard&quot; below the leaderboard you wish to join on the leaderboards page.
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 6 */}
       <AccordionItem value="item-6">
         <AccordionTrigger>Do you provide medical advice?</AccordionTrigger>
         <AccordionContent>
-        No, we do not provide medical advice. All the information provided is for educational purposes only. Always consult a healthcare provider before starting any new supplement or health routine.
+          No, we do not provide medical advice. All the information provided is for educational purposes only. Always consult a healthcare provider before starting any new supplement or health routine.
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 7 */}
       <AccordionItem value="item-7">
         <AccordionTrigger>Can you pay for a higher spot on a leaderboard?</AccordionTrigger>
         <AccordionContent>
@@ -87,20 +93,23 @@ export function AccordionSection() {
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 8 */}
       <AccordionItem value="item-8">
         <AccordionTrigger>I want to include my company in the product list. How?</AccordionTrigger>
         <AccordionContent>
-         Please contact us at EMAILADDRESS
+          Please contact us at EMAILADDRESS
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 9 */}
       <AccordionItem value="item-9">
         <AccordionTrigger>Can I write an article?</AccordionTrigger>
         <AccordionContent>
-          We are alwyas open to articles! Please contact EMAILADDRESS with your inquiry!
+          We are always open to articles! Please contact EMAILADDRESS with your inquiry!
         </AccordionContent>
       </AccordionItem>
 
+      {/* Item 10 */}
       <AccordionItem value="item-10">
         <AccordionTrigger>How can we get in contact?</AccordionTrigger>
         <AccordionContent>

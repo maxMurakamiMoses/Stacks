@@ -11,7 +11,9 @@ export const Highlight = ({
   className?: string;
 }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 1.0 });
+  
+  // Replace 'threshold' with 'amount'
+  const isInView = useInView(ref, { once: true, amount: 0.9 });
 
   return (
     <motion.span
@@ -23,7 +25,7 @@ export const Highlight = ({
       transition={{
         duration: 1,
         ease: "linear",
-        delay: 3,
+        delay: 1.5,
       }}
       style={{
         backgroundRepeat: "no-repeat",

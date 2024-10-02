@@ -21,8 +21,8 @@ export function FAQ() {
             
             <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
               Browse frequently asked questions to learn more about our mission, how we source our information, and how you can get involved. 
-              Whether you're curious about contributing to the project, the accuracy of our stacks, or how to connect with us, 
-              you'll find answers here. If you have a question that isn't covered, feel free to reach out—we're always happy to help!
+              Whether you&apos;re curious about contributing to the project, the accuracy of our stacks, or how to connect with us, 
+              you&apos;ll find answers here. If you have a question that isn&apos;t covered, feel free to reach out&mdash;we&apos;re always happy to help!
             </p>
           </div>
           <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
