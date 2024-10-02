@@ -10,7 +10,7 @@ export function AccordionSection() {
     <Accordion
       type="single"
       collapsible
-      className="min-w-[27rem] max-w-[27rem] xl:min-w-[35rem] xl:max-w-[35rem]"
+      className="min-w-[24rem] max-w-[24rem] xl:min-w-[35rem] xl:max-w-[35rem]"
     >
 
       <AccordionItem value="item-5">
@@ -81,9 +81,30 @@ export function AccordionSection() {
       </AccordionItem>
 
       <AccordionItem value="item-7">
+        <AccordionTrigger>Can you pay for a higher spot on a leaderboard?</AccordionTrigger>
+        <AccordionContent>
+          No. Just be better.
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-8">
+        <AccordionTrigger>I want to include my company in the product list. How?</AccordionTrigger>
+        <AccordionContent>
+         Please contact us at EMAILADDRESS
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-9">
+        <AccordionTrigger>Can I write an article?</AccordionTrigger>
+        <AccordionContent>
+          We are alwyas open to articles! Please contact EMAILADDRESS with your inquiry!
+        </AccordionContent>
+      </AccordionItem>
+
+      <AccordionItem value="item-10">
         <AccordionTrigger>How can we get in contact?</AccordionTrigger>
         <AccordionContent>
-          Please contact EMAIL ADDRESS HERE SOON.
+          Please contact EMAILADDRESS
         </AccordionContent>
       </AccordionItem>
     </Accordion>

@@ -61,19 +61,19 @@ const Layout = async ({
       <div>
         {/* <ToFeedButton /> */}
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4 py-6'>
           <ul className='flex flex-col col-span-2 space-y-6'>{children}</ul>
 
           {/* info sidebar */}
           <div className={robotoMono.className}>
-          <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last'>
+          <div className='overflow-hidden h-fit rounded-lg border border-gray-200 order-first'>
             <div className='px-6 py-4'>
               <p className='font-semibold py-3'>About this leaderboard</p>
             </div>
             <dl className='divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white'>
             <div className='flex justify-between gap-x-4 py-3'>
                 <dd className='flex items-start gap-x-2'>
-                  <div className='text-gray-900'>{leaderboard.description}</div>
+                  <div className='text-gray-700'>{leaderboard.description}</div>
                 </dd>
               </div>
               <div className='flex justify-between gap-x-4 py-3'>

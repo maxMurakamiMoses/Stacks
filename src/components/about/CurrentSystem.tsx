@@ -33,6 +33,12 @@ export function CurrentSystem() {
               comes from a system designed to maintain the status quo, making it harder for transformative ideas to break 
               through and truly improve human well-being.
             </p>
+            <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
+              Instead of breakthroughs that could revolutionize healthcare, we face a landscape where life-saving drugs and 
+              technologies are delayed or suppressed, as entrenched industries prioritize profits over progress. The friction 
+              comes from a system designed to maintain the status quo, making it harder for transformative ideas to break 
+              through and truly improve human well-being.
+            </p>
           </div>
           <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20">
             <div className="hidden sm:block">
