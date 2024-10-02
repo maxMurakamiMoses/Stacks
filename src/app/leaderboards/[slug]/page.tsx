@@ -100,7 +100,9 @@ const Page = async ({ params }: PageProps) => {
             votes: true,
           },
           orderBy: {
-            netVotes: 'desc', // Default ordering
+            profile: {
+              totalFollowers: 'desc', // New ordering based on dudedinScore
+            },
           },
           take: INFINITE_SCROLL_PAGINATION_RESULTS,
         },

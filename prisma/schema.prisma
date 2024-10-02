@@ -87,7 +87,7 @@
     twitterFollowers Int?
     instagramFollowers Int?
     tiktokFollowers Int?
-    totalFollowers     Int?                    @default(0) 
+    totalFollowers     Int                    @default(0) 
   }
 
 model ProfilesOnLeaderboards {

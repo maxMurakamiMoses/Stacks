@@ -39,7 +39,9 @@ export async function GET(req: Request) {
     } else {
       // Default ordering
       orderByClause = {
-        netVotes: 'desc',
+        profile: {
+          totalFollowers: 'desc', // Order by dudedinScore
+        },
       };
     }
 
@@ -66,11 +68,6 @@ export async function GET(req: Request) {
     // Map to the expected structure and calculate ranks
     const profiles = profilesOnLeaderboards.map((pol, index) => {
       const profile = pol.profile;
-      const totalFollowers =
-        (profile.youtubeFollowers ?? 0) +
-        (profile.twitterFollowers ?? 0) +
-        (profile.instagramFollowers ?? 0) +
-        (profile.tiktokFollowers ?? 0);
 
       return {
         ...profile,
@@ -85,7 +82,7 @@ export async function GET(req: Request) {
         twitterFollowers: profile.twitterFollowers ?? 0,
         instagramFollowers: profile.instagramFollowers ?? 0,
         tiktokFollowers: profile.tiktokFollowers ?? 0,
-        totalFollowers,
+        totalFollowers: profile.totalFollowers ?? 0,
       };
     });
 
