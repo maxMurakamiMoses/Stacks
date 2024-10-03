@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { buttonVariants } from '@/components/ui/Button';
 import Link from 'next/link';
+import { JoinForm } from './JoinForm';
 
 interface JoinLeaderboardButtonProps {
   isUserLoggedIn: boolean;
@@ -46,11 +47,8 @@ const JoinLeaderboardButton: React.FC<JoinLeaderboardButtonProps> = ({ isUserLog
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Join the Leaderboard</AlertDialogTitle>
           <AlertDialogDescription>
-            {/* Placeholder content */}
-            <p>This is where your custom form will go.</p>
-            {/* You can replace the above line with your actual form components */}
+            <JoinForm />
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
