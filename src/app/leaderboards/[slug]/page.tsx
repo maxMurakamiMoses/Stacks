@@ -143,11 +143,13 @@ const Page = async ({ params }: PageProps) => {
           <span className="text-sm">Back to Leaderboards</span>
         </Link>
 
-        <div className="inline-block mt-4">
-          <h1 className='font-bold text-3xl md:text-5xl pb-4'>
-            {formattedLeaderboardName} Leaderboard
-          </h1>
-        </div>
+      <div className="relative inline-block my-4">
+        <h1 className='font-bold text-3xl md:text-5xl pb-1'>
+          {formattedLeaderboardName} Leaderboard
+        </h1>
+        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-green-300 via-green-400 to-green-500"></span>
+      </div>
+
 
         {session?.user?.email === 'max.murakamimoses24@gmail.com' && (
           <MiniAddProfile session={session} />

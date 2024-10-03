@@ -11,17 +11,17 @@ export function JumpTo() {
           <FaArrowRight className="ml-2 transform transition-transform group-hover:translate-x-2" />
         </Link>
 
-        <Link href="/leaderboards/community-votes" className="group flex items-center text-white hover:text-neonGreen transition-all">
+        <Link href="/leaderboards/community-voted" className="group flex items-center text-white hover:text-neonGreen transition-all">
           <span className="text-sm">Community Votes</span> {/* Smaller text size */}
           <FaArrowRight className="ml-2 transform transition-transform group-hover:translate-x-2" />
         </Link>
 
-        <Link href="/leaderboards/world-records" className="group flex items-center text-white hover:text-neonGreen transition-all">
+        <Link href="/worldRecords" className="group flex items-center text-white hover:text-neonGreen transition-all">
           <span className="text-sm">World Records</span> {/* Smaller text size */}
           <FaArrowRight className="ml-2 transform transition-transform group-hover:translate-x-2" />
         </Link>
 
-        <Link href="/leaderboards/social-following" className="group flex items-center text-white hover:text-neonGreen transition-all">
+        <Link href="/leaderboards/social-media" className="group flex items-center text-white hover:text-neonGreen transition-all">
           <span className="text-sm">Social Following</span> {/* Smaller text size */}
           <FaArrowRight className="ml-2 transform transition-transform group-hover:translate-x-2" />
         </Link>
