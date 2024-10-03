@@ -54,6 +54,8 @@
     Profile       Profile[]
     Comment       Comment[]
     CommentVote   CommentVote[]
+
+    joinLeaderboardSubmissions JoinLeaderboardSubmission[]
   }
 
   model Leaderboard {
@@ -144,4 +146,15 @@ model Subscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   subscribedAt DateTime @default(now())
+}
+
+model JoinLeaderboardSubmission {
+  id        String   @id @default(cuid())
+  userId    String
+  firstName String
+  lastName  String
+  email     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
 }
