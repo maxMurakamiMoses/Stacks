@@ -154,6 +154,7 @@ model JoinLeaderboardSubmission {
   firstName String
   lastName  String
   email     String
+  selectedLeaderboards String[]
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
