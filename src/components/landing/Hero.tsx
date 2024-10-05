@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { CardStackSection } from '../leaderboards/CardStack';
 import { TypewriterEffect } from "../ui/typewriter-effect"; // Import TypewriterEffect
 import { Roboto_Mono } from 'next/font/google';
+import { Grid } from './Grid';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -47,7 +48,8 @@ export const Hero = () => {
                     </div>
                 </div>
                 <div className='pl-14 mt-20 md:mt-0 md:h-[648px] md:flex-1 relative flex items-center justify-center'>
-                    <CardStackSection />
+                    <Grid />
+                    
                 </div>
             </div>
         </div>
