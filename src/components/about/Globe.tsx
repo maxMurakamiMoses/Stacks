@@ -396,8 +396,8 @@ export function Globe() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black w-full max-h-[]">
-      <div className="max-w-7xl mx-auto w-full relative overflow-hidden md:h-[40rem] px-4 min-w-[40rem] flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0FDF4] w-full max-h-[]">
+      <div className="max-w-7xl mx-auto w-full relative overflow-hidden md:h-[30rem] px-4 min-w-[30rem] flex flex-col items-center justify-center">
         {/* Text Section */}
         <motion.div
           initial={{
@@ -413,7 +413,7 @@ export function Globe() {
           }}
           className="mb-[-20px]"
         >
-          <p className="text-center text-base md:text-lg font-normal text-gray-400 max-w-md mx-auto">
+          <p className="text-center text-base md:text-lg font-normal text-gray-600 max-w-md mx-auto">
             A Global Decentralized Movement
           </p>
         </motion.div>
@@ -422,7 +422,7 @@ export function Globe() {
           <World data={sampleArcs} globeConfig={globeConfig} />
         </div>
 
-        <div className="w-full mt-8 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-black z-40" />
+        <div className="absolute w-full bottom-0 inset-x-0 h-40 bg-gradient-to-b pointer-events-none select-none from-transparent to-[#F0FDF4] z-40" />
       </div>
     </div>
   );

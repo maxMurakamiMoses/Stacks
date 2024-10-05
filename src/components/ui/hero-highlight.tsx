@@ -23,9 +23,9 @@ export const Highlight = ({
       }}
       animate={isInView ? { backgroundSize: "100% 100%" } : {}}
       transition={{
-        duration: 1,
+        duration: 0.8,
         ease: "linear",
-        delay: 1.5,
+        delay: 0.5,
       }}
       style={{
         backgroundRepeat: "no-repeat",

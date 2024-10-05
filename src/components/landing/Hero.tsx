@@ -28,7 +28,7 @@ export const Hero = () => {
     return (
         <div className={robotoMono.className}>
       <section ref={heroRef} className="pt-8 pb-6 md:pt-2 md:pb-2 bg-[radial-gradient(ellipse_210%_110%_at_bottom_left,#1AB331_10%,#F0FDF4_60%)] overflow-x-clip">
-        <div className="px-4 md:px-32">
+        <div className="container max-w-8xl mx-auto px-8">
             <div className="md:flex items-center">
                 <div className="md:w-[478px]">
                     <div className="text-sm inline-flex border border-[#222]/10 px-3 py-1 rounded-lg tracking-tight font-mono">
@@ -41,13 +41,13 @@ export const Hero = () => {
                     </p>
                     <div className="flex gap-1 items-center mt-[30px]">
                         <Link href="/about" className="btn btn-primary tracking-tight">Learn More</Link>
-                        <Link href="/#news" className="flex items-center text-black bg-transparent group tracking-tight pl-6">
-                            <span>Jump To News</span>
+                        <Link href="/leaderboards" className="flex items-center text-black bg-transparent group tracking-tight pl-6">
+                            <span>Jump To Leaderboard</span>
                             <Image src={ArrowIcon} alt="Arrow right" className="h-5 w-5 ml-1 transform transition-transform group-hover:translate-x-2"/>
                         </Link>
                     </div>
                 </div>
-                <div className='pl-14 mt-20 md:mt-0 md:h-[648px] md:flex-1 relative flex items-center justify-center'>
+                <div className='pl-14 mt-20 md:mt-8 md:h-[648px] md:flex-1 relative flex items-center justify-center'>
                     <Grid />
                     
                 </div>

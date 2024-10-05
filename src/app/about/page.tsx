@@ -10,9 +10,9 @@ import React from 'react'
 const page = () => {
   return (
     <>
-        <Hero />
-        <CurrentSystem />
-        <OurVision />
+        {/* <Hero /> */}
+        {/* <CurrentSystem /> */}
+        {/* <OurVision /> */}
         <FAQ />
 
     </>

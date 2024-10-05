@@ -17,7 +17,7 @@ const News = () => {
       {/* Centered heading */}
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left side (3/4 width) */}
-        <div className="w-full md:w-3/4 p-4 space-y-4">
+        <div className="w-full md:w-4/6 p-4 space-y-4">
           <div className="mb-4">
             {/* Title for left side */}
             <h2 className="text-[24px] font-bold mt-[-20px]">New Stories</h2>
@@ -33,7 +33,7 @@ const News = () => {
         <div className="hidden md:block w-px bg-gray-300"></div>
 
         {/* Right side (1/4 width) */}
-        <div className="w-full md:w-1/4 p-4 space-y-4">
+        <div className="w-full md:w-2/6 p-4 space-y-4">
           <div className="mb-4">
             {/* Title for right side */}
             <h2 className="text-[24px] font-bold mt-[-20px]">Product Launches</h2>

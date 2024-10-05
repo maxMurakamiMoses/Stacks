@@ -16,9 +16,9 @@ const robotoMono = Roboto_Mono({
 export function Bento() {
   return (
     <div className={robotoMono.className}>
-    <div className="bg-[#F0FDF4] pt-10">
+    <div className="bg-[#F0FDF4] ">
       <div className="bg-white rounded-t-[140px] p-4">
-        <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight pt-12 pb-6">
+        <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight pt-12 pb-12">
           The Front Page of Health
         </h1>
         <div className="max-w-7xl mx-auto gap-8">
@@ -244,7 +244,7 @@ const items = [
     className: "md:col-span-2",
   },
   {
-    title: "Top Stories in the Health Space",
+    title: "Health & Wellness Product Launches",
     description: (
       <span className="text-sm">
        Stay informed about cutting-edge health innovations, ancient practices, and vital news about health, longevity, and more. 
@@ -256,7 +256,7 @@ const items = [
 
 
   {
-    title: "Marketplace",
+    title: "Marketplace (coming soon)",
     description: (
       <span className="text-sm">
         See all the compaines in the health & longevity space.
