@@ -4,7 +4,7 @@ import { LayoutGrid } from "../ui/layout-grid";
 
 export function Grid() {
   return (
-    <div className="h-[650px] py-20 w-full">
+    <div className="w-[750px] h-full overflow-hidden"> {/* Add max-h or h value */}
       <LayoutGrid cards={cards} />
     </div>
   );

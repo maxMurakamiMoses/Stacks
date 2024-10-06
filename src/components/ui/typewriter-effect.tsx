@@ -119,7 +119,7 @@ export const TypewriterEffect = ({
             repeatType: "reverse",
           }}
           className={cn(
-            "inline-block rounded-sm w-[4px] h-10 lg:h-14 xl:h-16 bg-blue-500 ml-[-30px]",
+            "inline-block rounded-sm w-[4px] h-10 lg:h-14 xl:h-20 bg-blue-500 ml-[-30px]",
             cursorClassName
           )}
         ></motion.span>

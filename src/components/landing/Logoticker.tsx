@@ -39,9 +39,7 @@ const logos = [
 
 export const LogoTicker = () => {
   return (
-    <div id="news" className="py-8 md:py-12 bg-[#F0FDF4]">
-      <div className='px-20'>
-        <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black,transparent)]">
+        <div className="flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black,transparent)] pb-10">
           <motion.div 
             className="flex gap-20 flex-none pr-14 max-h-10" // Added max-h-20 class here
             animate={{ translateX: "-50%", }}
@@ -58,7 +56,5 @@ export const LogoTicker = () => {
             ))}
           </motion.div>
         </div>
-      </div>
-    </div>
   );
 };

@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* styles.css */
+.hero-background {
+    background: radial-gradient(ellipse 210% 110% at bottom left, #1c2d10 10%, #315717 60%), url('/path-to-dot-black.png');
+    background-opacity: 0.4;
+  }
+  

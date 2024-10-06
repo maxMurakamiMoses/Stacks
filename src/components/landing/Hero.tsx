@@ -7,6 +7,7 @@ import { CardStackSection } from '../leaderboards/CardStack';
 import { TypewriterEffect } from "../ui/typewriter-effect"; // Import TypewriterEffect
 import { Roboto_Mono } from 'next/font/google';
 import { Grid } from './Grid';
+import { LogoTicker } from './Logoticker';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -21,37 +22,39 @@ export const Hero = () => {
     const words = [
         {
             text: "Stacks.",
-            className: "text-5xl md:text-7xl font-bold tracking-tight bg-gradient-to-b from-black via-black to-[#1AB331] text-transparent bg-clip-text mt-6",
+            className: "text-6xl md:text-8xl font-bold tracking-tight text-[#e0fcc4] mt-6",
         },
     ];
 
     return (
-        <div className={robotoMono.className}>
-      <section ref={heroRef} className="pt-8 pb-6 md:pt-2 md:pb-2 bg-[radial-gradient(ellipse_210%_110%_at_bottom_left,#1AB331_10%,#F0FDF4_60%)] overflow-x-clip">
+    <div className={robotoMono.className}>
+      <section ref={heroRef} className="bg-[radial-gradient(ellipse_210%_110%_at_bottom_left,#1c2d10_10%,#315717_60%)] overflow-x-clip">
+        
         <div className="container max-w-8xl mx-auto px-8">
-            <div className="md:flex items-center">
-                <div className="md:w-[478px]">
-                    <div className="text-sm inline-flex border border-[#222]/10 px-3 py-1 rounded-lg tracking-tight font-mono">
-                        Biological liberty. max(P(ℓ)). 
+            <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 pt-6 lg:pt-52 pb-24">
+                <div className="lg:col-span-3">
+                    <div className="text-sm inline-flex border border-[#e0fcc4] px-3 py-1 rounded-lg tracking-tight font-mono text-[#e0fcc4]">
+                        Biological liberty. max(P(ℓ)).
                     </div>
-                    {/* Use TypewriterEffect for "Stacks." */}
                     <TypewriterEffect words={words} />
-                    <p className="text-xl text-[#010D3E] tracking-tight mt-6">
+                    <p className="text-2xl text-[#e0fcc4] tracking-tight mt-6">
                         Biohacker, nerd or athlete? <br /> This is for you. <br />
                     </p>
                     <div className="flex gap-1 items-center mt-[30px]">
-                        <Link href="/about" className="btn btn-primary tracking-tight">Learn More</Link>
-                        <Link href="/leaderboards" className="flex items-center text-black bg-transparent group tracking-tight pl-6">
+                        <Link href="/about" className="btn btn-primary tracking-tight text-[#e0fcc4]">Learn More</Link>
+                        <Link href="/leaderboards" className="flex items-center text-black bg-transparent group tracking-tight pl-6 text-[#e0fcc4]">
                             <span>Jump To Leaderboard</span>
                             <Image src={ArrowIcon} alt="Arrow right" className="h-5 w-5 ml-1 transform transition-transform group-hover:translate-x-2"/>
                         </Link>
                     </div>
                 </div>
-                <div className='pl-14 mt-20 md:mt-8 md:h-[648px] md:flex-1 relative flex items-center justify-center'>
-                    <Grid />
-                    
+                <div className="lg:col-span-5 flex justify-center">
+                    <div className="relative flex">
+                        <Grid />
+                    </div>
                 </div>
             </div>
+            <LogoTicker />
         </div>
       </section>
       </div>
