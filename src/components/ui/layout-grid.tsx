@@ -25,6 +25,18 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
     setSelected(null);
   };
 
+  const pulseVariants = {
+    pulse: {
+      scale: [0.985, 1.0, 0.985],
+      transition: {
+        duration: 3,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <div className="w-full h-[400px] grid grid-cols-1 md:grid-cols-3 max-w-7xl mx-auto gap-4 relative">
       {cards.map((card, i) => (
@@ -33,7 +45,7 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
             onClick={() => handleClick(card)}
             className={cn(
               card.className,
-              "relative overflow-hidden",
+              "relative overflow-hidden cursor-pointer", // Ensure cursor is pointer
               selected?.id === card.id
                 ? "rounded-lg cursor-pointer absolute inset-0 h-1/2 w-full md:w-1/2 m-auto z-50 flex justify-center items-center flex-wrap flex-col"
                 : lastSelected?.id === card.id
@@ -41,6 +53,13 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
                 : "bg-white rounded-xl h-full w-full"
             )}
             layoutId={`card-${card.id}`}
+            // Apply pulse animation only if the card is not selected
+            animate={
+              selected?.id !== card.id
+                ? "pulse"
+                : undefined
+            }
+            variants={pulseVariants}
           >
             {selected?.id === card.id && <SelectedCard selected={selected} />}
             <ImageComponent card={card} />

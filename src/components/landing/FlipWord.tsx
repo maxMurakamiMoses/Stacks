@@ -10,7 +10,7 @@ const robotoMono = Roboto_Mono({
 
 
 export function FlipWord() {
-  const words = ["'Build Now, Age Later'", "'Health is the Greatest Wealth'", "'Don't Die'", "'Accelerate'"];
+  const words = [ "'Health is the Greatest Wealth'","'Build Now, Age Later'", "'Don't Die'", "'Accelerate'"];
 
   return (
     <div className="flex justify-center items-center px-4">
