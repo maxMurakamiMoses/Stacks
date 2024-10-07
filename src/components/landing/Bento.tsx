@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Roboto_Mono } from 'next/font/google';
 import cell from '@/assets/cell.png'
+import DNA from '@/assets/DNA.svg';
+
 
 
 const robotoMono = Roboto_Mono({
@@ -19,10 +21,11 @@ export function Bento() {
   return (
     <div className={`${robotoMono.className} relative`}>
       <div className="bg-[#1c2d10] py-20 relative">
-        <h1 className="text-center text-4xl lg:text-6xl font-bold tracking-tight pt-12 pb-12 text-[#e0fcc4]">
+        {/* Apply z-10 to text elements instead of the entire container */}
+        <h1 className="relative z-10 text-center text-4xl lg:text-6xl font-bold tracking-tight pt-12 pb-12 text-[#e0fcc4]">
           The Front Page of Health
         </h1>
-        <div className="max-w-7xl mx-auto gap-8">
+        <div className="relative z-10 max-w-7xl mx-auto gap-8">
           <BentoGrid className="md:auto-rows-[20rem]">
             {items.map((item, i) => (
               <BentoGridItem
@@ -35,23 +38,35 @@ export function Bento() {
             ))}
           </BentoGrid>
         </div>
+      </div>
 
-        {/* Image Positioned at Bottom Left */}
-        <div className="absolute bottom-0 left-0">
-          <Image
-            src={cell}
-            alt="Cell Illustration"
-            width={450}
-            height={450}
-            priority
-            className="object-contain"
-          />
-        </div>
+      {/* Image Positioned at Bottom Left */}
+      <div className="absolute bottom-0 left-0 z-0">
+        <Image
+          src={cell}
+          alt="Cell Illustration"
+          width={450}
+          height={450}
+          priority
+          className="object-contain"
+        />
+      </div>
+
+      {/* Image Positioned at Top Right */}
+      <div className="absolute top-[-100px] right-[-160px] z-0">
+        <Image
+          src={DNA}
+          alt="DNA Illustration"
+          width={600}
+          height={600}
+          priority
+          className="object-contain"
+          style={{ transform: 'rotate(-10deg)' }}
+        />
       </div>
     </div>
   );
 }
-
 
 
 const SkeletonOne = () => {

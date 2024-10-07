@@ -71,7 +71,7 @@ const CallToAction: React.FC = () => {
 
   return (
     <div className={robotoMono.className}>
-      <div className="text-center px-4 md:px-[105px] bg-white rounded-lg pb-32">
+      <div className="text-center px-4 md:px-[105px] bg-   rounded-lg pb-32">
         <div className="h-px bg-gray-300 mb-20"></div>
         <h2 className="text-2xl font-semibold mb-4 pt-12">Join the Mailing List</h2>
         <p className="text-gray-600 text-lg mb-6 max-w-[900px] mx-auto">
