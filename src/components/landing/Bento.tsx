@@ -16,9 +16,8 @@ const robotoMono = Roboto_Mono({
 export function Bento() {
   return (
     <div className={robotoMono.className}>
-    <div className="bg-[#F0FDF4] ">
-      <div className="bg-white rounded-t-[140px] p-4">
-        <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight pt-12 pb-12">
+    <div className="bg-[#1c2d10] py-20">
+        <h1 className="text-center text-4xl lg:text-6xl  font-bold tracking-tight pt-12 pb-12 text-[#e0fcc4]">
           The Front Page of Health
         </h1>
         <div className="max-w-7xl mx-auto gap-8">
@@ -34,7 +33,6 @@ export function Bento() {
             ))}
           </BentoGrid>
         </div>
-      </div>
     </div>
     </div>
   );

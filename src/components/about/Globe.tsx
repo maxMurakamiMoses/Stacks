@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
+import { FlipWord } from "../landing/FlipWord";
 
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
   ssr: false,
@@ -396,7 +397,7 @@ export function Globe() {
 
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#F0FDF4] w-full max-h-[]">
+    <div className="flex flex-col items-center justify-center bg-[#F0FDF4] w-full">
       <div className="max-w-7xl mx-auto w-full relative overflow-hidden md:h-[30rem] px-4 min-w-[30rem] flex flex-col items-center justify-center">
         {/* Text Section */}
         <motion.div
@@ -413,9 +414,8 @@ export function Globe() {
           }}
           className="mb-[-20px]"
         >
-          <p className="text-center text-base md:text-lg font-normal text-gray-600 max-w-md mx-auto">
-            A Global Decentralized Movement
-          </p>
+          <FlipWord />
+          
         </motion.div>
 
         <div className="w-full md:h-full">

@@ -28,7 +28,7 @@ export const Hero = () => {
 
     return (
     <div className={robotoMono.className}>
-      <section ref={heroRef} className="bg-[radial-gradient(ellipse_210%_110%_at_bottom_left,#1c2d10_10%,#315717_60%)] overflow-x-clip">
+      <section ref={heroRef} className="bg-gradient-to-b from-[#3a5f0b] via-[#274b07] to-[#1c2d10] overflow-x-clip">
         
         <div className="container max-w-8xl mx-auto px-8">
             <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 pt-6 lg:pt-52 pb-24">

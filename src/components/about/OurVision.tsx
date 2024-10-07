@@ -10,10 +10,11 @@ const robotoMono = Roboto_Mono({
 
 export function OurVision() {
   return (
-    <div className="bg-[#F0FDF4]">
+    <div className="bg-[#1c2d10]">
+      <div className="bg-[#F0FDF4] rounded-[140px] p-4 mx-8">
       <div className="container max-w-8xl mx-auto px-8"> {/* Added px-4 for horizontal padding */}
         <div className={robotoMono.className}>
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-8 gap-4"> {/* Adjusted padding */}
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-8 gap-4 py-16 xl:py-24"> {/* Adjusted padding */}
             <div className="xl:col-span-4">
               <TextHighlight />
               <p className="text-lg mb-4 text-gray-600 tracking-tight">
@@ -32,13 +33,14 @@ export function OurVision() {
                 Check them out.
               </p>
             </div>
-            <div className="xl:col-span-4 justify-center pt-[-10px]">
+            <div className="xl:col-span-4 justify-center pt-32">
               <div className="hidden xl:block">
                 <Globe />
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
