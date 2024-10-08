@@ -11,7 +11,7 @@ const robotoMono = Roboto_Mono({
 export function OurVision() {
   return (
     <div className="bg-[#1c2d10] relative z-20">
-      <div className="bg-[#F0FDF4] rounded-[140px] p-4 mx-8 relative z-20">
+      <div className="bg-[#F0FDF4] rounded-[140px] p-4 mx-7 relative z-20">
         <div className="container max-w-8xl mx-auto px-8">
           <div className={robotoMono.className}>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-8 gap-4 py-16 xl:py-24">

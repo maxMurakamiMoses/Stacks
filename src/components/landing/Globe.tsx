@@ -31,7 +31,7 @@ export function Globe() {
     autoRotate: true,
     autoRotateSpeed: 0.5,
   };
-  const colors = ["#bbf7d0", "#4ade80", "#86efac", "#6ee7b7", "#5eead4", "#a7f3d0", "#34d399", "#99f6e4"];
+  const colors = ["#4ade80", "#86efac", "#6ee7b7", "#5eead4", "#34d399", "#99f6e4"];
   const sampleArcs = [
     {
       order: 1,

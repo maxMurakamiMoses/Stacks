@@ -1,29 +1,28 @@
-// File: FadeInSection.tsx
 "use client";
 import { useRef, useState, useEffect, ReactNode } from 'react';
 
 interface FadeInSectionProps {
   children: ReactNode;
-  className?: string; // Make className optional
+  className?: string; 
 }
 
 export function FadeInSection({
   children,
-  className = "", // Default to empty string
+  className = "",
 }: FadeInSectionProps): JSX.Element {
   const domRef = useRef<HTMLDivElement>(null);
   const [isVisible, setVisible] = useState(false);
 
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.4, // Trigger when 40% of the component is visible
+      threshold: 0.25,
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.unobserve(entry.target); // Stop observing after first trigger
+          observer.unobserve(entry.target); 
         }
       });
     }, observerOptions);
@@ -33,7 +32,6 @@ export function FadeInSection({
       observer.observe(current);
     }
 
-    // Cleanup function to unobserve on component unmount
     return () => {
       if (current) {
         observer.unobserve(current);

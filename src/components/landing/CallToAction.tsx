@@ -83,7 +83,7 @@ const CallToAction: React.FC = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none"
+            className="px-4 py-4 h-10 border border-gray-300 rounded-l-md focus:outline-none"
             required
           />
           <Button
@@ -91,7 +91,7 @@ const CallToAction: React.FC = () => {
             variant="default"
             isLoading={isLoading}
             disabled={isLoading || email.length === 0}
-            className="px-6 py-2 bg-green-500 text-white font-medium rounded-r-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-[150px]"
+            className="ml-2 px-4 py-1 bg-green-500 text-white font-medium rounded-r-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 w-[150px]"
           >
             {isLoading ? 'Subscribing...' : 'Subscribe'}
           </Button>
