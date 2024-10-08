@@ -142,11 +142,11 @@ const Profile: FC<ProfileProps> = ({
         {/* Profile Details */}
         <div className="flex-1">
           <Link href={`/profile/${profile.id}`} onClick={(e) => e.stopPropagation()}>
-            <h1 className="text-xl lg:text-2xl text-white font-bold mb-1">{profile.title}</h1>
+            <h1 className="text-lg lg:text-xl text-white font-bold mb-1">{profile.title}</h1>
           </Link>
 
           {shortBio && (
-            <div className="hidden md:block mb-2 text-white text-base">
+            <div className="hidden md:block mb-2 text-white text-base text-md">
               <p>{shortBio}</p>
             </div>
           )}
@@ -175,14 +175,18 @@ const Profile: FC<ProfileProps> = ({
         </div>
 
         {/* Voting or Score Display */}
-        <div className="flex-shrink-0 ml-6 pr-1 sm:pr-10" onClick={handleVoteClick}>
+        <div className="flex-shrink-0 ml-6 pr-1 sm:pr-10 flex items-start justify-start" onClick={handleVoteClick}>
           {leaderboardName === 'social-media' ? (
-            <p className="text-lg font-semibold flex items-center">
+            <p className="text-lg lg:text-xl font-bold flex items-right">
               {formatNumber(profile.totalFollowers || 0)}
               <IoMdPeople className="ml-2 text-white" size={20} />
             </p>
           ) : leaderboardName === 'dudedin-pace' ? (
-            <p className="text-lg font-semibold">Pace: {profile.dudedinScore || 0}</p>
+            <p className="text-lg lg:text-xl">
+              <span className="font-bold">{profile.dudedinScore || 0}</span>{' '}
+              <span className="text-sm text-gray-400">avg. pace</span>
+            </p>
+
           ) : (
             <div className=''>
               <ProfileVoteClient
