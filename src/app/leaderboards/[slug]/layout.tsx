@@ -8,6 +8,7 @@ import { notFound } from 'next/navigation';
 import { ReactNode } from 'react';
 import { Roboto_Mono } from 'next/font/google';
 import JoinLeaderboardButton from '@/components/leaderboards/JoinLeaderboardButton'; // Import the Client Component
+import { FadeInSection } from '@/components/FadeInSection';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -54,10 +55,12 @@ const Layout = async ({
   return (
     <div className="sm:container max-w-7xl mx-auto h-full pt-16">
       <div>
+      <FadeInSection>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-4 lg:gap-x-4 py-6">
           <ul className="flex flex-col col-span-2 space-y-6">{children}</ul>
 
           {/* Info sidebar */}
+          
           <div className={robotoMono.className}>
             <div className="overflow-hidden h-fit rounded-lg border border-gray-200 order-first">
               <div className="px-6 py-4">
@@ -93,7 +96,9 @@ const Layout = async ({
               </dl>
             </div>
           </div>
+          
         </div>
+        </FadeInSection>
       </div>
     </div>
   );

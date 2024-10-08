@@ -138,16 +138,17 @@ const Page = async ({ params }: PageProps) => {
   return (
     <>
       <div className={robotoMono.className}>
-        <Link href="/leaderboards" className="group flex items-center text-white hover:text-[#e0fcc4] transition-all">
+        <Link href="/leaderboards" className="group flex items-center text-white hover:text-[#e0fcc4] transition-all pb-6">
           <FaArrowLeft className="mr-2 transform transition-transform group-hover:translate-x-[-4px]" />
           <span className="text-sm">Back to Leaderboards</span>
         </Link>
 
-      <div className="relative inline-block my-4">
-        <h1 className='font-bold text-3xl xl:text-5xl pb-1 text-[#e0fcc4]'>
+      <div className="relative inline-block">
+        <h1 className='font-bold text-3xl xl:text-5xl text-[#e0fcc4]'>
           {formattedLeaderboardName} Leaderboard
         </h1>
       </div>
+      <hr className="border-t border-gray-400 mt-2 w-full mb-8" />
 
 
         {session?.user?.email === 'max.murakamimoses24@gmail.com' && (

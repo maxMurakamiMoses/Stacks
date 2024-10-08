@@ -103,7 +103,7 @@ const Profile: FC<ProfileProps> = ({
 
   return (
     <div
-      className={`relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235]/40 to-[#121318]/40 ${robotoMono.className}`}
+      className={`relative group rounded-md overflow-hidden cursor-pointer bg-gradient-to-r from-[#1D2235]/50 to-[#121318]/50 ${robotoMono.className}`}
       onClick={handleCardClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -113,7 +113,7 @@ const Profile: FC<ProfileProps> = ({
         {hovered && (
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.08 }} // Increased opacity for stronger glow
+            animate={{ opacity: 0.1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="absolute inset-0 z-10 bg-gradient-to-bl from-[#39FF14] via-[#00FF7F] to-transparent pointer-events-none"
