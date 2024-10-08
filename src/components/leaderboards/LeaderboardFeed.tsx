@@ -1,9 +1,9 @@
+// File 1: LeaderboardFeed.jsx
 import { ShiftedButton } from "./ShiftedButton";
 import Link from 'next/link';
 import { Roboto_Mono } from 'next/font/google';
 import { LeaderboardPreview } from "./LeaderboardPreview";
-import { FiExternalLink } from "react-icons/fi";
-
+import { FadeInSection } from "../FadeInSection";
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -15,21 +15,22 @@ export function LeaderboardFeed() {
   return (
     <div className={robotoMono.className}>
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 pb-20">
+        
         {/* First Item (Text on Left, Image on Right) */}
-        <div className="lg:col-span-4">
+        <FadeInSection className="lg:col-span-4">
           <Link href="/leaderboards/dudedin-pace">
-            <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
+            <p className="text-[#e0fcc4] text-3xl xl:text-5xl tracking-tight font-bold text-left hover:underline cursor-pointer">
               Dudedin-Pace Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/dudedin-pace">
-            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-200 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer pt-4">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
               such as cardiovascular, metabolic, and immune health indicators over time. Dunedin
-              Pace reflects the wear and tear on the body&#39;s systems, providing a clearer picture of
-              one&#39;s biological age.
+              Pace reflects the wear and tear on the body's systems, providing a clearer picture of
+              one's biological age.
             </p>
           </Link>
 
@@ -38,23 +39,25 @@ export function LeaderboardFeed() {
               <ShiftedButton />
             </div>
           </div>
-        </div>
-        <div className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
+        </FadeInSection>
+
+        <FadeInSection className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='dudedin-pace'/>
-        </div>
+        </FadeInSection>
 
         {/* Second Item (Image on Left, Text on Right) */}
-        <div className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
+        <FadeInSection className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='community-voted'/>
-        </div>
-        <div className="lg:col-span-4">
+        </FadeInSection>
+
+        <FadeInSection className="lg:col-span-4">
           <Link href="/leaderboards/community-voted">
-            <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
+            <p className="text-[#e0fcc4] text-3xl xl:text-5xl font-bold text-left hover:underline cursor-pointer">
               Community Voted Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/community-voted">
-            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-200 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer pt-4">
               The Community Voted Leaderboard is a crowd-sourced ranking system that allows users to upvote or
               downvote health experts and influencers. It allows the public to collectively determine the most
               respected and influential voices in the health and wellness space. By leveraging community consensus,
@@ -68,17 +71,17 @@ export function LeaderboardFeed() {
               <ShiftedButton />
             </div>
           </div>
-        </div>
+        </FadeInSection>
 
         {/* Third Item (Text on Left, Image on Right) */}
-        <div className="lg:col-span-4">
+        <FadeInSection className="lg:col-span-4">
           <Link href="/leaderboards/social-media">
-            <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
+            <p className="text-[#e0fcc4] text-3xl xl:text-5xl font-bold text-left hover:underline cursor-pointer">
               Social Media Leaderboard
             </p>
           </Link>
           <Link href="/leaderboards/social-media">
-            <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
+            <p className="text-gray-200 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer pt-4">
               The Social Media Leaderboard ranks the most popular health experts based on their 
               social media following. This leaderboard highlights leaders in the health 
               and wellness space who have garnered significant followings across platforms like 
@@ -92,30 +95,32 @@ export function LeaderboardFeed() {
               <ShiftedButton />
             </div>
           </div>
-        </div>
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
-          <LeaderboardPreview leaderboardName='social-media'/>
-        </div>
+        </FadeInSection>
 
-        {/* Fourth Item (Image on Left, Text on Right) */}
-        {/* 
-        <div className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
+        <FadeInSection className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
+          <LeaderboardPreview leaderboardName='social-media'/>
+        </FadeInSection>
+
+        {/* Fourth Item (Optional) */}
+        {/*
+        <FadeInSection className="lg:col-span-4 flex justify-center mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='athletic-records'/>
-        </div>
-        <div className="lg:col-span-4">
+        </FadeInSection>
+
+        <FadeInSection className="lg:col-span-4">
           <Link href="/leaderboards/athletic-records">
             <p className="text-green-500 text-[35px] xl:text-[45px] font-bold text-center md:text-left hover:underline cursor-pointer">
               Athletic Records Leaderboard
             </p>
           </Link>
-          <Link href="/leaderboards/social-media">
+          <Link href="/leaderboards/athletic-records">
             <p className="text-gray-400 text-l lg:text-xl ml-[4px] hover:no-underline cursor-pointer">
               The Dunedin Pace is a measure of biological aging, developed from a long-term study
               conducted in Dunedin, New Zealand. This pace of aging metric captures how quickly or
               slowly individuals are aging at the biological level by tracking various biomarkers
               such as cardiovascular, metabolic, and immune health indicators over time. Dunedin
-              Pace reflects the wear and tear on the body&#39;s systems, providing a clearer picture of
-              one&#39;s biological age.
+              Pace reflects the wear and tear on the body's systems, providing a clearer picture of
+              one's biological age.
             </p>
           </Link>
 
@@ -124,7 +129,7 @@ export function LeaderboardFeed() {
               <ShiftedButton />
             </div>
           </div>
-        </div> 
+        </FadeInSection>
         */}
       </div>
     </div>

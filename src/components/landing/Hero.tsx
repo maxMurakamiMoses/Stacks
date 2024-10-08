@@ -2,12 +2,10 @@
 import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa'; // Import FaArrowRight
 import { useRef } from 'react';
-import { CardStackSection } from '../leaderboards/CardStack';
 import { TypewriterEffect } from "../ui/typewriter-effect"; // Import TypewriterEffect
 import { Roboto_Mono } from 'next/font/google';
 import { Grid } from './Grid';
 import { LogoTicker } from './Logoticker';
-import TailwindcssButtons from './TailwindcssButtons';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],

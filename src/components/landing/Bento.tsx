@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Roboto_Mono } from 'next/font/google';
 import cell from '@/assets/cell.png'
 import DNA from '@/assets/DNA.svg';
+import { FadeInSection } from "../FadeInSection";
 
 
 
@@ -19,13 +20,16 @@ const robotoMono = Roboto_Mono({
 
 export function Bento() {
   return (
+    
     <div className={`${robotoMono.className} relative`}>
       <div className="bg-[#1c2d10] py-20 relative">
+      
         {/* Apply z-10 to text elements instead of the entire container */}
         <h1 className="relative z-10 text-center text-4xl lg:text-6xl font-bold tracking-tight pt-12 pb-12 text-[#e0fcc4]">
           The Front Page of Health
         </h1>
-        <div className="relative z-10 max-w-7xl mx-auto gap-8">
+        <FadeInSection className="relative z-20">
+        <div className="relative z-20 max-w-7xl mx-auto gap-8">
           <BentoGrid className="md:auto-rows-[20rem]">
             {items.map((item, i) => (
               <BentoGridItem
@@ -38,7 +42,9 @@ export function Bento() {
             ))}
           </BentoGrid>
         </div>
+        </FadeInSection>
       </div>
+      
 
       {/* Image Positioned at Bottom Left */}
       <div className="absolute bottom-0 left-0 z-0">
@@ -65,6 +71,7 @@ export function Bento() {
         />
       </div>
     </div>
+    
   );
 }
 

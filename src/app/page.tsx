@@ -3,7 +3,7 @@ import { Hero } from '@/components/landing/Hero'
 import News from '@/components/landing/News'
 import { Bento } from '@/components/landing/Bento'
 import CallToAction from '@/components/landing/CallToAction'
-import { OurVision } from '@/components/about/OurVision'
+import { OurVision } from '@/components/landing/OurVision'
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 

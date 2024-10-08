@@ -10,11 +10,11 @@ const robotoMono = Roboto_Mono({
   variable: '--font-roboto-mono',
 });
 
-export function Header() {
+export function Hero() {
   const words = [
     {
       text: "Leaderboards",
-      className: "text-green-500 tracking-tight",
+      className: "text-6xl md:text-8xl font-bold tracking-tight text-[#e0fcc4]",
     },
   ];
 
@@ -23,12 +23,12 @@ export function Header() {
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 pt-6 lg:pt-24">
         <div className="lg:col-span-4">
           <div className="hidden md:block">
-            <div className="text-sm mb-[-20px] ml-[4px] py-1 rounded-lg tracking-tight">
-              Biological liberty. max(P(health)).
-            </div>
+                    <div className="text-sm inline-flex border border-[#e0fcc4] px-3 py-1 rounded-lg tracking-tight font-mono text-[#e0fcc4]">
+                        Biological liberty. max(P(ℓ)).
+                    </div>
           </div>
           <TypewriterEffect words={words} />
-          <p className="text-gray-400 text-l lg:text-xl ml-[4px]">
+          <p className="text-2xl text-gray-200 tracking-tight mt-6">
             Browse through leaderboards to discover people pushing the boundaries. Dive into their
             stack, gain insights from their experiences, and get inspired by those who are constantly
             redefining what&#39;s possible.
