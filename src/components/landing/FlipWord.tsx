@@ -14,7 +14,7 @@ export function FlipWord() {
 
   return (
     <div className="flex justify-center items-center px-4">
-      <div className="text-2xl mx-auto font-normal">
+      <div className="text-2xl mx-auto font-tight text-gray-600">
       <div className={robotoMono.className}> 
         <FlipWords duration={5000} words={words} />
         </div>

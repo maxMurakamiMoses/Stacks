@@ -6,6 +6,7 @@ import { TypewriterEffect } from "../ui/typewriter-effect"; // Import Typewriter
 import { Roboto_Mono } from 'next/font/google';
 import { Grid } from './Grid';
 import { LogoTicker } from './Logoticker';
+import { FloatingCard } from './FloatingCard';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -52,9 +53,9 @@ export const Hero = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="lg:col-span-5 flex justify-center">
+                <div className="lg:col-span-5 flex justify-center pl-20">
                     <div className="relative flex">
-                        <Grid />
+                        <FloatingCard />
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@ const robotoMono = Roboto_Mono({
 export function Bento() {
   return (
     
-    <div className={`${robotoMono.className} relative`}>
+    <div className={`${robotoMono.className} relative overflow-hidden`}>
       <div className="bg-[#1c2d10] py-20 relative">
       
         {/* Apply z-10 to text elements instead of the entire container */}

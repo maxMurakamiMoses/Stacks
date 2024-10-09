@@ -1,4 +1,3 @@
-import { LogoTicker } from '@/components/landing/Logoticker'
 import { Hero } from '@/components/landing/Hero'
 import News from '@/components/landing/News'
 import { Bento } from '@/components/landing/Bento'
