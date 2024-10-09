@@ -74,7 +74,7 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
             />
           </div>
           <div className="flex-grow">
-            <h1 className="text-4xl md:text-6xl font-bold text-green-500 md:mb-5 pb-3 leading-none overflow-visible">
+            <h1 className="text-4xl md:text-6xl font-bold text-[#e0fcc4] md:mb-5 pb-3 leading-none overflow-visible">
               {profile.title}
             </h1>
 
@@ -99,7 +99,7 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
                 {tags.map((tag: string, index: number) => (
                   <span
                     key={index}
-                    className="bg-gray-900 text-green-600 text-md font-semibold mr-2 mb-2 px-2.5 py-0.5 rounded"
+                    className="bg-gray-900 text-[#e0fcc4] text-md font-bold mr-2 mb-2 px-2.5 py-0.5 rounded"
                   >
                     {tag}
                   </span>
@@ -118,11 +118,12 @@ const LeaderboardProfilePage = async ({ params }: LeaderboardProfilePageProps) =
             habitStackParagraphs={habitStackParagraphs}
           />
         </div>
+        {/* @ts-expect-error Server Component */}
 
-        <Suspense fallback={<Loader2 className="h-5 w-5 animate-spin text-zinc-500" />}>
-          {/* @ts-expect-error Server Component */}
+        {/* <Suspense fallback={<Loader2 className="h-5 w-5 animate-spin text-zinc-500" />}>
           <CommentsSection profileId={profile.id} />
-        </Suspense>
+        </Suspense> */}
+        
       </div>
     </div>
   );

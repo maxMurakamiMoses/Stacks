@@ -74,7 +74,7 @@ export function FloatingCard() {
       <div className="group">
         <CardContainer>
           <CardBody
-            className={`bg-[#F0FDF4] relative border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-4 border transition-opacity duration-500 ease-in-out ${
+            className={`bg-[#F0FDF4] relative border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-5 border transition-opacity duration-500 ease-in-out ${
               fade ? "opacity-100" : "opacity-0"
             }`}
           >

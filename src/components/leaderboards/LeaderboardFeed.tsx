@@ -17,7 +17,7 @@ export function LeaderboardFeed() {
       <div className="grid grid-cols-1 lg:grid-cols-8 gap-12 pb-20">
         
         {/* First Item (Text on Left, Image on Right) */}
-        <FadeInSection className="lg:col-span-4">
+        <div className="lg:col-span-4">
           <Link href="/leaderboards/dudedin-pace">
             <p className="text-[#e0fcc4] text-3xl xl:text-5xl tracking-tight font-bold text-left hover:underline cursor-pointer">
               Dudedin-Pace Leaderboard
@@ -39,7 +39,7 @@ export function LeaderboardFeed() {
               <ShiftedButton />
             </div>
           </div>
-        </FadeInSection>
+        </div>
 
         <FadeInSection className="lg:col-span-4 flex mt-12 lg:mt-20 hidden lg:block">
           <LeaderboardPreview leaderboardName='dudedin-pace'/>

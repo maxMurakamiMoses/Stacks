@@ -152,14 +152,14 @@ const Profile: FC<ProfileProps> = ({
           )}
 
           <div className="flex items-center mt-2">
-            <Link
+            {/* <Link
               href={`/profile/${profile.id}`}
               className="hidden sm:flex items-center text-gray-400 mr-4"
               onClick={(e) => e.stopPropagation()}
             >
               <MessageSquare className="h-5 w-5 mr-1" />
               <span>{commentAmt}</span>
-            </Link>
+            </Link> */}
 
             {tags.length > 0 && (
               <div className="flex items-center text-sm text-gray-400">
